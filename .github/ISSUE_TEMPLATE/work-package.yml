@@ -1,0 +1,39 @@
+name: Independently reviewable work package
+description: Propose bounded catalog-pipeline implementation work after checking the existing CP backlog.
+title: 'CP — '
+body:
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Problem, outcome and scope
+      description: Name the canonical parent and stable ID; distinguish new work from an existing issue.
+    validations:
+      required: true
+  - type: textarea
+    id: deliverables
+    attributes:
+      label: Deliverables and acceptance criteria
+      description: Give concrete outputs and independently verifiable criteria, including rejection behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: tasks
+    attributes:
+      label: Tasks and subtasks
+      description: Use checklists for small steps; use native subissues only for separate review or ownership.
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Prerequisites and handoffs
+      description: Separate true blockers from accepted research inputs and contextual references.
+    validations:
+      required: true
+  - type: textarea
+    id: rights
+    attributes:
+      label: Evidence, source rights and consumer impact
+      description: Preserve exact versions, source/use scope, unknowns and synthetic boundaries.
+    validations:
+      required: true

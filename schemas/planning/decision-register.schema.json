@@ -1,0 +1,216 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Catalog pipeline decision register",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "decisions"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "catalog-pipeline-decisions-1"
+    },
+    "decisions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "status",
+          "decision",
+          "work_packages",
+          "references",
+          "authority_and_limits",
+          "accepted_by",
+          "evidence",
+          "responsible_decision_role",
+          "options",
+          "consequences",
+          "affected_release_gate",
+          "actual_approvers"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^D-\\d{3,}$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "status": {
+            "enum": [
+              "Established by current mission",
+              "Existing accepted boundary",
+              "Proposed implementation convention",
+              "Proposed technical design",
+              "Proposed delivery sequencing",
+              "Awaiting decision",
+              "Deferred",
+              "Accepted",
+              "Rejected",
+              "Superseded"
+            ]
+          },
+          "decision": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "work_packages": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^CP-\\d{2,}\\.\\d{2,}$"
+            }
+          },
+          "references": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^https://[^\\s]+$"
+            },
+            "uniqueItems": true
+          },
+          "authority_and_limits": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "accepted_by": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "uniqueItems": true
+          },
+          "actual_approvers": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "uniqueItems": true
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "reviewer",
+                "scope",
+                "url",
+                "reviewed_commit",
+                "submitted_at",
+                "synthetic"
+              ],
+              "properties": {
+                "reviewer": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "scope": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "url": {
+                  "type": "string",
+                  "pattern": "^https://[^\\s]+$"
+                },
+                "reviewed_commit": {
+                  "type": "string",
+                  "pattern": "^[a-fA-F0-9]{40}$"
+                },
+                "submitted_at": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "synthetic": {
+                  "const": false
+                }
+              }
+            }
+          },
+          "responsible_decision_role": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "options": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": [
+                "option",
+                "tradeoffs"
+              ],
+              "properties": {
+                "option": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "tradeoffs": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "pattern": "\\S"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "pattern": "\\S"
+                      },
+                      "uniqueItems": true,
+                      "minItems": 1
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "consequences": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "uniqueItems": true,
+            "minItems": 1
+          },
+          "affected_release_gate": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "Bootstrap",
+                "Foundation",
+                "Bounded Pilot",
+                "Beta",
+                "Production",
+                "Expansion"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,304 @@
+{
+  "schema_version": "catalog-pipeline-source-audit-1",
+  "recorded_at": "2026-10-22T23:29:31+00:00",
+  "purpose": "Dated audit supporting bootstrap decisions; not a production data import or permission receipt.",
+  "public_inventory": {
+    "observation_date": "2026-10-22",
+    "repositories_visible_in_logged_out_browser": 7,
+    "open_projects_visible": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "closed_projects_visible": 0,
+    "catalog_repository_connector_readback": "404 Not Found at initial discovery and recheck",
+    "equivalent_project_visible": false,
+    "limitation": "Unauthenticated Project listing cannot rule out private or newly created resources. Refresh authorized all-state inventory before creation; do not assume Project number 8."
+  },
+  "current_project_observations": [
+    {
+      "number": 1,
+      "title": "Pick Your AI — AI Builder Research",
+      "source": "https://github.com/orgs/Pick-Your-AI/projects/1",
+      "views": [
+        "Workstream overview",
+        "Research backlog by priority",
+        "Ready to research",
+        "Blocked or awaiting decision",
+        "Unassigned or missing metadata",
+        "Kanban",
+        "Owner Workload",
+        "Roadmap"
+      ],
+      "visible_fields": [
+        "Title",
+        "Assignees",
+        "Status",
+        "Tier",
+        "Priority",
+        "Readiness",
+        "Parent issue",
+        "Sub-issues progress",
+        "Labels",
+        "Work Type",
+        "Research Confidence",
+        "Dependency Status"
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Pick Your AI — Market Research & Competitive Intelligence",
+      "source": "https://github.com/orgs/Pick-Your-AI/projects/2",
+      "views": [
+        "01 — Executive Overview",
+        "02 — Triage Inbox",
+        "03 — Research Roadmap",
+        "04 — Kanban Board",
+        "05 — Competitive Intelligence",
+        "06 — Market & Customers",
+        "07 — Product Opportunities",
+        "08 — Data & Integrations",
+        "09 — Blockers & Dependencies",
+        "10 — Owner Workload",
+        "11 — Evidence Review",
+        "12 — Completed Research"
+      ],
+      "visible_fields": [
+        "Title",
+        "Assignees",
+        "Priority",
+        "Workstream",
+        "Research Readiness",
+        "Status",
+        "Labels",
+        "Parent issue",
+        "Sub-issues progress",
+        "Work Type",
+        "Evidence Confidence"
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Pick Your AI — PickYour.AI Website Implementation",
+      "source": "https://github.com/orgs/Pick-Your-AI/projects/3",
+      "views": [
+        "View 1"
+      ],
+      "visible_fields": [
+        "Title",
+        "Assignees",
+        "Status",
+        "Linked pull requests",
+        "Sub-issues progress"
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Pick Your AI — Android Application Delivery",
+      "source": "https://github.com/orgs/Pick-Your-AI/projects/4",
+      "views": [
+        "01 End-to-end hierarchy",
+        "02 Work-package owner intake",
+        "03 Delivery board",
+        "04 Dependencies and decisions",
+        "05 Android experience",
+        "06 Shared services and data",
+        "07 Quality and security",
+        "08 Release readiness",
+        "09 Conditional expansion"
+      ],
+      "visible_fields": [
+        "Title",
+        "Assignees",
+        "Status",
+        "Parent issue",
+        "Sub-issues progress",
+        "Priority",
+        "Phase",
+        "Workstream",
+        "Readiness",
+        "Acceptance Gate",
+        "Level"
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Pick Your AI — Apple/iOS Application Delivery",
+      "source": "https://github.com/orgs/Pick-Your-AI/projects/5",
+      "views": [
+        "01 End-to-end hierarchy",
+        "02 Ready and owner intake",
+        "03 Delivery board",
+        "04 Dependencies and decisions",
+        "05 Apple experience",
+        "06 Shared services and data",
+        "07 Quality and security",
+        "08 Release readiness",
+        "09 Conditional expansion"
+      ],
+      "visible_fields": [
+        "Title",
+        "Assignees",
+        "Status",
+        "Parent issue",
+        "Sub-issues progress",
+        "Priority",
+        "Phase",
+        "Workstream",
+        "Readiness",
+        "Acceptance Gate",
+        "Level",
+        "Labels"
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Pick Your AI — Contributor Leaderboard Delivery",
+      "source": "https://github.com/orgs/Pick-Your-AI/projects/6",
+      "views": [
+        "01 Hierarchy and outcomes",
+        "02 Owner and readiness intake",
+        "03 Delivery board",
+        "04 Dependencies and decisions",
+        "05 Metric sources and coverage",
+        "06 UI and accessibility",
+        "07 Security and privacy",
+        "08 Verification and launch",
+        "09 Decisions to resolve",
+        "10 Operations and corrections"
+      ],
+      "visible_fields": [
+        "Title",
+        "Assignees",
+        "Status",
+        "Priority",
+        "Phase",
+        "Workstream",
+        "Readiness",
+        "Acceptance Gate",
+        "Level",
+        "Parent issue",
+        "Sub-issues progress"
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Pick Your AI — Funding, Grants & Sustainability",
+      "source": "https://github.com/orgs/Pick-Your-AI/projects/7",
+      "views": [
+        "Overview",
+        "Research Backlog",
+        "Funding Pipeline",
+        "In-Kind Support",
+        "Nonprofit Readiness",
+        "Deadlines",
+        "Ready for Review",
+        "Outreach & Applications",
+        "Awards & Reporting"
+      ],
+      "visible_fields": [
+        "Title",
+        "Status",
+        "Sub-issues progress",
+        "Priority",
+        "Workstream",
+        "Record type"
+      ]
+    }
+  ],
+  "observation_limits": [
+    "Public saved-view names and visible columns were read live on 2026-10-22. They do not establish all field options, private settings or complete Project membership.",
+    "Detailed historical Project field catalog and hierarchy exports were inspected separately in leaderboard and sustainability repositories.",
+    "Branch links below are navigation sources, not immutable release receipts. Actual data import must pin a reviewed commit and artifact digest."
+  ],
+  "canonical_sources": [
+    {
+      "url": "https://github.com/Pick-Your-AI/.github/blob/main/CONTRIBUTING.md",
+      "finding": "Team-based access, one independent approval and latest-push approval, actions/* policy, contributor boundaries."
+    },
+    {
+      "url": "https://github.com/Pick-Your-AI/pick-your-ai-research/blob/main/AGENTS.md",
+      "finding": "Preserve frozen contracts, real evidence/rights and source of truth."
+    },
+    {
+      "url": "https://github.com/Pick-Your-AI/pick-your-ai-research/blob/main/prompts/SHARED.md",
+      "finding": "Live Assignees and progress, checklist/native distinction, canonical authority by issue."
+    },
+    {
+      "url": "https://github.com/Pick-Your-AI/pick-your-ai-research/blob/main/docs/RESEARCH_METHOD.md",
+      "finding": "Primary documentation, Vendor claim, Independent measurement and Estimate are claim grades."
+    },
+    {
+      "url": "https://github.com/Pick-Your-AI/pick-your-ai-research/blob/main/docs/RESEARCH_WORKFLOW.md",
+      "finding": "Notes, complete proposals and accepted publication handoffs are separate."
+    },
+    {
+      "url": "https://github.com/Pick-Your-AI/pick-your-ai-research/tree/main/contracts/v1",
+      "finding": "Frozen builder 1.0.0; 29 component kinds do not bound the entire AI ecosystem."
+    },
+    {
+      "url": "https://github.com/Pick-Your-AI/pick-your-ai-research/blob/main/docs/PUBLICATION_ELIGIBILITY_HANDOFF.md",
+      "finding": "No blanket full-catalog clearance; exact source/use/field decision needed; current GPUs.io exclusion."
+    },
+    {
+      "url": "https://github.com/Pick-Your-AI/pick-your-ai-research/issues/509",
+      "finding": "G04 combined catalog pipeline boundary; parent audit remains open."
+    },
+    {
+      "url": "https://github.com/Pick-Your-AI/pick-your-ai-leaderboard/tree/main/planning",
+      "finding": "Native program/epic/WP hierarchy; checklist tasks; planning owns scope, GitHub owns progress."
+    },
+    {
+      "url": "https://github.com/Pick-Your-AI/pick-your-ai-leaderboard/blob/main/docs/DELIVERY_PLAN.md",
+      "finding": "Separate implementation and acceptance phases; independent review."
+    },
+    {
+      "url": "https://github.com/Pick-Your-AI/pick-your-ai-sustainability/blob/main/docs/project-configuration.md",
+      "finding": "Explicit fields, persisted views, readback evidence and no invented eligibility/ownership."
+    },
+    {
+      "url": "https://github.com/Pick-Your-AI/pick-your-ai-website/blob/main/docs/DATA_INTEGRATION.md",
+      "finding": "Immutable consumer lock tuple, no invented blanket TTL, no automatic synthetic replacement."
+    },
+    {
+      "url": "https://github.com/Pick-Your-AI/pick-your-ai-apple/blob/main/tools/conformance/contract-lock.json",
+      "finding": "Exact imported contract bytes and receiving conformance remain client-owned."
+    },
+    {
+      "url": "https://github.com/Pick-Your-AI/pick-your-ai-android/blob/main/docs/SERVICE_BASELINE.md",
+      "finding": "Existing website services/planner-api lane, TypeScript/Node and PostgreSQL; frozen authenticated GET reads."
+    }
+  ],
+  "governance_readback": {
+    "review_rules": "Research and leaderboard rules inspected: one approval, require_last_push_approval true, org-admin-only review bypass. Website has ci-required.",
+    "sustainability_ruleset_collection": "Empty in audited API response; not proof that all protection is absent, and not a convention to copy.",
+    "target_repository_rules": "Not configured or read back; target not found."
+  },
+  "authority_issue_states_at_audit": {
+    "closed": [
+      1,
+      4,
+      8,
+      12,
+      24,
+      29,
+      34,
+      39,
+      40,
+      41,
+      42,
+      60
+    ],
+    "open": [
+      61,
+      62,
+      509
+    ],
+    "repository": "Pick-Your-AI/pick-your-ai-research"
+  },
+  "remote_mutations_performed": false
+}

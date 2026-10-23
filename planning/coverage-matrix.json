@@ -1,0 +1,587 @@
+{
+  "schema_version": "catalog-pipeline-coverage-1",
+  "purpose": "Planning coverage and future measurement definitions; this file contains no production catalog counts.",
+  "parent_issue": "https://github.com/Pick-Your-AI/pick-your-ai-research/issues/509",
+  "measurement_policy": {
+    "candidate_count": null,
+    "deduplicated_entity_count": null,
+    "sourced_count": null,
+    "reviewed_count": null,
+    "independently_measured_count": null,
+    "publication_eligible_count": null,
+    "published_count": null,
+    "unknown_meaning": "Not measured; null is not zero.",
+    "dimensions": [
+      "breadth",
+      "depth",
+      "freshness",
+      "rights",
+      "consumer delivery"
+    ],
+    "non_claim": "No claim of ecosystem-wide exhaustiveness."
+  },
+  "requirements": [
+    {
+      "id": "REQ-01",
+      "title": "Scope and delivery governance",
+      "coverage_intent": "A cross-organization delivery boundary, measurable scope and accountable decisions are maintained without duplicating research or clients.",
+      "work_packages": [
+        "CP-01.01",
+        "CP-01.02",
+        "CP-01.03",
+        "CP-01.04"
+      ],
+      "state": "Planned"
+    },
+    {
+      "id": "REQ-02",
+      "title": "Ecosystem contracts and ontology",
+      "coverage_intent": "Versioned pipeline records represent the wider AI ecosystem and project into accepted consumer contracts without mutating frozen v1.",
+      "work_packages": [
+        "CP-02.01",
+        "CP-02.02",
+        "CP-02.03",
+        "CP-02.04"
+      ],
+      "state": "Planned"
+    },
+    {
+      "id": "REQ-03",
+      "title": "Source rights and use governance",
+      "coverage_intent": "Every retrieval and publication operation is evaluated against exact source, field, product and use permissions.",
+      "work_packages": [
+        "CP-03.01",
+        "CP-03.02",
+        "CP-03.03",
+        "CP-03.04"
+      ],
+      "state": "Planned"
+    },
+    {
+      "id": "REQ-04",
+      "title": "Permitted acquisition and connector runtime",
+      "coverage_intent": "Approved adapters collect bounded observations reliably without leaking credentials or turning collection into publication.",
+      "work_packages": [
+        "CP-04.01",
+        "CP-04.02",
+        "CP-04.03",
+        "CP-04.04"
+      ],
+      "state": "Planned"
+    },
+    {
+      "id": "REQ-05",
+      "title": "Identity resolution and normalization",
+      "coverage_intent": "Stable entities, exact releases and provider offers survive aliases, duplicates, merges and corrections with reversible lineage.",
+      "work_packages": [
+        "CP-05.01",
+        "CP-05.02",
+        "CP-05.03",
+        "CP-05.04"
+      ],
+      "state": "Planned"
+    },
+    {
+      "id": "REQ-06",
+      "title": "Evidence and provenance ledger",
+      "coverage_intent": "Every public claim can be traced to a permitted source observation, transformation and reviewed decision.",
+      "work_packages": [
+        "CP-06.01",
+        "CP-06.02",
+        "CP-06.03",
+        "CP-06.04"
+      ],
+      "state": "Planned"
+    },
+    {
+      "id": "REQ-07",
+      "title": "Validation, quarantine and quality",
+      "coverage_intent": "Malformed, conflicting, unsupported and insufficiently evidenced material cannot enter the approved release set.",
+      "work_packages": [
+        "CP-07.01",
+        "CP-07.02",
+        "CP-07.03",
+        "CP-07.04"
+      ],
+      "state": "Planned"
+    },
+    {
+      "id": "REQ-08",
+      "title": "Human review and editorial control",
+      "coverage_intent": "Reviewers make explicit, scoped, auditable decisions; automation cannot silently approve claims or rights.",
+      "work_packages": [
+        "CP-08.01",
+        "CP-08.02",
+        "CP-08.03",
+        "CP-08.04"
+      ],
+      "state": "Planned"
+    },
+    {
+      "id": "REQ-09",
+      "title": "Prices and qualified measurements",
+      "coverage_intent": "Prices, estimates and measurements preserve conditions, units, uncertainty and research qualification.",
+      "work_packages": [
+        "CP-09.01",
+        "CP-09.02",
+        "CP-09.03",
+        "CP-09.04"
+      ],
+      "state": "Planned"
+    },
+    {
+      "id": "REQ-10",
+      "title": "Immutable publishing and withdrawals",
+      "coverage_intent": "Reproducible, signed, rights-eligible snapshots publish atomically and support correction, rollback and revocation.",
+      "work_packages": [
+        "CP-10.01",
+        "CP-10.02",
+        "CP-10.03",
+        "CP-10.04"
+      ],
+      "state": "Planned"
+    },
+    {
+      "id": "REQ-11",
+      "title": "Freshness and change management",
+      "coverage_intent": "Source changes trigger risk-based review while historical version-pinned facts and saved builds remain reproducible.",
+      "work_packages": [
+        "CP-11.01",
+        "CP-11.02",
+        "CP-11.03",
+        "CP-11.04"
+      ],
+      "state": "Planned"
+    },
+    {
+      "id": "REQ-12",
+      "title": "Website and mobile delivery contracts",
+      "coverage_intent": "Consumers receive compatible, attributable, version-pinned artifacts with independently accepted integration evidence.",
+      "work_packages": [
+        "CP-12.01",
+        "CP-12.02",
+        "CP-12.03",
+        "CP-12.04"
+      ],
+      "state": "Planned"
+    },
+    {
+      "id": "REQ-13",
+      "title": "Security, privacy and supply chain",
+      "coverage_intent": "Collection, review and release boundaries resist untrusted content, credential exposure and unauthorized publication.",
+      "work_packages": [
+        "CP-13.01",
+        "CP-13.02",
+        "CP-13.03",
+        "CP-13.04"
+      ],
+      "state": "Planned"
+    },
+    {
+      "id": "REQ-14",
+      "title": "Platform and operational reliability",
+      "coverage_intent": "Jobs, state, storage, deployment and incident response are observable, recoverable and bounded by approved operating costs.",
+      "work_packages": [
+        "CP-14.01",
+        "CP-14.02",
+        "CP-14.03",
+        "CP-14.04"
+      ],
+      "state": "Planned"
+    },
+    {
+      "id": "REQ-15",
+      "title": "Conformance and quality verification",
+      "coverage_intent": "Deterministic and adversarial evidence proves safety, compatibility and reliability at actual system boundaries.",
+      "work_packages": [
+        "CP-15.01",
+        "CP-15.02",
+        "CP-15.03",
+        "CP-15.04"
+      ],
+      "state": "Planned"
+    },
+    {
+      "id": "REQ-16",
+      "title": "Bounded pilots and ecosystem expansion",
+      "coverage_intent": "A rights-eligible pilot establishes the complete delivery path before measured expansion across domains.",
+      "work_packages": [
+        "CP-16.01",
+        "CP-16.02",
+        "CP-16.03",
+        "CP-16.04"
+      ],
+      "state": "Planned"
+    }
+  ],
+  "domains": [
+    {
+      "domain_id": "model",
+      "title": "Model families, releases and artifacts",
+      "boundary": "Language, vision, audio, multimodal, retrieval, robotics, forecasting and scientific task families; family/release/checkpoint identities stay distinct.",
+      "work_packages": [
+        "CP-02.01",
+        "CP-05.01",
+        "CP-05.02",
+        "CP-16.01"
+      ],
+      "inclusion_rule": "An exact entity/revision within accepted research scope with explicit evidence and source-use disposition.",
+      "exclusion_rule": "Unknown rights, unqualified public claims, unapproved raw datasets/full text, and unsupported consumer projections remain withheld.",
+      "research_authority": "https://github.com/Pick-Your-AI/pick-your-ai-research/issues/509",
+      "consumer_boundary": "Pipeline produces approved immutable artifacts; website/mobile own their interfaces and adoption.",
+      "measurement": {
+        "candidate": null,
+        "normalized": null,
+        "reviewed": null,
+        "eligible": null,
+        "published": null
+      },
+      "state": "Planned"
+    },
+    {
+      "domain_id": "offering",
+      "title": "Providers, routes and hosting offers",
+      "boundary": "Publisher, distributor, operator, route, region, plan, model alias and retirement are distinct attributes with dated evidence.",
+      "work_packages": [
+        "CP-05.01",
+        "CP-09.01",
+        "CP-11.02",
+        "CP-16.01"
+      ],
+      "inclusion_rule": "An exact entity/revision within accepted research scope with explicit evidence and source-use disposition.",
+      "exclusion_rule": "Unknown rights, unqualified public claims, unapproved raw datasets/full text, and unsupported consumer projections remain withheld.",
+      "research_authority": "https://github.com/Pick-Your-AI/pick-your-ai-research/issues/509",
+      "consumer_boundary": "Pipeline produces approved immutable artifacts; website/mobile own their interfaces and adoption.",
+      "measurement": {
+        "candidate": null,
+        "normalized": null,
+        "reviewed": null,
+        "eligible": null,
+        "published": null
+      },
+      "state": "Planned"
+    },
+    {
+      "domain_id": "hardware",
+      "title": "Hardware, accelerators and edge devices",
+      "boundary": "GPU/CPU/NPU/TPU, AMD, Intel, NVIDIA, Apple, ARM, Qualcomm, cloud accelerators and edge/browser routes require exact version-specific qualification.",
+      "work_packages": [
+        "CP-02.04",
+        "CP-05.01",
+        "CP-09.02",
+        "CP-16.02"
+      ],
+      "inclusion_rule": "An exact entity/revision within accepted research scope with explicit evidence and source-use disposition.",
+      "exclusion_rule": "Unknown rights, unqualified public claims, unapproved raw datasets/full text, and unsupported consumer projections remain withheld.",
+      "research_authority": "https://github.com/Pick-Your-AI/pick-your-ai-research/issues/509",
+      "consumer_boundary": "Pipeline produces approved immutable artifacts; website/mobile own their interfaces and adoption.",
+      "measurement": {
+        "candidate": null,
+        "normalized": null,
+        "reviewed": null,
+        "eligible": null,
+        "published": null
+      },
+      "state": "Planned"
+    },
+    {
+      "domain_id": "runtime",
+      "title": "Engines, runtimes and serving stacks",
+      "boundary": "Driver, engine, operating-system and framework versions qualify claimed compatibility; VRAM alone is not a fit guarantee.",
+      "work_packages": [
+        "CP-02.04",
+        "CP-05.04",
+        "CP-09.02",
+        "CP-16.02"
+      ],
+      "inclusion_rule": "An exact entity/revision within accepted research scope with explicit evidence and source-use disposition.",
+      "exclusion_rule": "Unknown rights, unqualified public claims, unapproved raw datasets/full text, and unsupported consumer projections remain withheld.",
+      "research_authority": "https://github.com/Pick-Your-AI/pick-your-ai-research/issues/509",
+      "consumer_boundary": "Pipeline produces approved immutable artifacts; website/mobile own their interfaces and adoption.",
+      "measurement": {
+        "candidate": null,
+        "normalized": null,
+        "reviewed": null,
+        "eligible": null,
+        "published": null
+      },
+      "state": "Planned"
+    },
+    {
+      "domain_id": "dataset",
+      "title": "Datasets, splits and corpus rights",
+      "boundary": "Metadata/versions/splits are separate from access to raw records; consent, provenance, leakage and withdrawal rules remain canonical domain research.",
+      "work_packages": [
+        "CP-02.01",
+        "CP-03.01",
+        "CP-06.01",
+        "CP-16.03"
+      ],
+      "inclusion_rule": "An exact entity/revision within accepted research scope with explicit evidence and source-use disposition.",
+      "exclusion_rule": "Unknown rights, unqualified public claims, unapproved raw datasets/full text, and unsupported consumer projections remain withheld.",
+      "research_authority": "https://github.com/Pick-Your-AI/pick-your-ai-research/issues/509",
+      "consumer_boundary": "Pipeline produces approved immutable artifacts; website/mobile own their interfaces and adoption.",
+      "measurement": {
+        "candidate": null,
+        "normalized": null,
+        "reviewed": null,
+        "eligible": null,
+        "published": null
+      },
+      "state": "Planned"
+    },
+    {
+      "domain_id": "benchmark",
+      "title": "Benchmark suites, runs and results",
+      "boundary": "Exact configurations, uncertainty, reproducibility, contamination and source-use conditions qualify comparisons.",
+      "work_packages": [
+        "CP-06.02",
+        "CP-09.02",
+        "CP-09.04",
+        "CP-16.03"
+      ],
+      "inclusion_rule": "An exact entity/revision within accepted research scope with explicit evidence and source-use disposition.",
+      "exclusion_rule": "Unknown rights, unqualified public claims, unapproved raw datasets/full text, and unsupported consumer projections remain withheld.",
+      "research_authority": "https://github.com/Pick-Your-AI/pick-your-ai-research/issues/509",
+      "consumer_boundary": "Pipeline produces approved immutable artifacts; website/mobile own their interfaces and adoption.",
+      "measurement": {
+        "candidate": null,
+        "normalized": null,
+        "reviewed": null,
+        "eligible": null,
+        "published": null
+      },
+      "state": "Planned"
+    },
+    {
+      "domain_id": "application",
+      "title": "Applications, products and services",
+      "boundary": "End-user application identity is not automatically a builder component or a safe integration endorsement.",
+      "work_packages": [
+        "CP-02.01",
+        "CP-05.01",
+        "CP-07.04",
+        "CP-16.03"
+      ],
+      "inclusion_rule": "An exact entity/revision within accepted research scope with explicit evidence and source-use disposition.",
+      "exclusion_rule": "Unknown rights, unqualified public claims, unapproved raw datasets/full text, and unsupported consumer projections remain withheld.",
+      "research_authority": "https://github.com/Pick-Your-AI/pick-your-ai-research/issues/509",
+      "consumer_boundary": "Pipeline produces approved immutable artifacts; website/mobile own their interfaces and adoption.",
+      "measurement": {
+        "candidate": null,
+        "normalized": null,
+        "reviewed": null,
+        "eligible": null,
+        "published": null
+      },
+      "state": "Planned"
+    },
+    {
+      "domain_id": "agent_tool",
+      "title": "Agents, frameworks, MCP servers, tools and integrations",
+      "boundary": "Transport, authentication scopes, side effects, versions and observed interoperability remain explicit.",
+      "work_packages": [
+        "CP-02.04",
+        "CP-05.04",
+        "CP-13.02",
+        "CP-16.02"
+      ],
+      "inclusion_rule": "An exact entity/revision within accepted research scope with explicit evidence and source-use disposition.",
+      "exclusion_rule": "Unknown rights, unqualified public claims, unapproved raw datasets/full text, and unsupported consumer projections remain withheld.",
+      "research_authority": "https://github.com/Pick-Your-AI/pick-your-ai-research/issues/509",
+      "consumer_boundary": "Pipeline produces approved immutable artifacts; website/mobile own their interfaces and adoption.",
+      "measurement": {
+        "candidate": null,
+        "normalized": null,
+        "reviewed": null,
+        "eligible": null,
+        "published": null
+      },
+      "state": "Planned"
+    },
+    {
+      "domain_id": "paper",
+      "title": "Papers, methods and reproducibility links",
+      "boundary": "Paper revision, method, correction/retraction, code, model and dataset links; no unapproved full-text redistribution.",
+      "work_packages": [
+        "CP-02.01",
+        "CP-03.03",
+        "CP-06.01",
+        "CP-16.03"
+      ],
+      "inclusion_rule": "An exact entity/revision within accepted research scope with explicit evidence and source-use disposition.",
+      "exclusion_rule": "Unknown rights, unqualified public claims, unapproved raw datasets/full text, and unsupported consumer projections remain withheld.",
+      "research_authority": "https://github.com/Pick-Your-AI/pick-your-ai-research/issues/509",
+      "consumer_boundary": "Pipeline produces approved immutable artifacts; website/mobile own their interfaces and adoption.",
+      "measurement": {
+        "candidate": null,
+        "normalized": null,
+        "reviewed": null,
+        "eligible": null,
+        "published": null
+      },
+      "state": "Planned"
+    },
+    {
+      "domain_id": "organization",
+      "title": "Organizations, labs and publishers",
+      "boundary": "Research entities and provider roles are sourced; person metadata is minimized and governed.",
+      "work_packages": [
+        "CP-02.01",
+        "CP-05.01",
+        "CP-13.04",
+        "CP-16.03"
+      ],
+      "inclusion_rule": "An exact entity/revision within accepted research scope with explicit evidence and source-use disposition.",
+      "exclusion_rule": "Unknown rights, unqualified public claims, unapproved raw datasets/full text, and unsupported consumer projections remain withheld.",
+      "research_authority": "https://github.com/Pick-Your-AI/pick-your-ai-research/issues/509",
+      "consumer_boundary": "Pipeline produces approved immutable artifacts; website/mobile own their interfaces and adoption.",
+      "measurement": {
+        "candidate": null,
+        "normalized": null,
+        "reviewed": null,
+        "eligible": null,
+        "published": null
+      },
+      "state": "Planned"
+    },
+    {
+      "domain_id": "use_case",
+      "title": "Use cases, industry, language and geography",
+      "boundary": "Suitability is evidence-qualified; tags do not imply regulated-use approval, professional advice or geographic availability.",
+      "work_packages": [
+        "CP-02.04",
+        "CP-06.02",
+        "CP-07.04",
+        "CP-16.03"
+      ],
+      "inclusion_rule": "An exact entity/revision within accepted research scope with explicit evidence and source-use disposition.",
+      "exclusion_rule": "Unknown rights, unqualified public claims, unapproved raw datasets/full text, and unsupported consumer projections remain withheld.",
+      "research_authority": "https://github.com/Pick-Your-AI/pick-your-ai-research/issues/509",
+      "consumer_boundary": "Pipeline produces approved immutable artifacts; website/mobile own their interfaces and adoption.",
+      "measurement": {
+        "candidate": null,
+        "normalized": null,
+        "reviewed": null,
+        "eligible": null,
+        "published": null
+      },
+      "state": "Planned"
+    },
+    {
+      "domain_id": "trust",
+      "title": "Trust, security, privacy and governance attributes",
+      "boundary": "Dated scoped factual references and incidents; policy interpretation remains research, not pipeline-generated legal approval.",
+      "work_packages": [
+        "CP-03.01",
+        "CP-06.02",
+        "CP-13.04",
+        "CP-16.03"
+      ],
+      "inclusion_rule": "An exact entity/revision within accepted research scope with explicit evidence and source-use disposition.",
+      "exclusion_rule": "Unknown rights, unqualified public claims, unapproved raw datasets/full text, and unsupported consumer projections remain withheld.",
+      "research_authority": "https://github.com/Pick-Your-AI/pick-your-ai-research/issues/509",
+      "consumer_boundary": "Pipeline produces approved immutable artifacts; website/mobile own their interfaces and adoption.",
+      "measurement": {
+        "candidate": null,
+        "normalized": null,
+        "reviewed": null,
+        "eligible": null,
+        "published": null
+      },
+      "state": "Planned"
+    },
+    {
+      "domain_id": "cost_energy",
+      "title": "Costs, TCO, energy and uncertainty",
+      "boundary": "Rates, estimates, measurements and lifecycle assumptions are separate; funding/nonprofit sustainability remains outside technical-data ownership.",
+      "work_packages": [
+        "CP-09.01",
+        "CP-09.03",
+        "CP-09.04",
+        "CP-16.03"
+      ],
+      "inclusion_rule": "An exact entity/revision within accepted research scope with explicit evidence and source-use disposition.",
+      "exclusion_rule": "Unknown rights, unqualified public claims, unapproved raw datasets/full text, and unsupported consumer projections remain withheld.",
+      "research_authority": "https://github.com/Pick-Your-AI/pick-your-ai-research/issues/509",
+      "consumer_boundary": "Pipeline produces approved immutable artifacts; website/mobile own their interfaces and adoption.",
+      "measurement": {
+        "candidate": null,
+        "normalized": null,
+        "reviewed": null,
+        "eligible": null,
+        "published": null
+      },
+      "state": "Planned"
+    },
+    {
+      "domain_id": "learning",
+      "title": "Guides, glossary and educational resources",
+      "boundary": "Metadata and evidence links can be cataloged; editorial content and website publication remain with existing owners.",
+      "work_packages": [
+        "CP-02.01",
+        "CP-02.04",
+        "CP-06.01",
+        "CP-16.03"
+      ],
+      "inclusion_rule": "An exact entity/revision within accepted research scope with explicit evidence and source-use disposition.",
+      "exclusion_rule": "Unknown rights, unqualified public claims, unapproved raw datasets/full text, and unsupported consumer projections remain withheld.",
+      "research_authority": "https://github.com/Pick-Your-AI/pick-your-ai-research/issues/509",
+      "consumer_boundary": "Pipeline produces approved immutable artifacts; website/mobile own their interfaces and adoption.",
+      "measurement": {
+        "candidate": null,
+        "normalized": null,
+        "reviewed": null,
+        "eligible": null,
+        "published": null
+      },
+      "state": "Planned"
+    }
+  ],
+  "consumer_contracts": [
+    {
+      "id": "website",
+      "source": "https://github.com/Pick-Your-AI/pick-your-ai-website/blob/main/docs/DATA_INTEGRATION.md",
+      "work_packages": [
+        "CP-02.02",
+        "CP-10.04",
+        "CP-12.01",
+        "CP-12.02"
+      ],
+      "state": "Receiving acceptance required"
+    },
+    {
+      "id": "apple",
+      "source": "https://github.com/Pick-Your-AI/pick-your-ai-apple/blob/main/docs/REPOSITORY_SCOPE.md",
+      "work_packages": [
+        "CP-02.03",
+        "CP-12.01",
+        "CP-12.03",
+        "CP-12.04"
+      ],
+      "state": "Receiving acceptance required"
+    },
+    {
+      "id": "android",
+      "source": "https://github.com/Pick-Your-AI/pick-your-ai-android/blob/main/docs/CONTRACT_REVISION_HANDOFF.md",
+      "work_packages": [
+        "CP-02.03",
+        "CP-12.01",
+        "CP-12.03",
+        "CP-12.04"
+      ],
+      "state": "Receiving acceptance required"
+    },
+    {
+      "id": "canonical-planner-service",
+      "source": "https://github.com/Pick-Your-AI/pick-your-ai-android/blob/main/docs/SERVICE_BASELINE.md",
+      "work_packages": [
+        "CP-01.04",
+        "CP-10.04",
+        "CP-12.01",
+        "CP-14.01"
+      ],
+      "state": "Preserve accepted authority; operating gates remain separate"
+    }
+  ]
+}

@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Catalog pipeline release plan",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "bootstrap",
+    "phases",
+    "release_evidence",
+    "forbidden_inferences"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "catalog-pipeline-release-plan-1"
+    },
+    "bootstrap": {
+      "type": "object",
+      "required": [
+        "state",
+        "meaning",
+        "required_receipts",
+        "publication_eligible",
+        "deployed",
+        "synthetic_only",
+        "production_record_count"
+      ],
+      "properties": {
+        "state": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "meaning": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "required_receipts": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "publication_eligible": {
+          "const": false
+        },
+        "deployed": {
+          "const": false
+        },
+        "synthetic_only": {
+          "const": true
+        },
+        "production_record_count": {
+          "type": "integer",
+          "const": 0
+        }
+      }
+    },
+    "phases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "required_work_packages",
+          "state",
+          "gate"
+        ],
+        "properties": {
+          "name": {
+            "enum": [
+              "Bootstrap",
+              "Foundation",
+              "Bounded Pilot",
+              "Beta",
+              "Production",
+              "Expansion"
+            ]
+          },
+          "required_work_packages": {
+            "type": "array",
+            "minItems": 0,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^CP-\\d{2,}\\.\\d{2,}$"
+            }
+          },
+          "state": {
+            "enum": [
+              "Not Started",
+              "In Progress",
+              "In Review",
+              "Blocked",
+              "Accepted",
+              "Deferred"
+            ]
+          },
+          "gate": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          }
+        }
+      }
+    },
+    "release_evidence": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "type": "object",
+            "required": [
+              "reviewer",
+              "scope",
+              "url",
+              "reviewed_commit",
+              "submitted_at",
+              "synthetic"
+            ],
+            "properties": {
+              "reviewer": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "scope": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "url": {
+                "type": "string",
+                "pattern": "^https://[^\\s]+$"
+              },
+              "reviewed_commit": {
+                "type": "string",
+                "pattern": "^[a-fA-F0-9]{40}$"
+              },
+              "submitted_at": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "synthetic": {
+                "const": false
+              }
+            }
+          },
+          {
+            "required": [
+              "phase"
+            ],
+            "properties": {
+              "phase": {
+                "enum": [
+                  "Bootstrap",
+                  "Foundation",
+                  "Bounded Pilot",
+                  "Beta",
+                  "Production",
+                  "Expansion"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    "forbidden_inferences": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "\\S"
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    }
+  }
+}

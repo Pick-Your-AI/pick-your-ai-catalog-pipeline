@@ -1,0 +1,651 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Catalog pipeline scope baseline",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "generated_at",
+    "state",
+    "program",
+    "hierarchy_policy",
+    "ownership_policy",
+    "reconciliation_policy",
+    "reconciliation",
+    "non_goals",
+    "epics"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "catalog-pipeline-plan-1"
+    },
+    "generated_at": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "state": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "program": {
+      "$ref": "#/$defs/program"
+    },
+    "hierarchy_policy": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "ownership_policy": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "reconciliation_policy": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "reconciliation": {
+      "type": "object",
+      "required": [
+        "mode",
+        "preserve_fields",
+        "reset_existing_progress"
+      ],
+      "properties": {
+        "mode": {
+          "const": "create_missing_preserve_live"
+        },
+        "preserve_fields": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "reset_existing_progress": {
+          "const": false
+        }
+      }
+    },
+    "non_goals": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "\\S"
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "epics": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/epic"
+      }
+    }
+  },
+  "$defs": {
+    "metadata": {
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "level",
+        "outcome",
+        "status",
+        "assignees",
+        "priority",
+        "phase",
+        "readiness",
+        "acceptance_status",
+        "workstream",
+        "effort",
+        "evidence_confidence",
+        "source_rights_status",
+        "dependency_status",
+        "blocked_by",
+        "external_handoffs"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "level": {
+          "enum": [
+            "Program",
+            "Epic",
+            "Work Package"
+          ]
+        },
+        "outcome": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "status": {
+          "enum": [
+            "Backlog",
+            "Ready",
+            "In Progress",
+            "In Review",
+            "Blocked",
+            "Done"
+          ]
+        },
+        "assignees": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9-]{0,38}$"
+          }
+        },
+        "priority": {
+          "enum": [
+            "P0",
+            "P1",
+            "P2",
+            "P3"
+          ]
+        },
+        "phase": {
+          "enum": [
+            "Bootstrap",
+            "Foundation",
+            "Bounded Pilot",
+            "Beta",
+            "Production",
+            "Expansion"
+          ]
+        },
+        "readiness": {
+          "enum": [
+            "Ready",
+            "Needs Input",
+            "Blocked",
+            "Awaiting Decision"
+          ]
+        },
+        "acceptance_status": {
+          "enum": [
+            "Not Started",
+            "In Review",
+            "Accepted",
+            "Changes Required",
+            "Deferred"
+          ]
+        },
+        "workstream": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "effort": {
+          "enum": [
+            "Unknown",
+            "S",
+            "M",
+            "L"
+          ]
+        },
+        "evidence_confidence": {
+          "enum": [
+            "Unverified",
+            "Low",
+            "Medium",
+            "High",
+            "Not Applicable"
+          ]
+        },
+        "source_rights_status": {
+          "enum": [
+            "Not Assessed",
+            "Research Only",
+            "Conditional",
+            "Approved",
+            "Restricted",
+            "Revoked",
+            "Not Applicable"
+          ]
+        },
+        "dependency_status": {
+          "enum": [
+            "Not Assessed",
+            "No Dependencies",
+            "Waiting",
+            "Ready",
+            "Blocked"
+          ]
+        },
+        "blocked_by": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "uniqueItems": true
+        },
+        "external_handoffs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^https://[^\\s]+$"
+          },
+          "uniqueItems": true
+        },
+        "acceptance_receipts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "reviewer",
+              "scope",
+              "url",
+              "reviewed_commit",
+              "submitted_at",
+              "synthetic"
+            ],
+            "properties": {
+              "reviewer": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "scope": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "url": {
+                "type": "string",
+                "pattern": "^https://[^\\s]+$"
+              },
+              "reviewed_commit": {
+                "type": "string",
+                "pattern": "^[a-fA-F0-9]{40}$"
+              },
+              "submitted_at": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "synthetic": {
+                "const": false
+              }
+            }
+          },
+          "minItems": 1
+        },
+        "readiness_reasons": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "uniqueItems": true
+        },
+        "completion_evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "definition_of_done": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "acceptance_criteria": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "scope_exclusions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "outputs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          }
+        },
+        "risks": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "url",
+              "relation"
+            ],
+            "properties": {
+              "url": {
+                "type": "string",
+                "pattern": "^https://[^\\s]+$"
+              },
+              "relation": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            }
+          }
+        },
+        "parent": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        }
+      }
+    },
+    "subtask": {
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "done"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^CP-\\d{2,}\\.\\d{2,}\\.T[1-9]\\d*\\.S[1-9]\\d*$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "done": {
+          "type": "boolean"
+        },
+        "acceptance_receipts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "reviewer",
+              "scope",
+              "url",
+              "reviewed_commit",
+              "submitted_at",
+              "synthetic"
+            ],
+            "properties": {
+              "reviewer": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "scope": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "url": {
+                "type": "string",
+                "pattern": "^https://[^\\s]+$"
+              },
+              "reviewed_commit": {
+                "type": "string",
+                "pattern": "^[a-fA-F0-9]{40}$"
+              },
+              "submitted_at": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "synthetic": {
+                "const": false
+              }
+            }
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "task": {
+      "type": "object",
+      "required": [
+        "id",
+        "level",
+        "title",
+        "outcome",
+        "acceptance_criteria",
+        "done",
+        "subtasks"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^CP-\\d{2,}\\.\\d{2,}\\.T[1-9]\\d*$"
+        },
+        "level": {
+          "const": "Task"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "outcome": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "acceptance_criteria": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "done": {
+          "type": "boolean"
+        },
+        "subtasks": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/subtask"
+          }
+        },
+        "acceptance_receipts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "reviewer",
+              "scope",
+              "url",
+              "reviewed_commit",
+              "submitted_at",
+              "synthetic"
+            ],
+            "properties": {
+              "reviewer": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "scope": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "url": {
+                "type": "string",
+                "pattern": "^https://[^\\s]+$"
+              },
+              "reviewed_commit": {
+                "type": "string",
+                "pattern": "^[a-fA-F0-9]{40}$"
+              },
+              "submitted_at": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "synthetic": {
+                "const": false
+              }
+            }
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "work_package": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/metadata"
+        },
+        {
+          "type": "object",
+          "required": [
+            "parent",
+            "tasks",
+            "acceptance_criteria",
+            "outputs",
+            "risks",
+            "completion_evidence",
+            "definition_of_done",
+            "scope_exclusions",
+            "references",
+            "readiness_reasons"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^CP-\\d{2,}\\.\\d{2,}$"
+            },
+            "level": {
+              "const": "Work Package"
+            },
+            "tasks": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/task"
+              }
+            },
+            "outputs": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[^\\s]+$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "epic": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/metadata"
+        },
+        {
+          "type": "object",
+          "required": [
+            "parent",
+            "work_packages",
+            "acceptance_criteria"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^CP-\\d{2,}$"
+            },
+            "level": {
+              "const": "Epic"
+            },
+            "work_packages": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/work_package"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "program": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/metadata"
+        },
+        {
+          "type": "object",
+          "required": [
+            "parent_research_issue"
+          ],
+          "properties": {
+            "id": {
+              "const": "CP"
+            },
+            "level": {
+              "const": "Program"
+            },
+            "parent_research_issue": {
+              "const": "https://github.com/Pick-Your-AI/pick-your-ai-research/issues/509"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "schema_version": "catalog-pipeline-draft-0.1.0",
+  "synthetic": true,
+  "id": "urn:pya:synthetic:release:offline-1",
+  "revision": 1,
+  "channel": "synthetic",
+  "publication_eligible": false,
+  "created_at": "2026-10-01T12:00:00Z",
+  "artifacts": [
+    {
+      "path": "examples/synthetic-model.json",
+      "sha256": "01cc18de51c32c295027db1f2d6fe9004a0ff31006fffd627e360fead7cf4f7e",
+      "record_id": "urn:pya:synthetic:model_release:synthetic-model:1",
+      "revision": 1
+    },
+    {
+      "path": "examples/synthetic-hardware.json",
+      "sha256": "dd0575a34488ed7fc5e0e433f34c52c707abcb141dbe128b8e332204e15233fe",
+      "record_id": "urn:pya:synthetic:hardware:synthetic-hardware:1",
+      "revision": 1
+    },
+    {
+      "path": "examples/synthetic-paper.json",
+      "sha256": "af63392a7705faeb600bd1034e83a231a0a8ab2afa547435c0518ac6d3db1772",
+      "record_id": "urn:pya:synthetic:paper:synthetic-paper:1",
+      "revision": 1
+    }
+  ],
+  "rights_decision_ids": [
+    "urn:pya:synthetic:rights:fictional-lab:1"
+  ],
+  "approvals": [],
+  "signature": null,
+  "limitations": [
+    "No real data, independent review, source-use approval or consumer acceptance.",
+    "Checksums identify fixture bytes and do not establish rights or truth.",
+    "This is not a signed or publishable production release."
+  ]
+}

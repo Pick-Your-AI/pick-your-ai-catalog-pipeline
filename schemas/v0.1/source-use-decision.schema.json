@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/pick-your-ai/schemas/v0.1/source-use-decision.schema.json",
+  "title": "Source use decision draft 0.1",
+  "description": "Draft proposal; not an adopted builder contract or production permission.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "catalog-pipeline-draft-0.1.0"
+    },
+    "synthetic": {
+      "type": "boolean"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^urn:pya:[a-z0-9][a-z0-9:._-]+$"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^urn:pya:[a-z0-9][a-z0-9:._-]+$"
+        },
+        "material_id": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^urn:pya:[a-z0-9][a-z0-9:._-]+$"
+        },
+        "product_id": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^urn:pya:[a-z0-9][a-z0-9:._-]+$"
+        },
+        "record_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^urn:pya:[a-z0-9][a-z0-9:._-]+$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "claim_paths": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "source_id",
+        "material_id",
+        "product_id",
+        "record_ids",
+        "claim_paths"
+      ]
+    },
+    "operations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "operation": {
+            "enum": [
+              "retrieve",
+              "retain",
+              "display",
+              "redistribute",
+              "commercial_use",
+              "derive"
+            ]
+          },
+          "decision": {
+            "enum": [
+              "permit",
+              "deny",
+              "conditional",
+              "unknown",
+              "revoked"
+            ]
+          },
+          "conditions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "operation",
+          "decision",
+          "conditions",
+          "reason"
+        ]
+      },
+      "minItems": 1
+    },
+    "decision_at": {
+      "type": "string",
+      "minLength": 1,
+      "format": "date-time"
+    },
+    "authority_ref": {
+      "type": "string",
+      "minLength": 1,
+      "format": "uri"
+    },
+    "reviewer_ref": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^urn:pya:[a-z0-9][a-z0-9:._-]+$"
+    },
+    "attribution": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0
+    },
+    "withdrawn": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "schema_version",
+    "synthetic",
+    "id",
+    "revision",
+    "scope",
+    "operations",
+    "decision_at",
+    "authority_ref",
+    "reviewer_ref",
+    "attribution",
+    "withdrawn"
+  ]
+}

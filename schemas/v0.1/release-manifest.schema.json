@@ -1,0 +1,195 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/pick-your-ai/schemas/v0.1/release-manifest.schema.json",
+  "title": "Immutable release draft 0.1",
+  "description": "Draft proposal; not an adopted builder contract or production permission.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "catalog-pipeline-draft-0.1.0"
+    },
+    "synthetic": {
+      "type": "boolean"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^urn:pya:[a-z0-9][a-z0-9:._-]+$"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "channel": {
+      "enum": [
+        "synthetic",
+        "candidate",
+        "production"
+      ]
+    },
+    "publication_eligible": {
+      "type": "boolean"
+    },
+    "created_at": {
+      "type": "string",
+      "minLength": 1,
+      "format": "date-time"
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^examples/[a-z0-9-]+\\.json$"
+          },
+          "sha256": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "record_id": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^urn:pya:[a-z0-9][a-z0-9:._-]+$"
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "path",
+          "sha256",
+          "record_id",
+          "revision"
+        ]
+      },
+      "minItems": 1
+    },
+    "rights_decision_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^urn:pya:[a-z0-9][a-z0-9:._-]+$"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "approvals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "reviewer_ref": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^urn:pya:[a-z0-9][a-z0-9:._-]+$"
+          },
+          "scope": {
+            "type": "string",
+            "minLength": 1
+          },
+          "receipt_ref": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^urn:pya:[a-z0-9][a-z0-9:._-]+$"
+          }
+        },
+        "required": [
+          "reviewer_ref",
+          "scope",
+          "receipt_ref"
+        ]
+      },
+      "minItems": 0
+    },
+    "signature": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "schema_version",
+    "synthetic",
+    "id",
+    "revision",
+    "channel",
+    "publication_eligible",
+    "created_at",
+    "artifacts",
+    "rights_decision_ids",
+    "approvals",
+    "signature",
+    "limitations"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "synthetic": {
+            "const": true
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "channel": {
+            "const": "synthetic"
+          },
+          "publication_eligible": {
+            "const": false
+          },
+          "approvals": {
+            "maxItems": 0
+          },
+          "signature": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "channel": {
+            "const": "production"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "synthetic": {
+            "const": false
+          },
+          "publication_eligible": {
+            "const": true
+          },
+          "approvals": {
+            "minItems": 1
+          },
+          "signature": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  ]
+}

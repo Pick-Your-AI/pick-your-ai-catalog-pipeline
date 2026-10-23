@@ -1,0 +1,367 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/pick-your-ai/schemas/v0.1/catalog-record.schema.json",
+  "title": "Catalog record draft 0.1",
+  "description": "Draft proposal; not an adopted builder contract or production permission.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "catalog-pipeline-draft-0.1.0"
+    },
+    "synthetic": {
+      "type": "boolean"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^urn:pya:[a-z0-9][a-z0-9:._-]+$"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "entity_kind": {
+      "enum": [
+        "model_family",
+        "model_release",
+        "model_artifact",
+        "provider",
+        "provider_offering",
+        "hardware",
+        "device",
+        "runtime",
+        "dataset",
+        "dataset_release",
+        "benchmark_suite",
+        "benchmark_run",
+        "application",
+        "service",
+        "agent_framework",
+        "tool",
+        "mcp_server",
+        "integration",
+        "memory_store",
+        "paper",
+        "method",
+        "organization",
+        "use_case",
+        "trust_attribute",
+        "cost_observation",
+        "energy_observation",
+        "learning_resource"
+      ]
+    },
+    "display_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "lifecycle": {
+      "enum": [
+        "candidate",
+        "in_review",
+        "reviewed",
+        "withdrawn"
+      ]
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^urn:pya:[a-z0-9][a-z0-9:._-]+$"
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[a-z][a-z0-9_.-]+$"
+          },
+          "value_type": {
+            "enum": [
+              "string",
+              "integer",
+              "decimal",
+              "boolean",
+              "unknown"
+            ]
+          },
+          "value": {
+            "type": [
+              "string",
+              "integer",
+              "boolean"
+            ]
+          },
+          "unknown_reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "unit": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "class": {
+                "enum": [
+                  "Primary documentation",
+                  "Vendor claim",
+                  "Independent measurement",
+                  "Estimate"
+                ]
+              },
+              "confidence": {
+                "enum": [
+                  "Unverified",
+                  "Low",
+                  "Medium",
+                  "High"
+                ]
+              },
+              "verification": {
+                "enum": [
+                  "not_verified",
+                  "independently_reproduced"
+                ]
+              },
+              "basis": {
+                "type": "string",
+                "minLength": 1
+              },
+              "receipt_ref": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^urn:pya:[a-z0-9][a-z0-9:._-]+$"
+              }
+            },
+            "required": [
+              "class",
+              "confidence",
+              "verification",
+              "basis"
+            ]
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "source_id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "^urn:pya:[a-z0-9][a-z0-9:._-]+$"
+                },
+                "material_id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "^urn:pya:[a-z0-9][a-z0-9:._-]+$"
+                },
+                "url": {
+                  "type": "string",
+                  "minLength": 1,
+                  "format": "uri"
+                },
+                "observed_at": {
+                  "type": "string",
+                  "minLength": 1,
+                  "format": "date-time"
+                },
+                "source_revision": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "source_id",
+                "material_id",
+                "url",
+                "observed_at",
+                "source_revision"
+              ]
+            },
+            "minItems": 1
+          },
+          "conditions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0
+          }
+        },
+        "required": [
+          "id",
+          "path",
+          "value_type",
+          "evidence",
+          "sources",
+          "conditions"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "value_type": {
+                  "const": "unknown"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "unknown_reason"
+              ],
+              "not": {
+                "required": [
+                  "value"
+                ]
+              }
+            },
+            "else": {
+              "required": [
+                "value"
+              ],
+              "not": {
+                "required": [
+                  "unknown_reason"
+                ]
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "value_type": {
+                  "const": "integer"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "value_type": {
+                  "const": "boolean"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "value_type": {
+                  "const": "string"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "value_type": {
+                  "const": "decimal"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "minItems": 1
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "relation": {
+            "enum": [
+              "member_of",
+              "offered_by",
+              "runs_on",
+              "supports",
+              "evaluated_on",
+              "derived_from",
+              "cites",
+              "supersedes",
+              "documents"
+            ]
+          },
+          "target_id": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^urn:pya:[a-z0-9][a-z0-9:._-]+$"
+          },
+          "target_revision": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "relation",
+          "target_id",
+          "target_revision"
+        ]
+      },
+      "minItems": 0
+    },
+    "unknowns": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "schema_version",
+    "synthetic",
+    "id",
+    "revision",
+    "entity_kind",
+    "display_name",
+    "lifecycle",
+    "claims",
+    "relationships",
+    "unknowns"
+  ]
+}

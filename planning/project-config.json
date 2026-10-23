@@ -1,0 +1,385 @@
+{
+  "schema_version": "catalog-pipeline-project-config-1",
+  "state": "Intended configuration; no GitHub creation/readback established",
+  "owner": "Pick-Your-AI",
+  "repository": "Pick-Your-AI/pick-your-ai-catalog-pipeline",
+  "title": "Pick Your AI — Catalog Pipeline",
+  "description": "Organization-wide AI research ingestion, source governance, normalization, evidence review, catalog publishing, freshness, and consumer delivery.",
+  "public": true,
+  "project_number": null,
+  "project_id": null,
+  "fields": [
+    {
+      "name": "Status",
+      "type": "SINGLE_SELECT",
+      "options": [
+        "Backlog",
+        "Ready",
+        "In Progress",
+        "In Review",
+        "Blocked",
+        "Done"
+      ],
+      "native": true
+    },
+    {
+      "name": "Priority",
+      "type": "SINGLE_SELECT",
+      "options": [
+        "P0",
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "native": false
+    },
+    {
+      "name": "Workstream",
+      "type": "SINGLE_SELECT",
+      "options": [
+        "Program",
+        "01 Scope and delivery governance",
+        "02 Ecosystem contracts and ontology",
+        "03 Source rights and use governance",
+        "04 Permitted acquisition and connector runtime",
+        "05 Identity resolution and normalization",
+        "06 Evidence and provenance ledger",
+        "07 Validation, quarantine and quality",
+        "08 Human review and editorial control",
+        "09 Prices and qualified measurements",
+        "10 Immutable publishing and withdrawals",
+        "11 Freshness and change management",
+        "12 Website and mobile delivery contracts",
+        "13 Security, privacy and supply chain",
+        "14 Platform and operational reliability",
+        "15 Conformance and quality verification",
+        "16 Bounded pilots and ecosystem expansion"
+      ],
+      "native": false
+    },
+    {
+      "name": "Record Type",
+      "type": "SINGLE_SELECT",
+      "options": [
+        "Program",
+        "Epic",
+        "Work Package",
+        "Task"
+      ],
+      "native": false
+    },
+    {
+      "name": "Readiness",
+      "type": "SINGLE_SELECT",
+      "options": [
+        "Ready",
+        "Needs Input",
+        "Blocked",
+        "Awaiting Decision"
+      ],
+      "native": false
+    },
+    {
+      "name": "Evidence Confidence",
+      "type": "SINGLE_SELECT",
+      "options": [
+        "Unverified",
+        "Low",
+        "Medium",
+        "High",
+        "Not Applicable"
+      ],
+      "native": false
+    },
+    {
+      "name": "Source Rights Status",
+      "type": "SINGLE_SELECT",
+      "options": [
+        "Not Assessed",
+        "Research Only",
+        "Conditional",
+        "Approved",
+        "Restricted",
+        "Revoked",
+        "Not Applicable"
+      ],
+      "native": false
+    },
+    {
+      "name": "Dependency Status",
+      "type": "SINGLE_SELECT",
+      "options": [
+        "Not Assessed",
+        "No Dependencies",
+        "Waiting",
+        "Ready",
+        "Blocked"
+      ],
+      "native": false
+    },
+    {
+      "name": "Effort",
+      "type": "SINGLE_SELECT",
+      "options": [
+        "Unknown",
+        "S",
+        "M",
+        "L"
+      ],
+      "native": false
+    },
+    {
+      "name": "Release Phase",
+      "type": "SINGLE_SELECT",
+      "options": [
+        "Bootstrap",
+        "Foundation",
+        "Bounded Pilot",
+        "Beta",
+        "Production",
+        "Expansion"
+      ],
+      "native": false
+    },
+    {
+      "name": "Acceptance Status",
+      "type": "SINGLE_SELECT",
+      "options": [
+        "Not Started",
+        "In Review",
+        "Accepted",
+        "Changes Required",
+        "Deferred"
+      ],
+      "native": false
+    }
+  ],
+  "native_ownership": "Assignees",
+  "views": [
+    {
+      "name": "Program Overview",
+      "layout": "TABLE_LAYOUT",
+      "filter": "repo:Pick-Your-AI/pick-your-ai-catalog-pipeline is:issue record-type:Program,Epic",
+      "group_by": "Workstream",
+      "sort_by": [
+        "Priority",
+        "Title"
+      ],
+      "visible_fields": [
+        "Title",
+        "Status",
+        "Priority",
+        "Assignees",
+        "Parent issue",
+        "Sub-issues progress",
+        "Acceptance Status"
+      ],
+      "readback_status": "Not Created"
+    },
+    {
+      "name": "Epics and Work Packages",
+      "layout": "TABLE_LAYOUT",
+      "filter": "repo:Pick-Your-AI/pick-your-ai-catalog-pipeline is:issue record-type:Epic,\"Work Package\",Task",
+      "group_by": "Workstream",
+      "sort_by": [
+        "Priority",
+        "Title"
+      ],
+      "visible_fields": [
+        "Title",
+        "Parent issue",
+        "Sub-issues progress",
+        "Status",
+        "Priority",
+        "Readiness"
+      ],
+      "readback_status": "Not Created"
+    },
+    {
+      "name": "Priority and Readiness",
+      "layout": "TABLE_LAYOUT",
+      "filter": "repo:Pick-Your-AI/pick-your-ai-catalog-pipeline is:issue -status:Done",
+      "group_by": "Priority",
+      "sort_by": [
+        "Priority",
+        "Title"
+      ],
+      "visible_fields": [
+        "Title",
+        "Priority",
+        "Readiness",
+        "Assignees",
+        "Dependency Status",
+        "Effort",
+        "Release Phase"
+      ],
+      "readback_status": "Not Created"
+    },
+    {
+      "name": "Currently Active",
+      "layout": "BOARD_LAYOUT",
+      "filter": "repo:Pick-Your-AI/pick-your-ai-catalog-pipeline is:issue status:\"In Progress\",\"In Review\"",
+      "group_by": "Status",
+      "sort_by": [
+        "Priority",
+        "Title"
+      ],
+      "visible_fields": [
+        "Title",
+        "Assignees",
+        "Priority",
+        "Workstream",
+        "Acceptance Status"
+      ],
+      "readback_status": "Not Created"
+    },
+    {
+      "name": "Blocked and Decisions",
+      "layout": "TABLE_LAYOUT",
+      "filter": "repo:Pick-Your-AI/pick-your-ai-catalog-pipeline is:issue readiness:Blocked,\"Awaiting Decision\",\"Needs Input\"",
+      "group_by": "Readiness",
+      "sort_by": [
+        "Priority",
+        "Title"
+      ],
+      "visible_fields": [
+        "Title",
+        "Readiness",
+        "Dependency Status",
+        "Assignees",
+        "Parent issue"
+      ],
+      "readback_status": "Not Created"
+    },
+    {
+      "name": "Rights and Evidence",
+      "layout": "TABLE_LAYOUT",
+      "filter": "repo:Pick-Your-AI/pick-your-ai-catalog-pipeline is:issue -status:Done",
+      "group_by": "Source Rights Status",
+      "sort_by": [
+        "Priority",
+        "Title"
+      ],
+      "visible_fields": [
+        "Title",
+        "Source Rights Status",
+        "Evidence Confidence",
+        "Readiness",
+        "Workstream",
+        "Acceptance Status"
+      ],
+      "readback_status": "Not Created"
+    },
+    {
+      "name": "Consumer Handoffs",
+      "layout": "TABLE_LAYOUT",
+      "filter": "repo:Pick-Your-AI/pick-your-ai-catalog-pipeline is:issue workstream:\"12 Website and mobile delivery contracts\"",
+      "group_by": "Workstream",
+      "sort_by": [
+        "Priority",
+        "Title"
+      ],
+      "visible_fields": [
+        "Title",
+        "Assignees",
+        "Dependency Status",
+        "Release Phase",
+        "Acceptance Status"
+      ],
+      "readback_status": "Not Created"
+    },
+    {
+      "name": "Release Readiness",
+      "layout": "TABLE_LAYOUT",
+      "filter": "repo:Pick-Your-AI/pick-your-ai-catalog-pipeline is:issue -acceptance-status:Accepted,Deferred",
+      "group_by": "Release Phase",
+      "sort_by": [
+        "Priority",
+        "Title"
+      ],
+      "visible_fields": [
+        "Title",
+        "Priority",
+        "Status",
+        "Readiness",
+        "Release Phase",
+        "Acceptance Status"
+      ],
+      "readback_status": "Not Created"
+    }
+  ],
+  "repository_metadata": {
+    "description": "Shared AI research catalog ingestion and publishing: implementation backlog, evidence, source governance and synthetic bootstrap.",
+    "topics": [
+      "ai",
+      "research",
+      "data-pipeline",
+      "data-catalog",
+      "data-provenance",
+      "etl",
+      "evidence",
+      "open-source",
+      "pick-your-ai"
+    ],
+    "default_branch": "main",
+    "visibility": "public",
+    "has_issues": true,
+    "has_wiki": false,
+    "delete_branch_on_merge": true
+  },
+  "labels": [
+    {
+      "name": "documentation",
+      "color": "0075ca",
+      "description": "Documentation and research handoff clarity"
+    },
+    {
+      "name": "enhancement",
+      "color": "a2eeef",
+      "description": "Implementation improvement"
+    },
+    {
+      "name": "question",
+      "color": "d876e3",
+      "description": "A scoped decision or missing input"
+    },
+    {
+      "name": "bug",
+      "color": "d73a4a",
+      "description": "Incorrect implemented behavior"
+    },
+    {
+      "name": "security",
+      "color": "b60205",
+      "description": "Sanitized security control work; report vulnerabilities privately"
+    },
+    {
+      "name": "source-rights",
+      "color": "5319e7",
+      "description": "Source, material and use permission scope"
+    },
+    {
+      "name": "data-quality",
+      "color": "0e8a16",
+      "description": "Provenance, identity and data correctness"
+    },
+    {
+      "name": "contracts",
+      "color": "1d76db",
+      "description": "Versioned producer and consumer interfaces"
+    },
+    {
+      "name": "operations",
+      "color": "006b75",
+      "description": "Reliability, recovery and operating controls"
+    }
+  ],
+  "governance": {
+    "team_grants": [],
+    "codeowners": "Pending verified team slug and write-access readback",
+    "required_check": "ci-required",
+    "required_approvals": 1,
+    "require_last_push_approval": true,
+    "status": "Unapplied; inspect current org and repository rules before configuring"
+  }
+}

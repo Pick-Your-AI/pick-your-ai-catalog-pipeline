@@ -1,0 +1,67 @@
+{
+  "schema_version": "catalog-pipeline-draft-0.1.0",
+  "synthetic": true,
+  "id": "urn:pya:synthetic:rights:fictional-lab:1",
+  "revision": 1,
+  "scope": {
+    "source_id": "urn:pya:synthetic:source:fictional-lab",
+    "material_id": "urn:pya:synthetic:material:metadata:1",
+    "product_id": "urn:pya:synthetic:product:offline-preview",
+    "record_ids": [
+      "urn:pya:synthetic:model_release:synthetic-model:1",
+      "urn:pya:synthetic:hardware:synthetic-hardware:1",
+      "urn:pya:synthetic:paper:synthetic-paper:1"
+    ],
+    "claim_paths": [
+      "evidence.independent_result",
+      "metadata.title",
+      "spec.context_tokens",
+      "spec.memory_gib"
+    ]
+  },
+  "operations": [
+    {
+      "operation": "retrieve",
+      "decision": "unknown",
+      "conditions": [],
+      "reason": "No permission established for this operation."
+    },
+    {
+      "operation": "retain",
+      "decision": "unknown",
+      "conditions": [],
+      "reason": "No permission established for this operation."
+    },
+    {
+      "operation": "display",
+      "decision": "permit",
+      "conditions": [],
+      "reason": "Fictional display grant for offline tests only."
+    },
+    {
+      "operation": "redistribute",
+      "decision": "unknown",
+      "conditions": [],
+      "reason": "No permission established for this operation."
+    },
+    {
+      "operation": "commercial_use",
+      "decision": "unknown",
+      "conditions": [],
+      "reason": "No permission established for this operation."
+    },
+    {
+      "operation": "derive",
+      "decision": "unknown",
+      "conditions": [],
+      "reason": "No permission established for this operation."
+    }
+  ],
+  "decision_at": "2026-10-01T12:00:00Z",
+  "authority_ref": "https://example.invalid/synthetic/rights-not-real",
+  "reviewer_ref": "urn:pya:synthetic:reviewer:fictional-reviewer",
+  "attribution": [
+    "All source and grant details are synthetic."
+  ],
+  "withdrawn": false
+}

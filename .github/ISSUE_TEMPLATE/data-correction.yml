@@ -1,0 +1,26 @@
+name: Catalog correction or source-use concern
+description: Report a scoped data, evidence, identity, freshness or publication-rights problem.
+body:
+  - type: markdown
+    attributes:
+      value: Do not include credentials, private evidence, personal data or restricted source text. Follow SECURITY.md for vulnerabilities.
+  - type: input
+    id: record
+    attributes:
+      label: Exact record, claim or release ID and revision
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Observed problem and public evidence
+      description: Give source URLs, actual access dates and version/use conditions; retain unknowns.
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Affected consumers and requested disposition
+      description: Describe correction, quarantine, withdrawal or re-review scope without implying approval.
+    validations:
+      required: true

@@ -1,0 +1,128 @@
+{
+  "schema_version": "catalog-pipeline-release-plan-1",
+  "bootstrap": {
+    "state": "Prepared locally; remote creation and readback blocked by missing authorized administration capability.",
+    "meaning": "Repository and planning setup only, no production service or dataset.",
+    "required_receipts": [
+      "Public target repository identity and main commit",
+      "Foundational files and synthetic fixture labels",
+      "Successful local plan/schema/test/doc checks",
+      "Actual organization Project identity, fields and saved-view readback",
+      "Issue IDs, native hierarchy/dependency readback and complete Project membership",
+      "Configured governance or exact access blockers"
+    ],
+    "publication_eligible": false,
+    "deployed": false,
+    "synthetic_only": true,
+    "production_record_count": 0
+  },
+  "phases": [
+    {
+      "name": "Foundation",
+      "required_work_packages": [
+        "CP-01.01",
+        "CP-01.02",
+        "CP-01.03",
+        "CP-01.04",
+        "CP-02.01",
+        "CP-02.02",
+        "CP-02.03",
+        "CP-02.04",
+        "CP-03.01",
+        "CP-03.02",
+        "CP-03.03",
+        "CP-04.01",
+        "CP-05.01",
+        "CP-05.02",
+        "CP-05.03",
+        "CP-05.04",
+        "CP-06.01",
+        "CP-06.02",
+        "CP-06.03",
+        "CP-06.04",
+        "CP-07.01",
+        "CP-07.02",
+        "CP-07.03",
+        "CP-07.04",
+        "CP-08.01",
+        "CP-13.01",
+        "CP-13.02",
+        "CP-15.01"
+      ],
+      "state": "Not Started",
+      "gate": "Accepted governance/contracts/source-use models and deterministic synthetic conformance; this is not production clearance."
+    },
+    {
+      "name": "Bounded Pilot",
+      "required_work_packages": [
+        "CP-03.04",
+        "CP-04.02",
+        "CP-04.03",
+        "CP-04.04",
+        "CP-08.02",
+        "CP-09.01",
+        "CP-10.01",
+        "CP-10.02",
+        "CP-10.03",
+        "CP-10.04",
+        "CP-11.01",
+        "CP-12.01",
+        "CP-12.02",
+        "CP-13.03",
+        "CP-14.01",
+        "CP-15.02",
+        "CP-16.01",
+        "CP-16.02"
+      ],
+      "state": "Not Started",
+      "gate": "Two eligible domain pilots, approved source capability, reviewed artifacts, consumer receipt, denial tests, and guarded rollback. Minimal versioned delivery/index and canonical-service import are prerequisites; broader exports remain outside pilot acceptance unless individually qualified."
+    },
+    {
+      "name": "Beta",
+      "required_work_packages": [
+        "CP-08.03",
+        "CP-09.02",
+        "CP-09.04",
+        "CP-11.02",
+        "CP-11.03",
+        "CP-11.04",
+        "CP-12.03",
+        "CP-12.04",
+        "CP-13.04",
+        "CP-14.02",
+        "CP-14.03",
+        "CP-15.03"
+      ],
+      "state": "Not Started",
+      "gate": "Actual compatible website/mobile handoffs, freshness/recovery behavior, controlled deployment and measured capacity within accepted limits."
+    },
+    {
+      "name": "Production",
+      "required_work_packages": [
+        "CP-14.04",
+        "CP-15.04"
+      ],
+      "state": "Not Started",
+      "gate": "Independent readiness review, accepted operating/recovery ownership and verified service evidence for the bounded released scope."
+    },
+    {
+      "name": "Expansion",
+      "required_work_packages": [
+        "CP-08.04",
+        "CP-09.03",
+        "CP-16.03",
+        "CP-16.04"
+      ],
+      "state": "Not Started",
+      "gate": "Each additional domain passes its own research, rights, quality, cost and consumer receiving gates."
+    }
+  ],
+  "release_evidence": [],
+  "forbidden_inferences": [
+    "Passing bootstrap CI implies a deployed service",
+    "A research proposal or public source URL implies display/export permission",
+    "A schema-valid benchmark implies independent reproduction",
+    "A created issue or merged implementation PR implies all literal acceptance criteria are satisfied",
+    "A new snapshot implies historical builds expired"
+  ]
+}

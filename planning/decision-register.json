@@ -1,0 +1,564 @@
+{
+  "schema_version": "catalog-pipeline-decisions-1",
+  "decisions": [
+    {
+      "id": "D-001",
+      "title": "Dedicated catalog pipeline delivery boundary",
+      "status": "Established by current mission",
+      "decision": "One public repository and dedicated organization Project; pipeline owns shared ingestion/review/publication, research owns policy/evidence and consumers own UI/service acceptance.",
+      "work_packages": [
+        "CP-01.01",
+        "CP-01.03"
+      ],
+      "references": [
+        "https://github.com/Pick-Your-AI/pick-your-ai-research/issues/509"
+      ],
+      "authority_and_limits": "User mission; actual GitHub setup readback still required.",
+      "accepted_by": [],
+      "evidence": [],
+      "responsible_decision_role": "Organization administrator and pipeline maintainer",
+      "options": [
+        {
+          "option": "Dedicated shared pipeline",
+          "tradeoffs": "One delivery boundary for reusable ETL/review/publication; requires separate maintenance and handoff ownership."
+        },
+        {
+          "option": "Keep machinery inside one consumer",
+          "tradeoffs": "Lower repository count but couples other clients and broad research to one app release cycle."
+        }
+      ],
+      "consequences": [
+        "Research and client ownership remain unchanged; new service deployment is not implied."
+      ],
+      "affected_release_gate": [
+        "Foundation"
+      ],
+      "actual_approvers": []
+    },
+    {
+      "id": "D-002",
+      "title": "Preserve canonical research and frozen contracts",
+      "status": "Existing accepted boundary",
+      "decision": "Do not modify frozen builder v1 or reopen completed research criteria; route new semantics through research #40.",
+      "work_packages": [
+        "CP-02.01",
+        "CP-02.02",
+        "CP-02.03"
+      ],
+      "references": [
+        "https://github.com/Pick-Your-AI/pick-your-ai-research/issues/40"
+      ],
+      "authority_and_limits": "Existing research contract process, not new pipeline authority.",
+      "accepted_by": [],
+      "evidence": [],
+      "responsible_decision_role": "Canonical research contract reviewer with affected consumers",
+      "options": [
+        {
+          "option": "Preserve frozen v1 and version extensions separately",
+          "tradeoffs": "Retains consumer compatibility and original hashes; new semantics need an explicit adoption packet."
+        },
+        {
+          "option": "Mutate existing v1 in place",
+          "tradeoffs": "Would change accepted wire meaning and break reproducibility; excluded by existing governance."
+        }
+      ],
+      "consequences": [
+        "Broad catalog data may be withheld from builder projections until an accepted compatible mapping exists."
+      ],
+      "affected_release_gate": [
+        "Foundation",
+        "Bounded Pilot"
+      ],
+      "actual_approvers": []
+    },
+    {
+      "id": "D-003",
+      "title": "Deny missing or insufficient source-use permission",
+      "status": "Existing accepted boundary",
+      "decision": "Retrieval/display/cache/export/redistribution are separate and scoped per source, field, product and use; current GPUs.io API/display/export exclusion remains.",
+      "work_packages": [
+        "CP-03.01",
+        "CP-03.02",
+        "CP-03.03"
+      ],
+      "references": [
+        "https://github.com/Pick-Your-AI/pick-your-ai-research/blob/main/docs/PUBLICATION_ELIGIBILITY_HANDOFF.md"
+      ],
+      "authority_and_limits": "Source owner and research #60/#41 decisions are required for new uses.",
+      "accepted_by": [],
+      "evidence": [],
+      "responsible_decision_role": "Canonical source-rights decision maker with research #41/#60 authority",
+      "options": [
+        {
+          "option": "Evaluate explicit material/product/use decisions",
+          "tradeoffs": "Supports traceable grants and denials; requires field-level provenance and ongoing terms review."
+        },
+        {
+          "option": "Infer permission from public availability or a permissive fragment",
+          "tradeoffs": "Reduces manual review but cannot establish eligible reuse; excluded by the accepted handoff."
+        }
+      ],
+      "consequences": [
+        "Unknown, expired, revoked and excluded uses remain blocked even if schema validation succeeds."
+      ],
+      "affected_release_gate": [
+        "Foundation",
+        "Bounded Pilot",
+        "Production"
+      ],
+      "actual_approvers": []
+    },
+    {
+      "id": "D-004",
+      "title": "Keep one canonical planner API",
+      "status": "Existing accepted boundary",
+      "decision": "Retain the accepted TypeScript/Node API and PostgreSQL on Render with website services/planner-api source placement; pipeline delivers exact approved bytes and handoff receipts, not a competing backend.",
+      "work_packages": [
+        "CP-01.04",
+        "CP-10.04",
+        "CP-12.01",
+        "CP-14.01"
+      ],
+      "references": [
+        "https://github.com/Pick-Your-AI/pick-your-ai-android/blob/main/docs/SERVICE_BASELINE.md"
+      ],
+      "authority_and_limits": "Existing service owner/coordinator; unfilled operating gates are not auto-assigned.",
+      "accepted_by": [],
+      "evidence": [],
+      "responsible_decision_role": "Existing shared-service owner/coordinator and affected consumer reviewers",
+      "options": [
+        {
+          "option": "Feed the selected canonical planner API",
+          "tradeoffs": "Reuses accepted authority and transaction model; requires exact byte and activation handoffs."
+        },
+        {
+          "option": "Create a separate planner API in this repository",
+          "tradeoffs": "Duplicates build/auth/evaluation ownership and compatibility state; excluded from current scope."
+        }
+      ],
+      "consequences": [
+        "Pipeline staging and workers must remain distinct from the canonical consumer service authority."
+      ],
+      "affected_release_gate": [
+        "Foundation",
+        "Bounded Pilot",
+        "Beta"
+      ],
+      "actual_approvers": []
+    },
+    {
+      "id": "D-005",
+      "title": "Synthetic-only repository bootstrap",
+      "status": "Established by current mission",
+      "decision": "Initial fixtures are fictional and labeled; bootstrap performs no acquisition, paid provisioning or production deployment.",
+      "work_packages": [
+        "CP-15.01",
+        "CP-15.02"
+      ],
+      "references": [],
+      "authority_and_limits": "User mission and repository bootstrap gate.",
+      "accepted_by": [],
+      "evidence": [],
+      "responsible_decision_role": "Pipeline maintainer and bootstrap reviewer",
+      "options": [
+        {
+          "option": "Use labeled fictional fixtures only",
+          "tradeoffs": "Enables repeatable validation without implying permissions; cannot establish real source capability."
+        },
+        {
+          "option": "Import existing research proposals as live seed data",
+          "tradeoffs": "Could appear more realistic but lacks blanket publication clearance; excluded from bootstrap."
+        }
+      ],
+      "consequences": [
+        "Synthetic grants, reviews and prices cannot satisfy a production release gate."
+      ],
+      "affected_release_gate": [
+        "Foundation"
+      ],
+      "actual_approvers": []
+    },
+    {
+      "id": "D-006",
+      "title": "Native hierarchy with checklist execution detail",
+      "status": "Proposed implementation convention",
+      "decision": "Use Program > Epic > Work Package native issues, stable checklist Tasks/Subtasks, and promote tasks when an independent owner/review boundary is accepted.",
+      "work_packages": [
+        "CP-01.03"
+      ],
+      "references": [
+        "https://github.com/Pick-Your-AI/pick-your-ai-leaderboard/blob/main/planning/README.md"
+      ],
+      "authority_and_limits": "Follows inspected leaderboard convention; actual native readback required.",
+      "accepted_by": [],
+      "evidence": [],
+      "responsible_decision_role": "Pipeline maintainer and organization Project administrator",
+      "options": [
+        {
+          "option": "Native Program/Epic/WP with checklist tasks",
+          "tradeoffs": "Matches established planning precedent and keeps independent outcomes navigable; later task promotion needs reconciliation."
+        },
+        {
+          "option": "Make every step a native issue",
+          "tradeoffs": "Creates more independently assignable records but adds coordination overhead and duplicates checklist progress."
+        }
+      ],
+      "consequences": [
+        "Stable task IDs survive promotion; native hierarchy and blockers are verified independently."
+      ],
+      "affected_release_gate": [
+        "Foundation"
+      ],
+      "actual_approvers": []
+    },
+    {
+      "id": "D-007",
+      "title": "Real ownership and independent review",
+      "status": "Existing accepted boundary",
+      "decision": "Live native GitHub Assignees express accepted ownership; team-based access and independent approval follow organization policy.",
+      "work_packages": [
+        "CP-01.02",
+        "CP-08.02"
+      ],
+      "references": [
+        "https://github.com/Pick-Your-AI/.github/blob/main/CONTRIBUTING.md"
+      ],
+      "authority_and_limits": "No task assignee, on-call role or team member is invented.",
+      "accepted_by": [],
+      "evidence": [],
+      "responsible_decision_role": "Authorized organization administrator and independent review coordinator",
+      "options": [
+        {
+          "option": "Use native Assignees and verified team permissions",
+          "tradeoffs": "Preserves actual accepted ownership and least privilege; vacancies remain visible."
+        },
+        {
+          "option": "Infer ownership from historical roles or an Owner field",
+          "tradeoffs": "Looks complete but invents assignments and creates conflicting authority; excluded."
+        }
+      ],
+      "consequences": [
+        "Unfilled owner or independent-review roles can block readiness while useful local work continues."
+      ],
+      "affected_release_gate": [
+        "Foundation",
+        "Production"
+      ],
+      "actual_approvers": []
+    },
+    {
+      "id": "D-008",
+      "title": "Multi-domain pipeline schema separated from builder v1",
+      "status": "Proposed technical design",
+      "decision": "Use an independently versioned envelope and typed graph for models, offers, hardware, datasets, apps, papers, tools, use cases and guides; project only compatible subsets.",
+      "work_packages": [
+        "CP-02.01",
+        "CP-02.04"
+      ],
+      "references": [
+        "https://github.com/Pick-Your-AI/pick-your-ai-research/issues/509"
+      ],
+      "authority_and_limits": "Research contract and affected receiving-owner review at implementation.",
+      "accepted_by": [],
+      "evidence": [],
+      "responsible_decision_role": "Research taxonomy/contract reviewer and pipeline schema maintainer",
+      "options": [
+        {
+          "option": "Separate typed pipeline envelope with reviewed projections",
+          "tradeoffs": "Supports diverse resource kinds; requires mapping/version governance."
+        },
+        {
+          "option": "Force all resources into frozen builder component kinds",
+          "tradeoffs": "Reduces schemas but loses domain meaning and silently extends accepted v1; excluded."
+        }
+      ],
+      "consequences": [
+        "Entity types remain extensible through accepted versions; unsupported projections are withheld."
+      ],
+      "affected_release_gate": [
+        "Foundation",
+        "Expansion"
+      ],
+      "actual_approvers": []
+    },
+    {
+      "id": "D-009",
+      "title": "First eligible source and pilot selection",
+      "status": "Awaiting decision",
+      "decision": "Select one model/provider and one hardware/runtime or tool pilot only after exact source-use scope and required fields are accepted.",
+      "work_packages": [
+        "CP-04.02",
+        "CP-16.01",
+        "CP-16.02"
+      ],
+      "references": [
+        "https://github.com/Pick-Your-AI/pick-your-ai-research/blob/main/docs/PUBLICATION_ELIGIBILITY_HANDOFF.md"
+      ],
+      "authority_and_limits": "No complete current research catalog/pricebook is presumed cleared.",
+      "accepted_by": [],
+      "evidence": [],
+      "responsible_decision_role": "Relevant domain owner, source-rights decision maker and website receiving owner",
+      "options": [
+        {
+          "option": "Choose existing rights-eligible structured metadata",
+          "tradeoffs": "Offers a bounded reproducible pilot with explicit field restrictions; may omit desired prices or capabilities."
+        },
+        {
+          "option": "Request a new source/use decision before selecting the pilot",
+          "tradeoffs": "Can expand coverage but delays live intake until accepted evidence exists."
+        }
+      ],
+      "consequences": [
+        "No complete existing research catalog or pricebook is presumed cleared; two distinct domain pilots are still required."
+      ],
+      "affected_release_gate": [
+        "Bounded Pilot"
+      ],
+      "actual_approvers": []
+    },
+    {
+      "id": "D-010",
+      "title": "Pipeline worker runtime and durable execution placement",
+      "status": "Awaiting decision",
+      "decision": "Select only pipeline-owned runtime, scheduling and staging choices; preserve accepted canonical server/storage authority and justify any new large-object store.",
+      "work_packages": [
+        "CP-01.04",
+        "CP-14.01",
+        "CP-14.02"
+      ],
+      "references": [
+        "https://github.com/Pick-Your-AI/pick-your-ai-android/blob/main/docs/SERVICE_BASELINE.md"
+      ],
+      "authority_and_limits": "Requires actual workload, owner, cost and recovery evidence before deployment.",
+      "accepted_by": [],
+      "evidence": [],
+      "responsible_decision_role": "Pipeline technical maintainer with shared-service coordinator and operating owner",
+      "options": [
+        {
+          "option": "Small durable worker/staging layer integrated with accepted service",
+          "tradeoffs": "Limits duplicated infrastructure; capacity must be measured."
+        },
+        {
+          "option": "Add independent queue/object-store services after measured need",
+          "tradeoffs": "Can improve scale and isolation but adds cost, custody and restore complexity."
+        }
+      ],
+      "consequences": [
+        "No new paid resource or object store is created by naming an architecture; deployment needs accepted custody and budgets."
+      ],
+      "affected_release_gate": [
+        "Foundation",
+        "Bounded Pilot",
+        "Beta"
+      ],
+      "actual_approvers": []
+    },
+    {
+      "id": "D-011",
+      "title": "Signing and release custody",
+      "status": "Awaiting decision",
+      "decision": "Define signer identity, key custody, rotation and recovery before any production-signed artifact; no real keys belong in bootstrap.",
+      "work_packages": [
+        "CP-10.02",
+        "CP-13.03"
+      ],
+      "references": [],
+      "authority_and_limits": "Accepted release owner and independent reviewer required.",
+      "accepted_by": [],
+      "evidence": [],
+      "responsible_decision_role": "Release custodian and independent security reviewer",
+      "options": [
+        {
+          "option": "Short-lived workload signing identity",
+          "tradeoffs": "Reduces static-key custody but needs a supported verification and identity policy."
+        },
+        {
+          "option": "Managed signing key with explicit custody and rotation",
+          "tradeoffs": "Can fit existing infrastructure but requires recovery, access and compromise procedures."
+        }
+      ],
+      "consequences": [
+        "No production signing or acceptance claim until selected identity, verification and recovery are proven."
+      ],
+      "affected_release_gate": [
+        "Bounded Pilot",
+        "Production"
+      ],
+      "actual_approvers": []
+    },
+    {
+      "id": "D-012",
+      "title": "Current pointer and public mirror compatibility",
+      "status": "Awaiting decision",
+      "decision": "Frozen /v1 reads remain bearer-authenticated; current/latest aliases and anonymous public mirrors need separately accepted contracts and rights decisions.",
+      "work_packages": [
+        "CP-10.04",
+        "CP-12.01"
+      ],
+      "references": [
+        "https://github.com/Pick-Your-AI/pick-your-ai-website/blob/main/docs/DATA_INTEGRATION.md",
+        "https://github.com/Pick-Your-AI/pick-your-ai-android/blob/main/docs/SERVICE_BASELINE.md"
+      ],
+      "authority_and_limits": "Research #40 and existing website #15–#18 consumer authority.",
+      "accepted_by": [],
+      "evidence": [],
+      "responsible_decision_role": "Research #40 contract reviewer and website/service receiving owner",
+      "options": [
+        {
+          "option": "Use accepted authenticated v1 reads plus separately approved artifact channel",
+          "tradeoffs": "Preserves frozen behavior and allows a narrow eligible public mirror with explicit rights."
+        },
+        {
+          "option": "Adopt a new version for anonymous discovery/current aliases",
+          "tradeoffs": "Provides new semantics but needs coordinated schema, auth and consumer adoption."
+        }
+      ],
+      "consequences": [
+        "A static public file is not an implementation of the globally bearer-authenticated frozen API."
+      ],
+      "affected_release_gate": [
+        "Bounded Pilot",
+        "Beta"
+      ],
+      "actual_approvers": []
+    },
+    {
+      "id": "D-013",
+      "title": "Freshness distinguishes historical and current-state facts",
+      "status": "Existing accepted boundary",
+      "decision": "No universal TTL; capture/check/effective/publication times stay distinct, and a new snapshot alone does not invalidate saved builds.",
+      "work_packages": [
+        "CP-11.01",
+        "CP-12.04"
+      ],
+      "references": [
+        "https://github.com/Pick-Your-AI/pick-your-ai-website/blob/main/docs/DATA_INTEGRATION.md"
+      ],
+      "authority_and_limits": "Research #41/#42 semantics remain authoritative.",
+      "accepted_by": [],
+      "evidence": [],
+      "responsible_decision_role": "Research evidence/freshness and saved-build reviewers",
+      "options": [
+        {
+          "option": "Separate immutable historical facts from current-state checks",
+          "tradeoffs": "Preserves reproducibility; volatile facts still require source-aware refresh."
+        },
+        {
+          "option": "Apply one global TTL to all facts",
+          "tradeoffs": "Simplifies scheduling but invents expiry semantics and can invalidate valid pinned builds; excluded."
+        }
+      ],
+      "consequences": [
+        "Capture/check/effective/publish timestamps and source-specific freshness status remain distinct."
+      ],
+      "affected_release_gate": [
+        "Bounded Pilot",
+        "Beta"
+      ],
+      "actual_approvers": []
+    },
+    {
+      "id": "D-014",
+      "title": "Optional enrichment is proposal-only",
+      "status": "Deferred",
+      "decision": "Any AI enrichment needs separate provider privacy/rights/cost acceptance; it cannot approve rights, create facts or execute source instructions.",
+      "work_packages": [
+        "CP-08.04",
+        "CP-13.02"
+      ],
+      "references": [],
+      "authority_and_limits": "No paid inference use is authorized by bootstrap.",
+      "accepted_by": [],
+      "evidence": [],
+      "responsible_decision_role": "Pipeline maintainer, privacy/source-rights reviewers and cost authority",
+      "options": [
+        {
+          "option": "Use deterministic enrichment and human review first",
+          "tradeoffs": "Avoids provider disclosure/cost and makes transformations reproducible; some editorial work remains manual."
+        },
+        {
+          "option": "Add bounded AI proposals after explicit approval",
+          "tradeoffs": "May reduce review effort but introduces model provenance, privacy, hallucination and cost risks."
+        }
+      ],
+      "consequences": [
+        "Generated content never approves rights, becomes independently verified evidence, or executes source instructions."
+      ],
+      "affected_release_gate": [
+        "Expansion"
+      ],
+      "actual_approvers": []
+    },
+    {
+      "id": "D-015",
+      "title": "Production operational acceptance",
+      "status": "Awaiting decision",
+      "decision": "Identify actual operating owner, recovery custodian, budgets and service objectives; local tests do not establish a live supported service.",
+      "work_packages": [
+        "CP-14.03",
+        "CP-14.04",
+        "CP-15.04"
+      ],
+      "references": [
+        "https://github.com/Pick-Your-AI/pick-your-ai-android/blob/main/docs/SERVICE_BASELINE.md"
+      ],
+      "authority_and_limits": "Preserve existing unfilled service operating gates; do not assign volunteers by assumption.",
+      "accepted_by": [],
+      "evidence": [],
+      "responsible_decision_role": "Accepted operating owner, recovery custodian and independent release reviewer",
+      "options": [
+        {
+          "option": "Release only after actual operational acceptance",
+          "tradeoffs": "Establishes custody, recovery and supported limits; can delay launch."
+        },
+        {
+          "option": "Keep service in synthetic/staging qualification",
+          "tradeoffs": "Allows independent testing while roles or budgets are missing; cannot be described as supported production."
+        }
+      ],
+      "consequences": [
+        "No person is assigned on-call responsibility by a role label or inherited client ownership."
+      ],
+      "affected_release_gate": [
+        "Production"
+      ],
+      "actual_approvers": []
+    },
+    {
+      "id": "D-016",
+      "title": "Expansion after two bounded pilots",
+      "status": "Proposed delivery sequencing",
+      "decision": "Onboard datasets/apps/papers and other domains with their owning research corpus, rights assessment, measured maintenance cost and consumer acceptance.",
+      "work_packages": [
+        "CP-16.01",
+        "CP-16.02",
+        "CP-16.03",
+        "CP-16.04"
+      ],
+      "references": [
+        "https://github.com/Pick-Your-AI/pick-your-ai-research/issues/509"
+      ],
+      "authority_and_limits": "Pending future accepted pilot evidence; no new research repository assumed created.",
+      "accepted_by": [],
+      "evidence": [],
+      "responsible_decision_role": "Pipeline maintainer with each domain research owner and consumer reviewer",
+      "options": [
+        {
+          "option": "Expand after two qualified pilots using measured gates",
+          "tradeoffs": "Tests reuse across distinct domains and bounds maintenance load; growth is deliberate."
+        },
+        {
+          "option": "Import all candidate domains immediately",
+          "tradeoffs": "Increases apparent breadth but lacks rights, review capacity and accepted mappings; excluded from initial release."
+        }
+      ],
+      "consequences": [
+        "Coverage reports preserve explicit unknown denominators and do not claim completeness of all AI."
+      ],
+      "affected_release_gate": [
+        "Expansion"
+      ],
+      "actual_approvers": []
+    }
+  ]
+}
