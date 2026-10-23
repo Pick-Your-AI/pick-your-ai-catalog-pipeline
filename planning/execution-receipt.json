@@ -1,8 +1,8 @@
 {
   "schema_version": "catalog-pipeline-bootstrap-execution-receipt-1",
-  "recorded_at": "2026-10-23 04:54:13 UTC",
+  "recorded_at": "2026-10-23 13:45:25 UTC",
   "complete_mission": false,
-  "outcome": "Published foundation and graph initializer with successful hosted validation; 81 canonical issues audited; internal native graph verified complete with 81 types, 80 parents and 135 blockers; public Project #8 has 11 configured fields and 81 members; external research parent, Project values/views and governance remain incomplete",
+  "outcome": "Published repository foundation and governance inputs with successful hosted validation; all 81 canonical issues and native graph verified; external research parent verified; Project #8 initialization complete with 891 values and eight full view memberships; repository metadata, specified security/Actions settings, four existing team grants and all four active rules verified. Only final status/configuration PR publication, independent/latest-push approval, merge and exact-result readback remain pending.",
   "target": {
     "repository": "Pick-Your-AI/pick-your-ai-catalog-pipeline",
     "repository_visibility": "public",
@@ -22,10 +22,10 @@
     "foundation_upload_status": "Verified: 135 foundation blobs at the foundation commit; all five graph/bootstrap file changes verified at the later commit",
     "foundation_commit": "b03eccc59b11b83ae7e8d546a498cce13fe52d7a",
     "foundation_commit_url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/commit/b03eccc59b11b83ae7e8d546a498cce13fe52d7a",
-    "latest_verified_main_commit": "63c1c6e881ddaba817fb1c58a6a8e629ad85e33f",
-    "latest_verified_main_commit_url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/commit/63c1c6e881ddaba817fb1c58a6a8e629ad85e33f",
-    "latest_source_readback_at": "2026-10-23 04:32:54 UTC",
-    "latest_verified_tree_sha": "656e17b9dedae59394562e5c77610131c83d3631",
+    "latest_verified_main_commit": "77f92e8ee6b4c35a7cacb3be6ef26462888188a7",
+    "latest_verified_main_commit_url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/commit/77f92e8ee6b4c35a7cacb3be6ef26462888188a7",
+    "latest_source_readback_at": "2026-10-23 13:24:29 UTC",
+    "latest_verified_tree_sha": "e4c521f7b4ddc87164cabe191d7165956bed9d92",
     "project_id": null,
     "project_id_reason": "GraphQL node ID has not been captured in this consolidated receipt; Project number/title/URL are verified",
     "project_number": 8,
@@ -38,7 +38,7 @@
       "included_in_snapshot": "2026-10-23 04:47:33 UTC",
       "scope": "Observed administrative configuration and membership; not an independent GitHub approving review"
     },
-    "project_repository_link_status": "Final explicit association readback pending; membership is verified separately",
+    "project_repository_link_status": "Verified native repository association on the repository Projects page; the association already existed and was read back",
     "configured_field_count": 11,
     "configured_fields": [
       {
@@ -225,12 +225,272 @@
         "scope": "Observed administrative configuration and membership; not an independent GitHub approving review"
       }
     },
-    "project_field_values_status": "Initialization in progress; all 891 planned item-field values have not yet received complete readback",
-    "project_field_values_complete": false,
-    "verified_project_field_value_count": null,
-    "configured_views": null,
-    "saved_views_status": "Eight requested views remain incomplete; persisted layouts, filters, groups, sorts, columns and result memberships are not yet accepted",
-    "project_configuration_status": "Partial: metadata, field definitions/options and 81 members verified; item values, views and final association/readback pending",
+    "project_field_values_status": "Verified complete: all 891 values across 81 issues matched the baseline after all 17 cohorts were reloaded",
+    "project_field_values_complete": true,
+    "verified_project_field_value_count": 891,
+    "configured_views": [
+      {
+        "name": "Program Overview",
+        "layout": "TABLE_LAYOUT",
+        "filter": "repo:Pick-Your-AI/pick-your-ai-catalog-pipeline is:issue record-type:Program,Epic",
+        "group_by": "Workstream",
+        "sort_by": [
+          "Priority",
+          "Title"
+        ],
+        "visible_fields": [
+          "Title",
+          "Assignees",
+          "Status",
+          "Sub-issues progress",
+          "Priority",
+          "Acceptance Status",
+          "Parent issue"
+        ],
+        "readback_status": "Saved configuration and complete result membership verified at the recorded timestamps; dated bootstrap observation, not a future-state reset instruction",
+        "sort_directions": [
+          "ASC",
+          "ASC"
+        ],
+        "view_number": 1,
+        "url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/1",
+        "readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/1",
+        "verified_at": "2026-10-23T05:46:43.374Z",
+        "configuration_verified": true,
+        "membership_verified": true,
+        "membership_verified_at": "2026-10-23T06:46:57.143Z",
+        "membership_count": 17,
+        "membership_readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/1"
+      },
+      {
+        "name": "Epics and Work Packages",
+        "layout": "TABLE_LAYOUT",
+        "filter": "repo:Pick-Your-AI/pick-your-ai-catalog-pipeline is:issue record-type:Epic,\"Work Package\",Task",
+        "group_by": "Workstream",
+        "sort_by": [
+          "Priority",
+          "Title"
+        ],
+        "visible_fields": [
+          "Title",
+          "Status",
+          "Sub-issues progress",
+          "Priority",
+          "Parent issue",
+          "Readiness"
+        ],
+        "readback_status": "Saved configuration and complete result membership verified at the recorded timestamps; dated bootstrap observation, not a future-state reset instruction",
+        "sort_directions": [
+          "ASC",
+          "ASC"
+        ],
+        "view_number": 2,
+        "url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/2",
+        "readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/2",
+        "verified_at": "2026-10-23T05:46:43.374Z",
+        "configuration_verified": true,
+        "membership_verified": true,
+        "membership_verified_at": "2026-10-23T06:46:57.143Z",
+        "membership_count": 80,
+        "membership_readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/2"
+      },
+      {
+        "name": "Priority and Readiness",
+        "layout": "TABLE_LAYOUT",
+        "filter": "repo:Pick-Your-AI/pick-your-ai-catalog-pipeline is:issue -status:Done",
+        "group_by": "Priority",
+        "sort_by": [
+          "Priority",
+          "Title"
+        ],
+        "visible_fields": [
+          "Title",
+          "Priority",
+          "Readiness",
+          "Assignees",
+          "Dependency Status",
+          "Effort",
+          "Release Phase"
+        ],
+        "readback_status": "Saved configuration and complete result membership verified at the recorded timestamps; dated bootstrap observation, not a future-state reset instruction",
+        "sort_directions": [
+          "ASC",
+          "ASC"
+        ],
+        "view_number": 3,
+        "url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/3",
+        "readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/3?filterQuery=repo%3APick-Your-AI%2Fpick-your-ai-catalog-pipeline+is%3Aissue+-status%3ADone&visibleFields=%5B%22Title%22%2C431351633%2C431352087%2C%22Assignees%22%2C431352831%2C431352865%2C431353614%5D&groupedBy%5BcolumnId%5D=431351633",
+        "verified_at": "2026-10-23T05:46:43.374Z",
+        "configuration_verified": true,
+        "membership_verified": true,
+        "membership_verified_at": "2026-10-23T06:46:57.143Z",
+        "membership_count": 81,
+        "membership_readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/3"
+      },
+      {
+        "name": "Currently Active",
+        "layout": "BOARD_LAYOUT",
+        "filter": "repo:Pick-Your-AI/pick-your-ai-catalog-pipeline is:issue status:\"In Progress\",\"In Review\"",
+        "group_by": "Workstream",
+        "sort_by": [
+          "Priority",
+          "Title"
+        ],
+        "visible_fields": [
+          "Title",
+          "Priority",
+          "Assignees",
+          "Workstream",
+          "Acceptance Status"
+        ],
+        "readback_status": "Saved configuration and complete result membership verified at the recorded timestamps; dated bootstrap observation, not a future-state reset instruction",
+        "sort_directions": [
+          "ASC",
+          "ASC"
+        ],
+        "column_by": "Status",
+        "view_number": 4,
+        "url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/4",
+        "readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/4?filterQuery=repo%3APick-Your-AI%2Fpick-your-ai-catalog-pipeline+is%3Aissue+status%3A%22In+Progress%22%2C%22In+Review%22&visibleFields=%5B%22Title%22%2C431351633%2C%22Assignees%22%2C431351906%2C431353685%5D&layout=board&groupedBy%5BcolumnId%5D=431351906",
+        "verified_at": "2026-10-23T05:46:43.374Z",
+        "configuration_verified": true,
+        "membership_verified": true,
+        "membership_verified_at": "2026-10-23T06:46:57.143Z",
+        "membership_count": 0,
+        "membership_readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/4"
+      },
+      {
+        "name": "Blocked and Decisions",
+        "layout": "TABLE_LAYOUT",
+        "filter": "repo:Pick-Your-AI/pick-your-ai-catalog-pipeline is:issue readiness:Blocked,\"Awaiting Decision\",\"Needs Input\"",
+        "group_by": "Readiness",
+        "sort_by": [
+          "Priority",
+          "Title"
+        ],
+        "visible_fields": [
+          "Title",
+          "Readiness",
+          "Assignees",
+          "Dependency Status",
+          "Parent issue",
+          "Priority"
+        ],
+        "readback_status": "Saved configuration and complete result membership verified at the recorded timestamps; dated bootstrap observation, not a future-state reset instruction",
+        "sort_directions": [
+          "ASC",
+          "ASC"
+        ],
+        "view_number": 5,
+        "url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/5",
+        "readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/5",
+        "verified_at": "2026-10-23T05:46:43.374Z",
+        "configuration_verified": true,
+        "membership_verified": true,
+        "membership_verified_at": "2026-10-23T06:46:57.143Z",
+        "membership_count": 81,
+        "membership_readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/5"
+      },
+      {
+        "name": "Rights and Evidence",
+        "layout": "TABLE_LAYOUT",
+        "filter": "repo:Pick-Your-AI/pick-your-ai-catalog-pipeline is:issue -status:Done",
+        "group_by": "Source Rights Status",
+        "sort_by": [
+          "Priority",
+          "Title"
+        ],
+        "visible_fields": [
+          "Title",
+          "Readiness",
+          "Workstream",
+          "Evidence Confidence",
+          "Source Rights Status",
+          "Acceptance Status",
+          "Priority"
+        ],
+        "readback_status": "Saved configuration and complete result membership verified at the recorded timestamps; dated bootstrap observation, not a future-state reset instruction",
+        "sort_directions": [
+          "ASC",
+          "ASC"
+        ],
+        "view_number": 6,
+        "url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/6",
+        "readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/6",
+        "verified_at": "2026-10-23T05:46:43.374Z",
+        "configuration_verified": true,
+        "membership_verified": true,
+        "membership_verified_at": "2026-10-23T06:46:57.143Z",
+        "membership_count": 81,
+        "membership_readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/6"
+      },
+      {
+        "name": "Consumer Handoffs",
+        "layout": "TABLE_LAYOUT",
+        "filter": "repo:Pick-Your-AI/pick-your-ai-catalog-pipeline is:issue workstream:\"12 Website and mobile delivery contracts\"",
+        "group_by": "Workstream",
+        "sort_by": [
+          "Priority",
+          "Title"
+        ],
+        "visible_fields": [
+          "Title",
+          "Acceptance Status",
+          "Priority",
+          "Assignees",
+          "Dependency Status",
+          "Release Phase"
+        ],
+        "readback_status": "Saved configuration and complete result membership verified at the recorded timestamps; dated bootstrap observation, not a future-state reset instruction",
+        "sort_directions": [
+          "ASC",
+          "ASC"
+        ],
+        "view_number": 7,
+        "url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/7",
+        "readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/7",
+        "verified_at": "2026-10-23T05:46:43.374Z",
+        "configuration_verified": true,
+        "membership_verified": true,
+        "membership_verified_at": "2026-10-23T06:46:57.143Z",
+        "membership_count": 5,
+        "membership_readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/7"
+      },
+      {
+        "name": "Release Readiness",
+        "layout": "TABLE_LAYOUT",
+        "filter": "repo:Pick-Your-AI/pick-your-ai-catalog-pipeline is:issue -acceptance-status:Accepted,Deferred",
+        "group_by": "Release Phase",
+        "sort_by": [
+          "Priority",
+          "Title"
+        ],
+        "visible_fields": [
+          "Title",
+          "Acceptance Status",
+          "Priority",
+          "Release Phase",
+          "Status",
+          "Readiness"
+        ],
+        "readback_status": "Saved configuration and complete result membership verified at the recorded timestamps; dated bootstrap observation, not a future-state reset instruction",
+        "sort_directions": [
+          "ASC",
+          "ASC"
+        ],
+        "view_number": 8,
+        "url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/8",
+        "readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/8",
+        "verified_at": "2026-10-23T05:46:43.374Z",
+        "configuration_verified": true,
+        "membership_verified": true,
+        "membership_verified_at": "2026-10-23T06:46:57.143Z",
+        "membership_count": 81,
+        "membership_readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/8"
+      }
+    ],
+    "saved_views_status": "All eight saved configurations and complete result memberships verified; no missing, extra or duplicate stable IDs",
+    "project_configuration_status": "Verified complete for Project initialization: metadata, native repository association, 11 field definitions/options, 81 members, 891 item-field values, eight saved configurations and all eight complete result memberships",
     "issue_publication_status": "Verified complete for issue identity and content scope",
     "published_issue_count": 81,
     "published_issue_ids": {
@@ -242,7 +502,20 @@
         "body_sha256": "75253ffb076506ea42c566b6310a357e1d57e9739d83378b66b4762bc5f91d26",
         "native_issue_type": "Feature",
         "internal_parent_id": null,
-        "blocked_by_ids": []
+        "blocked_by_ids": [],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Waiting",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Awaiting Decision",
+          "Record Type": "Program",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "Program"
+        }
       },
       "CP-01": {
         "number": 2,
@@ -252,7 +525,20 @@
         "body_sha256": "121ac2e5d34feebd50094680828e294b7836d49203938763f49ca5b727a9724f",
         "native_issue_type": "Feature",
         "internal_parent_id": "CP",
-        "blocked_by_ids": []
+        "blocked_by_ids": [],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Waiting",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Epic",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "01 Scope and delivery governance"
+        }
       },
       "CP-01.01": {
         "number": 3,
@@ -262,7 +548,20 @@
         "body_sha256": "1a37a30f8b09a9bc60d82dbddd0a199ca28e9287f691174ed9fba056497c89b6",
         "native_issue_type": "Task",
         "internal_parent_id": "CP-01",
-        "blocked_by_ids": []
+        "blocked_by_ids": [],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "No Dependencies",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Needs Input",
+          "Record Type": "Work Package",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "01 Scope and delivery governance"
+        }
       },
       "CP-01.02": {
         "number": 4,
@@ -274,7 +573,20 @@
         "internal_parent_id": "CP-01",
         "blocked_by_ids": [
           "CP-01.01"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "01 Scope and delivery governance"
+        }
       },
       "CP-01.03": {
         "number": 5,
@@ -286,7 +598,20 @@
         "internal_parent_id": "CP-01",
         "blocked_by_ids": [
           "CP-01.01"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "01 Scope and delivery governance"
+        }
       },
       "CP-01.04": {
         "number": 6,
@@ -299,7 +624,20 @@
         "blocked_by_ids": [
           "CP-01.01",
           "CP-01.02"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "01 Scope and delivery governance"
+        }
       },
       "CP-02": {
         "number": 7,
@@ -309,7 +647,20 @@
         "body_sha256": "05797d3b66d64fdefdd597ce9374036fb42c4a7d2ed5d88a21c96d67727933ff",
         "native_issue_type": "Feature",
         "internal_parent_id": "CP",
-        "blocked_by_ids": []
+        "blocked_by_ids": [],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Waiting",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Epic",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "02 Ecosystem contracts and ontology"
+        }
       },
       "CP-02.01": {
         "number": 8,
@@ -321,7 +672,20 @@
         "internal_parent_id": "CP-02",
         "blocked_by_ids": [
           "CP-01.01"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "02 Ecosystem contracts and ontology"
+        }
       },
       "CP-02.02": {
         "number": 9,
@@ -333,7 +697,20 @@
         "internal_parent_id": "CP-02",
         "blocked_by_ids": [
           "CP-02.01"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "02 Ecosystem contracts and ontology"
+        }
       },
       "CP-02.03": {
         "number": 10,
@@ -345,7 +722,20 @@
         "internal_parent_id": "CP-02",
         "blocked_by_ids": [
           "CP-02.02"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P1",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "02 Ecosystem contracts and ontology"
+        }
       },
       "CP-02.04": {
         "number": 11,
@@ -358,7 +748,20 @@
         "blocked_by_ids": [
           "CP-02.01",
           "CP-02.02"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P1",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "02 Ecosystem contracts and ontology"
+        }
       },
       "CP-03": {
         "number": 12,
@@ -368,7 +771,20 @@
         "body_sha256": "ee6ac35577731a7ae31c4b338a05a6c6c96642f91e5994b785ecb245e461556b",
         "native_issue_type": "Feature",
         "internal_parent_id": "CP",
-        "blocked_by_ids": []
+        "blocked_by_ids": [],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Waiting",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Epic",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "03 Source rights and use governance"
+        }
       },
       "CP-03.01": {
         "number": 13,
@@ -381,7 +797,20 @@
         "blocked_by_ids": [
           "CP-02.01",
           "CP-02.02"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "03 Source rights and use governance"
+        }
       },
       "CP-03.02": {
         "number": 14,
@@ -393,7 +822,20 @@
         "internal_parent_id": "CP-03",
         "blocked_by_ids": [
           "CP-03.01"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "03 Source rights and use governance"
+        }
       },
       "CP-03.03": {
         "number": 15,
@@ -406,7 +848,20 @@
         "blocked_by_ids": [
           "CP-03.01",
           "CP-06.01"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "03 Source rights and use governance"
+        }
       },
       "CP-03.04": {
         "number": 16,
@@ -419,7 +874,20 @@
         "blocked_by_ids": [
           "CP-03.03",
           "CP-10.03"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Bounded Pilot",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "03 Source rights and use governance"
+        }
       },
       "CP-04": {
         "number": 17,
@@ -429,7 +897,20 @@
         "body_sha256": "ebd7cbd2b8e0596a135683f932091796d4edfe433e0e0150af1904707620e592",
         "native_issue_type": "Feature",
         "internal_parent_id": "CP",
-        "blocked_by_ids": []
+        "blocked_by_ids": [],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Waiting",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Epic",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "04 Permitted acquisition and connector runtime"
+        }
       },
       "CP-04.01": {
         "number": 18,
@@ -442,7 +923,20 @@
         "blocked_by_ids": [
           "CP-03.02",
           "CP-01.04"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "04 Permitted acquisition and connector runtime"
+        }
       },
       "CP-04.02": {
         "number": 19,
@@ -455,7 +949,20 @@
         "blocked_by_ids": [
           "CP-04.01",
           "CP-03.01"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Bounded Pilot",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "04 Permitted acquisition and connector runtime"
+        }
       },
       "CP-04.03": {
         "number": 20,
@@ -468,7 +975,20 @@
         "blocked_by_ids": [
           "CP-04.01",
           "CP-02.02"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Bounded Pilot",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "04 Permitted acquisition and connector runtime"
+        }
       },
       "CP-04.04": {
         "number": 21,
@@ -481,7 +1001,20 @@
         "blocked_by_ids": [
           "CP-04.01",
           "CP-14.01"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Bounded Pilot",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "04 Permitted acquisition and connector runtime"
+        }
       },
       "CP-05": {
         "number": 22,
@@ -491,7 +1024,20 @@
         "body_sha256": "08fd03a596fa765279d579e3fe9fcc223266c072860eeda20a21c64cc263ff55",
         "native_issue_type": "Feature",
         "internal_parent_id": "CP",
-        "blocked_by_ids": []
+        "blocked_by_ids": [],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Waiting",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Epic",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "05 Identity resolution and normalization"
+        }
       },
       "CP-05.01": {
         "number": 23,
@@ -503,7 +1049,20 @@
         "internal_parent_id": "CP-05",
         "blocked_by_ids": [
           "CP-02.01"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "05 Identity resolution and normalization"
+        }
       },
       "CP-05.02": {
         "number": 24,
@@ -516,7 +1075,20 @@
         "blocked_by_ids": [
           "CP-05.01",
           "CP-06.01"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P1",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "05 Identity resolution and normalization"
+        }
       },
       "CP-05.03": {
         "number": 25,
@@ -529,7 +1101,20 @@
         "blocked_by_ids": [
           "CP-02.01",
           "CP-05.01"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "05 Identity resolution and normalization"
+        }
       },
       "CP-05.04": {
         "number": 26,
@@ -542,7 +1127,20 @@
         "blocked_by_ids": [
           "CP-05.01",
           "CP-02.04"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P1",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "05 Identity resolution and normalization"
+        }
       },
       "CP-06": {
         "number": 27,
@@ -552,7 +1150,20 @@
         "body_sha256": "6ba648fff437d5f9dd860ba54414d175fce7af8ce09f7351a7d3577a9563645a",
         "native_issue_type": "Feature",
         "internal_parent_id": "CP",
-        "blocked_by_ids": []
+        "blocked_by_ids": [],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Waiting",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Epic",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "06 Evidence and provenance ledger"
+        }
       },
       "CP-06.01": {
         "number": 28,
@@ -565,7 +1176,20 @@
         "blocked_by_ids": [
           "CP-02.01",
           "CP-03.01"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "06 Evidence and provenance ledger"
+        }
       },
       "CP-06.02": {
         "number": 29,
@@ -577,7 +1201,20 @@
         "internal_parent_id": "CP-06",
         "blocked_by_ids": [
           "CP-06.01"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "06 Evidence and provenance ledger"
+        }
       },
       "CP-06.03": {
         "number": 30,
@@ -590,7 +1227,20 @@
         "blocked_by_ids": [
           "CP-06.01",
           "CP-03.02"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "06 Evidence and provenance ledger"
+        }
       },
       "CP-06.04": {
         "number": 31,
@@ -603,7 +1253,20 @@
         "blocked_by_ids": [
           "CP-06.01",
           "CP-01.02"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P1",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "06 Evidence and provenance ledger"
+        }
       },
       "CP-07": {
         "number": 32,
@@ -613,7 +1276,20 @@
         "body_sha256": "fa48c2a8f7f6246d89cf171bbd235355ef0df4c94b7034228e9a9d97d0196185",
         "native_issue_type": "Feature",
         "internal_parent_id": "CP",
-        "blocked_by_ids": []
+        "blocked_by_ids": [],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Waiting",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Epic",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "07 Validation, quarantine and quality"
+        }
       },
       "CP-07.01": {
         "number": 33,
@@ -627,7 +1303,20 @@
           "CP-02.01",
           "CP-05.03",
           "CP-06.01"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "07 Validation, quarantine and quality"
+        }
       },
       "CP-07.02": {
         "number": 34,
@@ -640,7 +1329,20 @@
         "blocked_by_ids": [
           "CP-07.01",
           "CP-03.01"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "07 Validation, quarantine and quality"
+        }
       },
       "CP-07.03": {
         "number": 35,
@@ -653,7 +1355,20 @@
         "blocked_by_ids": [
           "CP-06.02",
           "CP-07.01"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P1",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "07 Validation, quarantine and quality"
+        }
       },
       "CP-07.04": {
         "number": 36,
@@ -667,7 +1382,20 @@
           "CP-01.01",
           "CP-05.02",
           "CP-07.02"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P1",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "07 Validation, quarantine and quality"
+        }
       },
       "CP-08": {
         "number": 37,
@@ -677,7 +1405,20 @@
         "body_sha256": "c91160ce569640e6477edfc5c7e231b172dc2b2f10ba14fc4683ad40fb65ec97",
         "native_issue_type": "Feature",
         "internal_parent_id": "CP",
-        "blocked_by_ids": []
+        "blocked_by_ids": [],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Waiting",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Epic",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "08 Human review and editorial control"
+        }
       },
       "CP-08.01": {
         "number": 38,
@@ -691,7 +1432,20 @@
           "CP-07.02",
           "CP-06.03",
           "CP-01.02"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "08 Human review and editorial control"
+        }
       },
       "CP-08.02": {
         "number": 39,
@@ -704,7 +1458,20 @@
         "blocked_by_ids": [
           "CP-08.01",
           "CP-13.01"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Bounded Pilot",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "08 Human review and editorial control"
+        }
       },
       "CP-08.03": {
         "number": 40,
@@ -717,7 +1484,20 @@
         "blocked_by_ids": [
           "CP-08.01",
           "CP-06.04"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P1",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Beta",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "08 Human review and editorial control"
+        }
       },
       "CP-08.04": {
         "number": 41,
@@ -730,7 +1510,20 @@
         "blocked_by_ids": [
           "CP-08.01",
           "CP-13.02"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P2",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Expansion",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "08 Human review and editorial control"
+        }
       },
       "CP-09": {
         "number": 42,
@@ -740,7 +1533,20 @@
         "body_sha256": "d76e4882029ebe5a7102e4ce0071a3fa5c279d3fa60028eaad65068cbe5a67ce",
         "native_issue_type": "Feature",
         "internal_parent_id": "CP",
-        "blocked_by_ids": []
+        "blocked_by_ids": [],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Waiting",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Epic",
+          "Release Phase": "Bounded Pilot",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "09 Prices and qualified measurements"
+        }
       },
       "CP-09.01": {
         "number": 43,
@@ -753,7 +1559,20 @@
         "blocked_by_ids": [
           "CP-05.03",
           "CP-03.03"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Bounded Pilot",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "09 Prices and qualified measurements"
+        }
       },
       "CP-09.02": {
         "number": 44,
@@ -766,7 +1585,20 @@
         "blocked_by_ids": [
           "CP-06.02",
           "CP-07.01"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P1",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Beta",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "09 Prices and qualified measurements"
+        }
       },
       "CP-09.03": {
         "number": 45,
@@ -779,7 +1611,20 @@
         "blocked_by_ids": [
           "CP-09.01",
           "CP-09.02"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P2",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Expansion",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "09 Prices and qualified measurements"
+        }
       },
       "CP-09.04": {
         "number": 46,
@@ -792,7 +1637,20 @@
         "blocked_by_ids": [
           "CP-09.02",
           "CP-06.02"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P1",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Beta",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "09 Prices and qualified measurements"
+        }
       },
       "CP-10": {
         "number": 47,
@@ -802,7 +1660,20 @@
         "body_sha256": "ac20c6ee31dca879aa1b4959ca59de72dec06b61d3b34c5af365fcfbad519548",
         "native_issue_type": "Feature",
         "internal_parent_id": "CP",
-        "blocked_by_ids": []
+        "blocked_by_ids": [],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Waiting",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Epic",
+          "Release Phase": "Bounded Pilot",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "10 Immutable publishing and withdrawals"
+        }
       },
       "CP-10.01": {
         "number": 48,
@@ -816,7 +1687,20 @@
           "CP-08.01",
           "CP-03.03",
           "CP-07.01"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Bounded Pilot",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "10 Immutable publishing and withdrawals"
+        }
       },
       "CP-10.02": {
         "number": 49,
@@ -830,7 +1714,20 @@
           "CP-10.01",
           "CP-08.02",
           "CP-13.03"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Bounded Pilot",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "10 Immutable publishing and withdrawals"
+        }
       },
       "CP-10.03": {
         "number": 50,
@@ -842,7 +1739,20 @@
         "internal_parent_id": "CP-10",
         "blocked_by_ids": [
           "CP-10.02"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Bounded Pilot",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "10 Immutable publishing and withdrawals"
+        }
       },
       "CP-10.04": {
         "number": 51,
@@ -855,7 +1765,20 @@
         "blocked_by_ids": [
           "CP-10.02",
           "CP-02.03"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P1",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Bounded Pilot",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "10 Immutable publishing and withdrawals"
+        }
       },
       "CP-11": {
         "number": 52,
@@ -865,7 +1788,20 @@
         "body_sha256": "afd52ffeebdd816accc07550e4fd8a749c0bf32a4032d392f5c1e9780842149a",
         "native_issue_type": "Feature",
         "internal_parent_id": "CP",
-        "blocked_by_ids": []
+        "blocked_by_ids": [],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Waiting",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P1",
+          "Readiness": "Blocked",
+          "Record Type": "Epic",
+          "Release Phase": "Bounded Pilot",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "11 Freshness and change management"
+        }
       },
       "CP-11.01": {
         "number": 53,
@@ -878,7 +1814,20 @@
         "blocked_by_ids": [
           "CP-06.01",
           "CP-02.02"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P1",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Bounded Pilot",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "11 Freshness and change management"
+        }
       },
       "CP-11.02": {
         "number": 54,
@@ -892,7 +1841,20 @@
           "CP-11.01",
           "CP-07.03",
           "CP-04.04"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P1",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Beta",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "11 Freshness and change management"
+        }
       },
       "CP-11.03": {
         "number": 55,
@@ -905,7 +1867,20 @@
         "blocked_by_ids": [
           "CP-11.01",
           "CP-04.04"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P1",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Beta",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "11 Freshness and change management"
+        }
       },
       "CP-11.04": {
         "number": 56,
@@ -919,7 +1894,20 @@
           "CP-11.02",
           "CP-10.03",
           "CP-12.01"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P1",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Beta",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "11 Freshness and change management"
+        }
       },
       "CP-12": {
         "number": 57,
@@ -929,7 +1917,20 @@
         "body_sha256": "039b0cf2ab5339e5f86fa8e73be7faa87ec361840c136e0ee198cb3bdc027b0f",
         "native_issue_type": "Feature",
         "internal_parent_id": "CP",
-        "blocked_by_ids": []
+        "blocked_by_ids": [],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Waiting",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P1",
+          "Readiness": "Blocked",
+          "Record Type": "Epic",
+          "Release Phase": "Bounded Pilot",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "12 Website and mobile delivery contracts"
+        }
       },
       "CP-12.01": {
         "number": 58,
@@ -942,7 +1943,20 @@
         "blocked_by_ids": [
           "CP-02.02",
           "CP-10.01"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Bounded Pilot",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "12 Website and mobile delivery contracts"
+        }
       },
       "CP-12.02": {
         "number": 59,
@@ -955,7 +1969,20 @@
         "blocked_by_ids": [
           "CP-12.01",
           "CP-10.04"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Bounded Pilot",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "12 Website and mobile delivery contracts"
+        }
       },
       "CP-12.03": {
         "number": 60,
@@ -968,7 +1995,20 @@
         "blocked_by_ids": [
           "CP-12.01",
           "CP-10.04"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P1",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Beta",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "12 Website and mobile delivery contracts"
+        }
       },
       "CP-12.04": {
         "number": 61,
@@ -982,7 +2022,20 @@
           "CP-12.02",
           "CP-12.03",
           "CP-02.03"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P1",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Beta",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "12 Website and mobile delivery contracts"
+        }
       },
       "CP-13": {
         "number": 62,
@@ -992,7 +2045,20 @@
         "body_sha256": "459c36be513b2fce717b58ab5967b9192970a08fb799af5eba6fdf2f99be5a1f",
         "native_issue_type": "Feature",
         "internal_parent_id": "CP",
-        "blocked_by_ids": []
+        "blocked_by_ids": [],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Waiting",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Epic",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "13 Security, privacy and supply chain"
+        }
       },
       "CP-13.01": {
         "number": 63,
@@ -1005,7 +2071,20 @@
         "blocked_by_ids": [
           "CP-01.02",
           "CP-01.04"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "13 Security, privacy and supply chain"
+        }
       },
       "CP-13.02": {
         "number": 64,
@@ -1018,7 +2097,20 @@
         "blocked_by_ids": [
           "CP-04.01",
           "CP-13.01"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "13 Security, privacy and supply chain"
+        }
       },
       "CP-13.03": {
         "number": 65,
@@ -1031,7 +2123,20 @@
         "blocked_by_ids": [
           "CP-13.01",
           "CP-10.01"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Bounded Pilot",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "13 Security, privacy and supply chain"
+        }
       },
       "CP-13.04": {
         "number": 66,
@@ -1044,7 +2149,20 @@
         "blocked_by_ids": [
           "CP-13.01",
           "CP-03.04"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P1",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Beta",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "13 Security, privacy and supply chain"
+        }
       },
       "CP-14": {
         "number": 67,
@@ -1054,7 +2172,20 @@
         "body_sha256": "a28032061ce29f2a16d46ea9a01170078c4fd0e062a656af0fd98745087fb7dc",
         "native_issue_type": "Feature",
         "internal_parent_id": "CP",
-        "blocked_by_ids": []
+        "blocked_by_ids": [],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Waiting",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P1",
+          "Readiness": "Blocked",
+          "Record Type": "Epic",
+          "Release Phase": "Bounded Pilot",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "14 Platform and operational reliability"
+        }
       },
       "CP-14.01": {
         "number": 68,
@@ -1068,7 +2199,20 @@
           "CP-01.04",
           "CP-06.01",
           "CP-13.01"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Bounded Pilot",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "14 Platform and operational reliability"
+        }
       },
       "CP-14.02": {
         "number": 69,
@@ -1081,7 +2225,20 @@
         "blocked_by_ids": [
           "CP-14.01",
           "CP-13.03"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P1",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Beta",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "14 Platform and operational reliability"
+        }
       },
       "CP-14.03": {
         "number": 70,
@@ -1094,7 +2251,20 @@
         "blocked_by_ids": [
           "CP-04.04",
           "CP-10.02"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P1",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Beta",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "14 Platform and operational reliability"
+        }
       },
       "CP-14.04": {
         "number": 71,
@@ -1108,7 +2278,20 @@
           "CP-14.02",
           "CP-14.03",
           "CP-03.04"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P1",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Production",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "14 Platform and operational reliability"
+        }
       },
       "CP-15": {
         "number": 72,
@@ -1118,7 +2301,20 @@
         "body_sha256": "9f7be85ac71cc6062b6d8962dd8fecef2d5321f9271d6320ac358c9824816781",
         "native_issue_type": "Feature",
         "internal_parent_id": "CP",
-        "blocked_by_ids": []
+        "blocked_by_ids": [],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Waiting",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Epic",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "15 Conformance and quality verification"
+        }
       },
       "CP-15.01": {
         "number": 73,
@@ -1132,7 +2328,20 @@
           "CP-01.03",
           "CP-02.01",
           "CP-03.01"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Foundation",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "15 Conformance and quality verification"
+        }
       },
       "CP-15.02": {
         "number": 74,
@@ -1146,7 +2355,20 @@
           "CP-10.02",
           "CP-12.01",
           "CP-04.04"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Bounded Pilot",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "15 Conformance and quality verification"
+        }
       },
       "CP-15.03": {
         "number": 75,
@@ -1159,7 +2381,20 @@
         "blocked_by_ids": [
           "CP-15.02",
           "CP-14.03"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P1",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Beta",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "15 Conformance and quality verification"
+        }
       },
       "CP-15.04": {
         "number": 76,
@@ -1174,7 +2409,20 @@
           "CP-15.03",
           "CP-14.04",
           "CP-12.04"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P1",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Production",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "15 Conformance and quality verification"
+        }
       },
       "CP-16": {
         "number": 77,
@@ -1184,7 +2432,20 @@
         "body_sha256": "c625d1efc8d3272080d10ff0057f5ac869736a2cf35ee2d3332b0b380fd72b0e",
         "native_issue_type": "Feature",
         "internal_parent_id": "CP",
-        "blocked_by_ids": []
+        "blocked_by_ids": [],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Waiting",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P1",
+          "Readiness": "Blocked",
+          "Record Type": "Epic",
+          "Release Phase": "Bounded Pilot",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "16 Bounded pilots and ecosystem expansion"
+        }
       },
       "CP-16.01": {
         "number": 78,
@@ -1199,7 +2460,20 @@
           "CP-09.01",
           "CP-12.02",
           "CP-15.02"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Bounded Pilot",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "16 Bounded pilots and ecosystem expansion"
+        }
       },
       "CP-16.02": {
         "number": 79,
@@ -1213,7 +2487,20 @@
           "CP-16.01",
           "CP-02.04",
           "CP-05.04"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P0",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Bounded Pilot",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "16 Bounded pilots and ecosystem expansion"
+        }
       },
       "CP-16.03": {
         "number": 80,
@@ -1227,7 +2514,20 @@
           "CP-16.02",
           "CP-07.04",
           "CP-15.04"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P2",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Expansion",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "16 Bounded pilots and ecosystem expansion"
+        }
       },
       "CP-16.04": {
         "number": 81,
@@ -1240,7 +2540,20 @@
         "blocked_by_ids": [
           "CP-16.03",
           "CP-14.04"
-        ]
+        ],
+        "project_fields": {
+          "Acceptance Status": "Not Started",
+          "Dependency Status": "Blocked",
+          "Effort": "Unknown",
+          "Evidence Confidence": "Unverified",
+          "Priority": "P2",
+          "Readiness": "Blocked",
+          "Record Type": "Work Package",
+          "Release Phase": "Expansion",
+          "Source Rights Status": "Not Assessed",
+          "Status": "Backlog",
+          "Workstream": "16 Bounded pilots and ecosystem expansion"
+        }
       }
     },
     "issue_content_audit": {
@@ -1263,7 +2576,7 @@
       ]
     },
     "native_graph": {
-      "status": "Verified complete for the internal graph; external research parent remains excluded",
+      "status": "Verified complete for the internal graph; external research parent was excluded from this workflow and verified separately",
       "inspection": {
         "run_id": 39900973114,
         "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/actions/runs/39900973114",
@@ -1316,43 +2629,172 @@
         "finalParent": true,
         "finalBlockers": true
       },
-      "issue_bindings_location": "remote.published_issue_ids: native_issue_type, internal_parent_id and blocked_by_ids; mapped from exact verified journal identities"
+      "issue_bindings_location": "remote.published_issue_ids: native_issue_type, internal_parent_id and blocked_by_ids; mapped from exact verified journal identities",
+      "applied_configuration": {
+        "path": "planning/project-config.json",
+        "sha256": "e1731c6e1a352d78d75f2bd7ae6c3299e09629c38178ac514fd57f5ceeae2c87",
+        "commit": "63c1c6e881ddaba817fb1c58a6a8e629ad85e33f",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/blob/63c1c6e881ddaba817fb1c58a6a8e629ad85e33f/planning/project-config.json",
+        "journal_fingerprint": "f0d47e4b1a6e24c8ef5416ec46ee57922b1f6e2e6d3c8760ae5768deaa888c51",
+        "scope": "Exact historical configuration used by the completed graph run; later saved-view reconciliation does not rewrite this binding"
+      }
     },
     "published_internal_parent_edges": 80,
     "published_blocker_edges": 135,
     "published_typed_issue_count": 81,
     "external_research_parent": {
       "url": "https://github.com/Pick-Your-AI/pick-your-ai-research/issues/509",
+      "issue_id": 5985963758,
+      "issue_number": 509,
       "program_issue_url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/1",
-      "status": "Separate cross-repository reconciliation and readback pending"
+      "program_issue_id": 5991796694,
+      "status": "Verified native research parent from both directions",
+      "verified": true,
+      "observed_at": "2026-10-23 05:20:26 UTC",
+      "parent_endpoint_matches": true,
+      "parent_sub_issues_include_program": true,
+      "research_issue_state": "open",
+      "program_issue_state": "open",
+      "preserved_existing_papers_child": {
+        "id": 5991897179,
+        "number": 1,
+        "title": "[PAPER] AI Papers & Research Index",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-papers/issues/1",
+        "state": "open"
+      },
+      "readback_endpoints": [
+        "https://api.github.com/repos/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/1/parent",
+        "https://api.github.com/repos/Pick-Your-AI/pick-your-ai-research/issues/509/sub_issues?per_page=100"
+      ],
+      "scope": "One cross-repository native parent link, separate from 80 internal parents; research #509 remains open with its broader scope"
     },
     "hosted_ci_run": {
-      "run_id": 39900854598,
-      "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/actions/runs/39900854598",
-      "job_id": 120241854872,
+      "run_id": 39925283272,
+      "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/actions/runs/39925283272",
+      "job_id": 120320028173,
       "check": "ci-required",
-      "head_sha": "63c1c6e881ddaba817fb1c58a6a8e629ad85e33f",
+      "head_sha": "77f92e8ee6b4c35a7cacb3be6ef26462888188a7",
       "status": "completed",
       "conclusion": "success",
-      "log_evidence": [
-        "2026-10-23T04:32:35.3375574Z Plan valid: 657 stable records, 14 ecosystem domains, 16 decisions, 5 release phases.",
-        "2026-10-23T04:32:35.5971793Z PASS: 3 draft schemas, 5 synthetic examples, byte-integrity and rejection checks; no production eligibility.",
-        "2026-10-23T04:32:35.6895222Z Generated documents verified: 85 outputs; no network or GitHub mutations.",
-        "2026-10-23T04:32:38.5991238Z Ran 100 tests in 2.251s",
-        "2026-10-23T04:32:38.5991568Z OK"
+      "created_at": "2026-10-23T08:31:46Z",
+      "updated_at": "2026-10-23T08:32:00Z",
+      "integration_id": 15368,
+      "hosted_test_count": null,
+      "test_count_reason": "Retained API receipt verifies successful test step but contains no test-count log; the earlier 100-test result remains separately preserved",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Install validation dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Validate planning, coverage and dependency graph",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Validate synthetic draft examples and rejection boundaries",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Verify generated documents and issue payloads",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7
+        },
+        {
+          "name": "Run meaningful positive and negative tests",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8
+        },
+        {
+          "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15
+        },
+        {
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17
+        }
       ]
     },
-    "team_grants_verified": false,
-    "team_grants_status": "Blocked by GitHub administrative reauthentication (sudo) prompt",
+    "team_grants_verified": true,
+    "team_grants_status": "Verified four existing team grants through the complete repository access UI; administrative reauthentication is no longer blocking",
     "team_grants_evidence": {
-      "method": "Authenticated GitHub UI readback by the root executor",
-      "included_in_snapshot": "2026-10-23 04:47:33 UTC",
-      "scope": "Observed administrative configuration and membership; not an independent GitHub approving review"
+      "schema_version": "catalog-team-access-readback-1",
+      "observed_at": "2026-10-23 13:36:53 UTC",
+      "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/settings/access",
+      "method": "Authenticated GitHub repository access UI, complete direct-access tabpanel",
+      "base_role": "Read",
+      "organization_member_count": 20,
+      "direct_access_entities": 4,
+      "direct_user_count": 0,
+      "teams": [
+        {
+          "slug": "maintainers",
+          "name": "Maintainers",
+          "role": "triage",
+          "members": 20
+        },
+        {
+          "slug": "research",
+          "name": "Research",
+          "role": "triage",
+          "members": 20
+        },
+        {
+          "slug": "research-lead-maintainers",
+          "name": "Research Lead Maintainers",
+          "role": "admin",
+          "members": 1
+        },
+        {
+          "slug": "research-maintainers",
+          "name": "Research Maintainers",
+          "role": "write",
+          "members": 20
+        }
+      ],
+      "administrative_reauthentication_currently_blocking": false,
+      "mutations_performed_in_this_readback": false,
+      "attribution": "Observed existing live grants; this receipt does not assert who created them. No team membership was changed by this readback."
     },
-    "branch_rules_verified": false,
-    "branch_rules_status": "Not configured; branch/tag restrictions and review enforcement remain pending",
-    "required_checks_verified": false,
-    "required_checks_status": "ci-required passes at the recorded commit; mandatory branch-rule enforcement is not configured or verified",
+    "branch_rules_verified": true,
+    "branch_rules_status": "All four live rules active and exactly match the published governance input JSON; main reports protected:true",
+    "required_checks_verified": true,
+    "required_checks_status": "Mandatory ci-required from GitHub Actions app 15368 verified in the active no-bypass default-branch review ruleset; one approving review and latest-push approval are required",
     "codeowners": {
       "status": "Published review routing",
       "path": ".github/CODEOWNERS",
@@ -1367,13 +2809,1169 @@
       "interpretation": "Initial repository observation; not permission to bypass subsequent review requirements"
     },
     "latest_source_governance_observation": {
-      "recorded_at": "2026-10-23 04:32:54 UTC",
-      "main_protected": false
+      "included_in_snapshot": "2026-10-23 13:40:49 UTC",
+      "head_sha": "77f92e8ee6b4c35a7cacb3be6ef26462888188a7",
+      "main_protected": true,
+      "readback_url": "https://api.github.com/repos/Pick-Your-AI/pick-your-ai-catalog-pipeline/branches/main",
+      "scope": "Current aggregate branch protection flag; required controls are verified from complete active ruleset details"
     },
-    "security_reporting_status": "Final repository security-reporting setting readback pending",
-    "repository_metadata_topics_status": "Final metadata/topic readback pending",
+    "security_reporting_status": "Private vulnerability reporting enabled and verified after reload; security policy also reported enabled",
+    "repository_metadata_topics_status": "Verified exact repository description, all nine intended topics, public visibility, main default branch and recorded feature/merge settings",
     "production_deployed": false,
-    "readback_scope": "Exact published source and hosted checks, complete issue identity/content audit, verified complete internal native graph with matching journal and representative GET checks, and executor-verified Project metadata/field definitions/membership. External research parent, all item values/views, team grants and governance enforcement are not certified."
+    "readback_scope": "Published source/status history and latest governance input package; successful hosted checks; issue content/identity audit, complete native graph and external parent; Project #8 with all 891 values and eight complete memberships; dated 81-issue ownership audit; specified security/Actions settings; repository metadata; four observed team grants and four full active governance rules. Final status/configuration PR publication, independent approval, merge and result readback remain pending. Implementation and production acceptance are not claimed.",
+    "status_checkpoint_publication": {
+      "prior_snapshot": "2026-10-23 04:54:13 UTC",
+      "observed_at": "2026-10-23 05:21:07 UTC",
+      "commit": "b00b37d14ce4b4fa208770bf6d0a1396bd092053",
+      "tree": "3152539b5ece196e3f4dd58ee8ecace335398d68",
+      "parent": "63c1c6e881ddaba817fb1c58a6a8e629ad85e33f",
+      "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/commit/b00b37d14ce4b4fa208770bf6d0a1396bd092053",
+      "changed_file_count": 5,
+      "exact_file_comparison": {
+        "files": [
+          {
+            "path": "README.md",
+            "local_blob_sha": "ffa99bd5dd45a150515995eec687d2a2653f2c59",
+            "bytes": 8126,
+            "remote_blob_sha": "ffa99bd5dd45a150515995eec687d2a2653f2c59",
+            "matches": true
+          },
+          {
+            "path": "docs/BOOTSTRAP_STATUS.md",
+            "local_blob_sha": "6e341f6c030f16b9ca7e4a23112f284413bba576",
+            "bytes": 14217,
+            "remote_blob_sha": "6e341f6c030f16b9ca7e4a23112f284413bba576",
+            "matches": true
+          },
+          {
+            "path": "docs/GOVERNANCE.md",
+            "local_blob_sha": "50267c230a841b688034bb7fb7a7c1e0f97d016d",
+            "bytes": 10531,
+            "remote_blob_sha": "50267c230a841b688034bb7fb7a7c1e0f97d016d",
+            "matches": true
+          },
+          {
+            "path": "docs/PROJECT_SETUP.md",
+            "local_blob_sha": "04281a0b2ac2a42ce60a83a0fb0c3c761ed43177",
+            "bytes": 25098,
+            "remote_blob_sha": "04281a0b2ac2a42ce60a83a0fb0c3c761ed43177",
+            "matches": true
+          },
+          {
+            "path": "planning/execution-receipt.json",
+            "local_blob_sha": "6ebffc7109cd89eff614630e3ea9276498d3eeda",
+            "bytes": 59938,
+            "remote_blob_sha": "6ebffc7109cd89eff614630e3ea9276498d3eeda",
+            "matches": true
+          }
+        ],
+        "all_match": true,
+        "missing": [],
+        "extra_changed_files": [],
+        "method": "Git blob SHA-1 over actual local file bytes compared with GitHub commit-file blob SHAs"
+      },
+      "scope": "Published previous status snapshot, verified before these later documentation edits; publication of the current snapshot remains pending"
+    },
+    "project_repository_link_evidence": {
+      "observed_at": "2026-10-23 05:22:53 UTC",
+      "repository_projects_url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/projects",
+      "open_projects": 1,
+      "project_url": "https://github.com/orgs/Pick-Your-AI/projects/8",
+      "title": "Pick Your AI — Catalog Pipeline",
+      "description": "Organization-wide AI research ingestion, source governance, normalization, evidence review, catalog publishing, freshness, and consumer delivery.",
+      "verified_in_ui": true
+    },
+    "published_external_parent_edges": 1,
+    "latest_ruleset_observation": {
+      "included_in_snapshot": "2026-10-23 13:40:49 UTC",
+      "state": "verified_active",
+      "count": 4,
+      "ruleset_ids": [
+        25725321,
+        25725653,
+        25725655,
+        25725657
+      ],
+      "source_url": "https://api.github.com/repos/Pick-Your-AI/pick-your-ai-catalog-pipeline/rulesets?includes_parents=true&per_page=100",
+      "complete_details": [
+        {
+          "id": 25725321,
+          "name": "Contributor boundary: default branch",
+          "target": "branch",
+          "source_type": "Repository",
+          "source": "Pick-Your-AI/pick-your-ai-catalog-pipeline",
+          "enforcement": "active",
+          "conditions": {
+            "ref_name": {
+              "exclude": [],
+              "include": [
+                "~DEFAULT_BRANCH"
+              ]
+            }
+          },
+          "rules": [
+            {
+              "type": "update"
+            }
+          ],
+          "node_id": "RRS_lACqUmVwb3NpdG9yec5VQj16zgGIiYk",
+          "created_at": "2026-10-23T09:28:08.535-04:00",
+          "updated_at": "2026-10-23T09:28:08.593-04:00",
+          "bypass_actors": [
+            {
+              "actor_id": null,
+              "actor_type": "OrganizationAdmin",
+              "bypass_mode": "always"
+            },
+            {
+              "actor_id": 2,
+              "actor_type": "RepositoryRole",
+              "bypass_mode": "always"
+            },
+            {
+              "actor_id": 5,
+              "actor_type": "RepositoryRole",
+              "bypass_mode": "always"
+            }
+          ],
+          "current_user_can_bypass": "always",
+          "_links": {
+            "self": {
+              "href": "https://api.github.com/repos/Pick-Your-AI/pick-your-ai-catalog-pipeline/rulesets/25725321"
+            },
+            "html": {
+              "href": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/rules/25725321"
+            }
+          }
+        },
+        {
+          "id": 25725653,
+          "name": "Contributor boundary: branches",
+          "target": "branch",
+          "source_type": "Repository",
+          "source": "Pick-Your-AI/pick-your-ai-catalog-pipeline",
+          "enforcement": "active",
+          "conditions": {
+            "ref_name": {
+              "exclude": [
+                "~DEFAULT_BRANCH",
+                "refs/heads/contrib/**",
+                "refs/heads/contrib/**/*",
+                "refs/heads/dependabot/**",
+                "refs/heads/dependabot/**/*"
+              ],
+              "include": [
+                "~ALL"
+              ]
+            }
+          },
+          "rules": [
+            {
+              "type": "creation"
+            },
+            {
+              "type": "update"
+            },
+            {
+              "type": "deletion"
+            },
+            {
+              "type": "non_fast_forward"
+            }
+          ],
+          "node_id": "RRS_lACqUmVwb3NpdG9yec5VQj16zgGIitU",
+          "created_at": "2026-10-23T09:34:16.416-04:00",
+          "updated_at": "2026-10-23T09:34:16.504-04:00",
+          "bypass_actors": [
+            {
+              "actor_id": null,
+              "actor_type": "OrganizationAdmin",
+              "bypass_mode": "always"
+            },
+            {
+              "actor_id": 2,
+              "actor_type": "RepositoryRole",
+              "bypass_mode": "always"
+            },
+            {
+              "actor_id": 5,
+              "actor_type": "RepositoryRole",
+              "bypass_mode": "always"
+            }
+          ],
+          "current_user_can_bypass": "always",
+          "_links": {
+            "self": {
+              "href": "https://api.github.com/repos/Pick-Your-AI/pick-your-ai-catalog-pipeline/rulesets/25725653"
+            },
+            "html": {
+              "href": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/rules/25725653"
+            }
+          }
+        },
+        {
+          "id": 25725655,
+          "name": "Contributor boundary: tags",
+          "target": "tag",
+          "source_type": "Repository",
+          "source": "Pick-Your-AI/pick-your-ai-catalog-pipeline",
+          "enforcement": "active",
+          "conditions": {
+            "ref_name": {
+              "exclude": [],
+              "include": [
+                "~ALL"
+              ]
+            }
+          },
+          "rules": [
+            {
+              "type": "creation"
+            },
+            {
+              "type": "update"
+            },
+            {
+              "type": "deletion"
+            }
+          ],
+          "node_id": "RRS_lACqUmVwb3NpdG9yec5VQj16zgGIitc",
+          "created_at": "2026-10-23T09:34:17.544-04:00",
+          "updated_at": "2026-10-23T09:34:17.599-04:00",
+          "bypass_actors": [
+            {
+              "actor_id": null,
+              "actor_type": "OrganizationAdmin",
+              "bypass_mode": "always"
+            },
+            {
+              "actor_id": 2,
+              "actor_type": "RepositoryRole",
+              "bypass_mode": "always"
+            },
+            {
+              "actor_id": 5,
+              "actor_type": "RepositoryRole",
+              "bypass_mode": "always"
+            }
+          ],
+          "current_user_can_bypass": "always",
+          "_links": {
+            "self": {
+              "href": "https://api.github.com/repos/Pick-Your-AI/pick-your-ai-catalog-pipeline/rulesets/25725655"
+            },
+            "html": {
+              "href": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/rules/25725655"
+            }
+          }
+        },
+        {
+          "id": 25725657,
+          "name": "Review required: default branch",
+          "target": "branch",
+          "source_type": "Repository",
+          "source": "Pick-Your-AI/pick-your-ai-catalog-pipeline",
+          "enforcement": "active",
+          "conditions": {
+            "ref_name": {
+              "exclude": [],
+              "include": [
+                "~DEFAULT_BRANCH"
+              ]
+            }
+          },
+          "rules": [
+            {
+              "type": "deletion"
+            },
+            {
+              "type": "non_fast_forward"
+            },
+            {
+              "type": "pull_request",
+              "parameters": {
+                "required_approving_review_count": 1,
+                "dismiss_stale_reviews_on_push": false,
+                "required_reviewers": [],
+                "require_code_owner_review": false,
+                "dismissal_restriction": {
+                  "enabled": false,
+                  "allowed_actors": []
+                },
+                "require_last_push_approval": true,
+                "required_review_thread_resolution": false,
+                "require_extra_approval_for_unattributed_changes": true,
+                "allowed_merge_methods": [
+                  "merge",
+                  "squash",
+                  "rebase"
+                ]
+              }
+            },
+            {
+              "type": "required_status_checks",
+              "parameters": {
+                "strict_required_status_checks_policy": false,
+                "do_not_enforce_on_create": false,
+                "required_status_checks": [
+                  {
+                    "context": "ci-required",
+                    "integration_id": 15368
+                  }
+                ]
+              }
+            }
+          ],
+          "node_id": "RRS_lACqUmVwb3NpdG9yec5VQj16zgGIitk",
+          "created_at": "2026-10-23T09:34:18.663-04:00",
+          "updated_at": "2026-10-23T09:34:18.800-04:00",
+          "bypass_actors": [],
+          "current_user_can_bypass": "never",
+          "_links": {
+            "self": {
+              "href": "https://api.github.com/repos/Pick-Your-AI/pick-your-ai-catalog-pipeline/rulesets/25725657"
+            },
+            "html": {
+              "href": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/rules/25725657"
+            }
+          }
+        }
+      ],
+      "settings_match_published_inputs": true,
+      "collection_time_note": "Raw API observations collected by the root executor before this snapshot; created_at/updated_at are remote rule timestamps, not collection timestamps",
+      "attribution": "Live settings include concurrent administrative changes; the receipt does not claim the executor created every rule"
+    },
+    "security_configuration": {
+      "observed_at": "2026-10-23 05:22:53 UTC",
+      "settings_url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/settings/security_analysis",
+      "private_vulnerability_reporting": true,
+      "dependency_graph": true,
+      "dependabot_alerts": true,
+      "dependabot_security_updates": true,
+      "secret_protection_enabled": true,
+      "secret_scanning_alerts": "Enabled",
+      "push_protection": true,
+      "security_policy": "Enabled",
+      "code_scanning": "Needs setup",
+      "code_quality": "Disabled",
+      "scope": "Verified configuration; does not establish completed scans, absence of vulnerabilities or production security acceptance"
+    },
+    "actions_configuration": {
+      "observed_at": "2026-10-23 05:22:53 UTC",
+      "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/settings/actions",
+      "policy": "Allow Pick-Your-AI and selected non-Pick-Your-AI actions and reusable workflows",
+      "external_allowlist": [
+        "actions/*"
+      ],
+      "github_actions_checkbox": false,
+      "marketplace_verified_creators": false,
+      "full_length_commit_sha_required": true,
+      "default_token": "Read repository contents and packages",
+      "actions_create_approve_prs": false,
+      "fork_approval": "Require approval for first-time contributors",
+      "log_retention_days": 90,
+      "verified_after_reload": true,
+      "scope": "Verified repository Actions settings; default read token permissions do not remove the bounded graph workflow explicit issues: write grant"
+    },
+    "verified_saved_view_count": 8,
+    "saved_view_configuration_verified": true,
+    "view_memberships_verified": true,
+    "view_result_counts": {
+      "Program Overview": 17,
+      "Epics and Work Packages": 80,
+      "Priority and Readiness": 81,
+      "Currently Active": 0,
+      "Blocked and Decisions": 81,
+      "Rights and Evidence": 81,
+      "Consumer Handoffs": 5,
+      "Release Readiness": 81
+    },
+    "saved_views_evidence": {
+      "observed_at": "2026-10-23T05:46:43.374Z",
+      "method": "Root executor saved and read back each view through authenticated GitHub UI",
+      "verified_saved_configs": 8,
+      "membership_validation": "Complete: all eight full loaded-ID sets and counts match the saved filters",
+      "notes": [
+        "Focused table views retain an additional Priority field because GitHub auto-exposes sorted fields.",
+        "Currently Active uses Status columns and Workstream swimlanes.",
+        "Column order follows actual saved UI readback."
+      ],
+      "readback_url_boundary": "Exact original configuration readback URLs are retained, including query parameters for views 3 and 4; final full membership receipts use bare saved-view URLs for all eight views",
+      "membership_observed_at": "2026-10-23T06:46:57.143Z",
+      "membership_method": "Union of rowheader stable IDs read from rendered Project table DOM while scrolling each saved view; zero-item board checked by visible matching count."
+    },
+    "project_initialization_complete": true,
+    "project_field_values_evidence": {
+      "observed_at": "2026-10-23T06:39:09.116Z",
+      "scope": "Every observed value read from Project table DOM after reloading each cohort; native Assignees independently audited separately.",
+      "cohorts": 17,
+      "verified_issue_count": 81,
+      "verified_value_count": 891,
+      "failures": [],
+      "all_match_prepared_payload": true,
+      "complete_observed_values_location": "remote.published_issue_ids.*.project_fields"
+    },
+    "view_membership_receipts": {
+      "Epics and Work Packages": {
+        "name": "Epics and Work Packages",
+        "count": 80,
+        "ids": [
+          "CP-01.01",
+          "CP-01.02",
+          "CP-01.03",
+          "CP-01.04",
+          "CP-01",
+          "CP-02.01",
+          "CP-02.02",
+          "CP-02",
+          "CP-02.03",
+          "CP-02.04",
+          "CP-03.01",
+          "CP-03.02",
+          "CP-03.03",
+          "CP-03.04",
+          "CP-03",
+          "CP-04.01",
+          "CP-04.02",
+          "CP-04.03",
+          "CP-04.04",
+          "CP-04",
+          "CP-05.01",
+          "CP-05.03",
+          "CP-05",
+          "CP-05.02",
+          "CP-05.04",
+          "CP-06.01",
+          "CP-06.02",
+          "CP-06.03",
+          "CP-06",
+          "CP-06.04",
+          "CP-07.01",
+          "CP-07.02",
+          "CP-07",
+          "CP-07.03",
+          "CP-07.04",
+          "CP-08.01",
+          "CP-08.02",
+          "CP-08",
+          "CP-08.03",
+          "CP-08.04",
+          "CP-09.01",
+          "CP-09",
+          "CP-09.02",
+          "CP-09.04",
+          "CP-09.03",
+          "CP-10.01",
+          "CP-10.02",
+          "CP-10.03",
+          "CP-10",
+          "CP-10.04",
+          "CP-11.01",
+          "CP-11.02",
+          "CP-11.03",
+          "CP-11.04",
+          "CP-11",
+          "CP-12.01",
+          "CP-12.02",
+          "CP-12.03",
+          "CP-12.04",
+          "CP-12",
+          "CP-13.01",
+          "CP-13.02",
+          "CP-13.03",
+          "CP-13",
+          "CP-13.04",
+          "CP-14.01",
+          "CP-14.02",
+          "CP-14.03",
+          "CP-14.04",
+          "CP-14",
+          "CP-15.01",
+          "CP-15.02",
+          "CP-15",
+          "CP-15.03",
+          "CP-15.04",
+          "CP-16.01",
+          "CP-16.02",
+          "CP-16",
+          "CP-16.03",
+          "CP-16.04"
+        ],
+        "failures": [],
+        "filter": "repo:Pick-Your-AI/pick-your-ai-catalog-pipeline is:issue record-type:Epic,\"Work Package\",Task",
+        "url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/2",
+        "observed_at": "2026-10-23T06:46:57.143Z",
+        "order_scope": "IDs retain observation order; the complete membership set is verified independently of display ordering"
+      },
+      "Program Overview": {
+        "name": "Program Overview",
+        "count": 17,
+        "ids": [
+          "CP",
+          "CP-01",
+          "CP-02",
+          "CP-03",
+          "CP-04",
+          "CP-05",
+          "CP-06",
+          "CP-07",
+          "CP-08",
+          "CP-09",
+          "CP-10",
+          "CP-11",
+          "CP-12",
+          "CP-13",
+          "CP-14",
+          "CP-15",
+          "CP-16"
+        ],
+        "failures": [],
+        "filter": "repo:Pick-Your-AI/pick-your-ai-catalog-pipeline is:issue record-type:Program,Epic",
+        "url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/1",
+        "observed_at": "2026-10-23T06:46:57.143Z",
+        "order_scope": "IDs retain observation order; the complete membership set is verified independently of display ordering"
+      },
+      "Priority and Readiness": {
+        "name": "Priority and Readiness",
+        "count": 81,
+        "ids": [
+          "CP-01.01",
+          "CP-01.02",
+          "CP-01.03",
+          "CP-01.04",
+          "CP-01",
+          "CP-02.01",
+          "CP-02.02",
+          "CP-02",
+          "CP-03.01",
+          "CP-03.02",
+          "CP-03.03",
+          "CP-03.04",
+          "CP-03",
+          "CP-04.01",
+          "CP-04.02",
+          "CP-04.03",
+          "CP-04.04",
+          "CP-04",
+          "CP-05.01",
+          "CP-05.03",
+          "CP-05",
+          "CP-06.01",
+          "CP-06.02",
+          "CP-06.03",
+          "CP-06",
+          "CP-07.01",
+          "CP-07.02",
+          "CP-07",
+          "CP-08.01",
+          "CP-08.02",
+          "CP-08",
+          "CP-09.01",
+          "CP-09",
+          "CP-10.01",
+          "CP-10.02",
+          "CP-10.03",
+          "CP-10",
+          "CP-12.01",
+          "CP-12.02",
+          "CP-13.01",
+          "CP-13.02",
+          "CP-13.03",
+          "CP-13",
+          "CP-14.01",
+          "CP-15.01",
+          "CP-15.02",
+          "CP-15",
+          "CP-16.01",
+          "CP-16.02",
+          "CP",
+          "CP-02.03",
+          "CP-02.04",
+          "CP-05.02",
+          "CP-05.04",
+          "CP-06.04",
+          "CP-07.03",
+          "CP-07.04",
+          "CP-08.03",
+          "CP-09.02",
+          "CP-09.04",
+          "CP-10.04",
+          "CP-11.01",
+          "CP-11.02",
+          "CP-11.03",
+          "CP-11.04",
+          "CP-11",
+          "CP-12.03",
+          "CP-12.04",
+          "CP-12",
+          "CP-13.04",
+          "CP-14.02",
+          "CP-14.03",
+          "CP-14.04",
+          "CP-14",
+          "CP-15.03",
+          "CP-15.04",
+          "CP-16",
+          "CP-08.04",
+          "CP-09.03",
+          "CP-16.03",
+          "CP-16.04"
+        ],
+        "failures": [],
+        "filter": "repo:Pick-Your-AI/pick-your-ai-catalog-pipeline is:issue -status:Done",
+        "url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/3",
+        "observed_at": "2026-10-23T06:46:57.143Z",
+        "order_scope": "IDs retain observation order; the complete membership set is verified independently of display ordering"
+      },
+      "Currently Active": {
+        "name": "Currently Active",
+        "count": 0,
+        "ids": [],
+        "failures": [],
+        "filter": "repo:Pick-Your-AI/pick-your-ai-catalog-pipeline is:issue status:\"In Progress\",\"In Review\"",
+        "url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/4",
+        "observed_at": "2026-10-23T06:46:57.143Z",
+        "order_scope": "IDs retain observation order; the complete membership set is verified independently of display ordering"
+      },
+      "Blocked and Decisions": {
+        "name": "Blocked and Decisions",
+        "count": 81,
+        "ids": [
+          "CP-01.01",
+          "CP-01.02",
+          "CP-01.03",
+          "CP-01.04",
+          "CP-01",
+          "CP-02.01",
+          "CP-02.02",
+          "CP-02",
+          "CP-03.01",
+          "CP-03.02",
+          "CP-03.03",
+          "CP-03.04",
+          "CP-03",
+          "CP-04.01",
+          "CP-04.02",
+          "CP-04.03",
+          "CP-04.04",
+          "CP-04",
+          "CP-05.01",
+          "CP-05.03",
+          "CP-05",
+          "CP-06.01",
+          "CP-06.02",
+          "CP-06.03",
+          "CP-06",
+          "CP-07.01",
+          "CP-07.02",
+          "CP-07",
+          "CP-08.01",
+          "CP-08.02",
+          "CP-08",
+          "CP-09.01",
+          "CP-09",
+          "CP-10.01",
+          "CP-10.02",
+          "CP-10.03",
+          "CP-10",
+          "CP-12.01",
+          "CP-12.02",
+          "CP-13.01",
+          "CP-13.02",
+          "CP-13.03",
+          "CP-13",
+          "CP-14.01",
+          "CP-15.01",
+          "CP-15.02",
+          "CP-15",
+          "CP-16.01",
+          "CP-16.02",
+          "CP-02.03",
+          "CP-02.04",
+          "CP-05.02",
+          "CP-05.04",
+          "CP-06.04",
+          "CP-07.03",
+          "CP-07.04",
+          "CP-08.03",
+          "CP-09.02",
+          "CP-09.04",
+          "CP-10.04",
+          "CP-11.01",
+          "CP-11.02",
+          "CP-11.03",
+          "CP-11.04",
+          "CP-11",
+          "CP-12.03",
+          "CP-12.04",
+          "CP-12",
+          "CP-13.04",
+          "CP-14.02",
+          "CP-14.03",
+          "CP-14.04",
+          "CP-14",
+          "CP-15.03",
+          "CP-15.04",
+          "CP-16",
+          "CP-08.04",
+          "CP-09.03",
+          "CP-16.03",
+          "CP-16.04",
+          "CP"
+        ],
+        "failures": [],
+        "filter": "repo:Pick-Your-AI/pick-your-ai-catalog-pipeline is:issue readiness:Blocked,\"Awaiting Decision\",\"Needs Input\"",
+        "url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/5",
+        "observed_at": "2026-10-23T06:46:57.143Z",
+        "order_scope": "IDs retain observation order; the complete membership set is verified independently of display ordering"
+      },
+      "Rights and Evidence": {
+        "name": "Rights and Evidence",
+        "count": 81,
+        "ids": [
+          "CP-01.01",
+          "CP-01.02",
+          "CP-01.03",
+          "CP-01.04",
+          "CP-01",
+          "CP-02.01",
+          "CP-02.02",
+          "CP-02",
+          "CP-03.01",
+          "CP-03.02",
+          "CP-03.03",
+          "CP-03.04",
+          "CP-03",
+          "CP-04.01",
+          "CP-04.02",
+          "CP-04.03",
+          "CP-04.04",
+          "CP-04",
+          "CP-05.01",
+          "CP-05.03",
+          "CP-05",
+          "CP-06.01",
+          "CP-06.02",
+          "CP-06.03",
+          "CP-06",
+          "CP-07.01",
+          "CP-07.02",
+          "CP-07",
+          "CP-08.01",
+          "CP-08.02",
+          "CP-08",
+          "CP-09.01",
+          "CP-09",
+          "CP-10.01",
+          "CP-10.02",
+          "CP-10.03",
+          "CP-10",
+          "CP-12.01",
+          "CP-12.02",
+          "CP-13.01",
+          "CP-13.02",
+          "CP-13.03",
+          "CP-13",
+          "CP-14.01",
+          "CP-15.01",
+          "CP-15.02",
+          "CP-15",
+          "CP-16.01",
+          "CP-16.02",
+          "CP",
+          "CP-02.03",
+          "CP-02.04",
+          "CP-05.02",
+          "CP-05.04",
+          "CP-06.04",
+          "CP-07.03",
+          "CP-07.04",
+          "CP-08.03",
+          "CP-09.02",
+          "CP-09.04",
+          "CP-10.04",
+          "CP-11.01",
+          "CP-11.02",
+          "CP-11.03",
+          "CP-11.04",
+          "CP-11",
+          "CP-12.03",
+          "CP-12.04",
+          "CP-12",
+          "CP-13.04",
+          "CP-14.02",
+          "CP-14.03",
+          "CP-14.04",
+          "CP-14",
+          "CP-15.03",
+          "CP-15.04",
+          "CP-16",
+          "CP-08.04",
+          "CP-09.03",
+          "CP-16.03",
+          "CP-16.04"
+        ],
+        "failures": [],
+        "filter": "repo:Pick-Your-AI/pick-your-ai-catalog-pipeline is:issue -status:Done",
+        "url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/6",
+        "observed_at": "2026-10-23T06:46:57.143Z",
+        "order_scope": "IDs retain observation order; the complete membership set is verified independently of display ordering"
+      },
+      "Consumer Handoffs": {
+        "name": "Consumer Handoffs",
+        "count": 5,
+        "ids": [
+          "CP-12.01",
+          "CP-12.02",
+          "CP-12.03",
+          "CP-12.04",
+          "CP-12"
+        ],
+        "failures": [],
+        "filter": "repo:Pick-Your-AI/pick-your-ai-catalog-pipeline is:issue workstream:\"12 Website and mobile delivery contracts\"",
+        "url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/7",
+        "observed_at": "2026-10-23T06:46:57.143Z",
+        "order_scope": "IDs retain observation order; the complete membership set is verified independently of display ordering"
+      },
+      "Release Readiness": {
+        "name": "Release Readiness",
+        "count": 81,
+        "ids": [
+          "CP-01.01",
+          "CP-01.02",
+          "CP-01.03",
+          "CP-01.04",
+          "CP-01",
+          "CP-02.01",
+          "CP-02.02",
+          "CP-02",
+          "CP-03.01",
+          "CP-03.02",
+          "CP-03.03",
+          "CP-03",
+          "CP-04.01",
+          "CP-04",
+          "CP-05.01",
+          "CP-05.03",
+          "CP-05",
+          "CP-06.01",
+          "CP-06.02",
+          "CP-06.03",
+          "CP-06",
+          "CP-07.01",
+          "CP-07.02",
+          "CP-07",
+          "CP-08.01",
+          "CP-08",
+          "CP-13.01",
+          "CP-13.02",
+          "CP-13",
+          "CP-15.01",
+          "CP-15",
+          "CP",
+          "CP-02.03",
+          "CP-02.04",
+          "CP-05.02",
+          "CP-05.04",
+          "CP-06.04",
+          "CP-07.03",
+          "CP-07.04",
+          "CP-03.04",
+          "CP-04.02",
+          "CP-04.03",
+          "CP-04.04",
+          "CP-08.02",
+          "CP-09.01",
+          "CP-09",
+          "CP-10.01",
+          "CP-10.02",
+          "CP-10.03",
+          "CP-10",
+          "CP-12.01",
+          "CP-12.02",
+          "CP-13.03",
+          "CP-14.01",
+          "CP-15.02",
+          "CP-16.01",
+          "CP-16.02",
+          "CP-10.04",
+          "CP-11.01",
+          "CP-11",
+          "CP-12",
+          "CP-14",
+          "CP-16",
+          "CP-08.03",
+          "CP-09.02",
+          "CP-09.04",
+          "CP-11.02",
+          "CP-11.03",
+          "CP-11.04",
+          "CP-12.03",
+          "CP-12.04",
+          "CP-13.04",
+          "CP-14.02",
+          "CP-14.03",
+          "CP-15.03",
+          "CP-14.04",
+          "CP-15.04",
+          "CP-08.04",
+          "CP-09.03",
+          "CP-16.03",
+          "CP-16.04"
+        ],
+        "failures": [],
+        "filter": "repo:Pick-Your-AI/pick-your-ai-catalog-pipeline is:issue -acceptance-status:Accepted,Deferred",
+        "url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/8",
+        "observed_at": "2026-10-23T06:46:57.143Z",
+        "order_scope": "IDs retain observation order; the complete membership set is verified independently of display ordering"
+      }
+    },
+    "project_receipt_review": {
+      "reviewed_at": "2026-10-23T06:46:57.900638+00:00",
+      "status": "PASS",
+      "complete_project_receipt_review": true,
+      "failures": [],
+      "scope": "Offline comparison of recorded UI observations with canonical payloads and saved-view configuration; no live reinspection or mutations",
+      "source_configuration_sha256": "5784f991734b2ce9fe7d2ffecfffbc5674149b549a8311d635363c17c0d3a6ae",
+      "configuration_boundary": "Review compared the saved configuration before this completion-metadata update; layouts, filters, grouping, sorting and visible-field order are unchanged",
+      "ownership_boundary": "The review used the earlier ownership audit; the later separate fresh audit below confirms current open/unassigned state"
+    },
+    "final_issue_ownership_readback": {
+      "observed_at": "2026-10-23T06:47:13.030Z",
+      "repository": "Pick-Your-AI/pick-your-ai-catalog-pipeline",
+      "sources": [
+        "https://api.github.com/repos/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues?state=all&per_page=30&page=1",
+        "https://api.github.com/repos/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues?state=all&per_page=30&page=2",
+        "https://api.github.com/repos/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues?state=all&per_page=30&page=3"
+      ],
+      "total": 81,
+      "unique": 81,
+      "open": 81,
+      "assigned": 0,
+      "unassigned": 81,
+      "pull_requests": 0,
+      "types": {
+        "Task": 64,
+        "Feature": 17
+      },
+      "identities_match_published_map": true,
+      "scope": "Fresh identity/state/type/native-Assignees observation; does not refresh the earlier body/checklist audit or create accepted implementation ownership"
+    },
+    "latest_ruleset_ui_observation": {
+      "included_in_snapshot": "2026-10-23 13:40:49 UTC",
+      "observed_ruleset_count": 4,
+      "active_count": 4,
+      "source": "Root executor verified all four Active entries in repository Rulesets UI; full API details are retained separately"
+    },
+    "ruleset_source_publication": {
+      "observed_at": "2026-10-23 13:24:29 UTC",
+      "commit": "77f92e8ee6b4c35a7cacb3be6ef26462888188a7",
+      "tree": "e4c521f7b4ddc87164cabe191d7165956bed9d92",
+      "parent_shas": [
+        "b00b37d14ce4b4fa208770bf6d0a1396bd092053"
+      ],
+      "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/commit/77f92e8ee6b4c35a7cacb3be6ef26462888188a7",
+      "changed_file_count": 5,
+      "exact_file_comparison": {
+        "method": "Compute Git blob SHA-1 from frozen local bytes and compare with exact-commit GitHub file blob SHAs",
+        "files": [
+          {
+            "path": ".github/rulesets/01-contributor-boundary-default-branch.json",
+            "bytes": 645,
+            "local_blob_sha": "33f6105c9c2c6895c64a98fd1102ed3e4789b599",
+            "remote_blob_sha": "33f6105c9c2c6895c64a98fd1102ed3e4789b599",
+            "sha256": "eb6f3ce65350d58732c99c00063df2596529adddc8d9095e68c687e25b3e5420",
+            "change_status": "added",
+            "matches": true
+          },
+          {
+            "path": ".github/rulesets/02-contributor-boundary-branches.json",
+            "bytes": 925,
+            "local_blob_sha": "b7768b732a1b5569f7c9d7da319068e5e387a31f",
+            "remote_blob_sha": "b7768b732a1b5569f7c9d7da319068e5e387a31f",
+            "sha256": "4e468c8cf6289b2e8c9f8585eaf39746bbccd3866ddb124cf4af16462a9f1fba",
+            "change_status": "added",
+            "matches": true
+          },
+          {
+            "path": ".github/rulesets/03-contributor-boundary-tags.json",
+            "bytes": 697,
+            "local_blob_sha": "237de9cd9e4ef617760f470726223f2b834b6188",
+            "remote_blob_sha": "237de9cd9e4ef617760f470726223f2b834b6188",
+            "sha256": "064149f09b1be0e22d05891bd5eb3002d4430429e2e5946047f56a8639b06640",
+            "change_status": "added",
+            "matches": true
+          },
+          {
+            "path": ".github/rulesets/04-review-required-default-branch.json",
+            "bytes": 1313,
+            "local_blob_sha": "96e16ed0bd1d7d690b695c3a02f202ee7a935370",
+            "remote_blob_sha": "96e16ed0bd1d7d690b695c3a02f202ee7a935370",
+            "sha256": "a7b83fccc26239cbe6ee91173488398ba55f93464aefe409a1d30172740ccf99",
+            "change_status": "added",
+            "matches": true
+          },
+          {
+            "path": ".github/rulesets/README.md",
+            "bytes": 6658,
+            "local_blob_sha": "e1a6d853757c4873772a95fab53ca73ecab780fb",
+            "remote_blob_sha": "e1a6d853757c4873772a95fab53ca73ecab780fb",
+            "sha256": "4ba2e5a4403a2c07700077f2f8d2c756ec98ff0b25714e2d4fadc9f774e8fc4b",
+            "change_status": "added",
+            "matches": true
+          }
+        ],
+        "all_match": true,
+        "missing": [],
+        "extra_changed_files": []
+      },
+      "scope": "All five governance input/README files published exactly; application is established by separate later full rule readbacks"
+    },
+    "prior_log_verified_hosted_ci_run": {
+      "run_id": 39905082781,
+      "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/actions/runs/39905082781",
+      "job_id": 120255084642,
+      "check": "ci-required",
+      "head_sha": "b00b37d14ce4b4fa208770bf6d0a1396bd092053",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-23T05:19:05Z",
+      "updated_at": "2026-10-23T05:19:27Z",
+      "hosted_test_count": 100,
+      "log_evidence": [
+        "2026-10-23T05:19:21.3949579Z Plan valid: 657 stable records, 14 ecosystem domains, 16 decisions, 5 release phases.",
+        "2026-10-23T05:19:21.6212265Z PASS: 3 draft schemas, 5 synthetic examples, byte-integrity and rejection checks; no production eligibility.",
+        "2026-10-23T05:19:21.7045802Z Generated documents verified: 85 outputs; no network or GitHub mutations.",
+        "2026-10-23T05:19:24.6709338Z Ran 100 tests in 1.947s",
+        "2026-10-23T05:19:24.6709735Z OK",
+        "2026-10-23T05:19:25.0769456Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11d5960a326750d5838078e36cf38b85af677262, actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+      ]
+    },
+    "historical_team_access_observation": {
+      "method": "Authenticated GitHub UI readback by the root executor",
+      "observed_at": "2026-10-23 05:22:53 UTC",
+      "scope": "Earlier 05:22:53 UTC reauthentication blocker; superseded by the current verified access readback",
+      "state": "blocked_by_github_sudo",
+      "verified_still_present": true
+    },
+    "historical_governance_observations": [
+      {
+        "kind": "source_publication",
+        "recorded_at": "2026-10-23 05:19:21 UTC",
+        "main_protected": false
+      },
+      {
+        "kind": "settings",
+        "recorded_at": "2026-10-23 05:22:53 UTC",
+        "state": "not_configured"
+      },
+      {
+        "kind": "initial_import_ui",
+        "included_in_snapshot": "2026-10-23 06:52:03 UTC",
+        "observed_ruleset_count": 0,
+        "import_file_chooser_available": true,
+        "source": "Root executor verified repository Rulesets UI before this snapshot"
+      },
+      {
+        "kind": "ruleset_source_publication",
+        "recorded_at": "2026-10-23 13:24:29 UTC",
+        "main_protected": false,
+        "scope": "Dated pre-rule observation, superseded by full active-rules readback"
+      }
+    ],
+    "repository_metadata_readback": {
+      "recorded_at": "2026-10-23 13:24:29 UTC",
+      "method": "GitHub repository REST readback compared with intended metadata",
+      "matches": true,
+      "observed": {
+        "id": 1430404474,
+        "full_name": "Pick-Your-AI/pick-your-ai-catalog-pipeline",
+        "html_url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline",
+        "description": "Shared AI research catalog ingestion and publishing: implementation backlog, evidence, source governance and synthetic bootstrap.",
+        "private": false,
+        "visibility": "public",
+        "default_branch": "main",
+        "topics": [
+          "ai",
+          "data-catalog",
+          "data-pipeline",
+          "data-provenance",
+          "etl",
+          "evidence",
+          "open-source",
+          "pick-your-ai",
+          "research"
+        ],
+        "has_issues": true,
+        "has_projects": true,
+        "has_wiki": false,
+        "delete_branch_on_merge": true,
+        "allow_merge_commit": true,
+        "allow_squash_merge": true,
+        "allow_rebase_merge": true
+      },
+      "source_url": "https://api.github.com/repos/Pick-Your-AI/pick-your-ai-catalog-pipeline"
+    },
+    "final_status_publication": {
+      "state": "prepared_for_contrib_pull_request",
+      "pull_request_url": null,
+      "published_head_sha": null,
+      "independent_github_approval_verified": false,
+      "latest_push_approval_verified": false,
+      "merged": false,
+      "scope": "This eight-file checkpoint is prepared before its own PR publication; source/receipt reconciliation changes only the documented metadata and observed setup state. Identifiers and acceptance must be added only after actual readback.",
+      "required_controls": "Use a contrib/<login>/<topic> branch; preserve all four active rules; require actual independent approval, latest-push approval and ci-required before merge; verify the merged revision",
+      "planned_branch": "contrib/CompleteDotTech/catalog-bootstrap-verification",
+      "file_count": 8
+    },
+    "governance_receipt_review": {
+      "verdict": "PASS",
+      "scope": "Collected repository metadata, main protection flag, and four complete rulesets",
+      "observed_head": "77f92e8ee6b4c35a7cacb3be6ef26462888188a7",
+      "rulesets": [
+        {
+          "id": 25725321,
+          "name": "Contributor boundary: default branch",
+          "matches": true
+        },
+        {
+          "id": 25725653,
+          "name": "Contributor boundary: branches",
+          "matches": true
+        },
+        {
+          "id": 25725655,
+          "name": "Contributor boundary: tags",
+          "matches": true
+        },
+        {
+          "id": 25725657,
+          "name": "Review required: default branch",
+          "matches": true
+        }
+      ],
+      "ci": {
+        "checked": true,
+        "head_sha": "77f92e8ee6b4c35a7cacb3be6ef26462888188a7",
+        "app_id": 15368,
+        "check_run_id": 120320028173,
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/actions/runs/39925283272/job/120320028173"
+      },
+      "errors": [],
+      "limitations": [
+        "Offline comparison cannot authenticate receipt provenance or freshness.",
+        "Project values/views/access, team grants, security UI settings, source bytes and review acceptance are separate receipts.",
+        "A protected flag alone is insufficient; all four rule details must match.",
+        "PASS does not authorize a merge, approve a pull request, or establish production readiness."
+      ],
+      "source": ".state/final-governance-review.json",
+      "scope_note": "Independent offline comparison of retained full API receipts, not a GitHub approving review",
+      "reviewed_at": "2026-10-23T13:38:33.195542+00:00",
+      "input_project_config_sha256": "a0dd6f2b99887fae1ef17514ed89b149c7c6b6c9392de00c331b3cd23437cdbb",
+      "input_configuration_scope": "The review used the preserved pre-governance metadata configuration; its required check and approval settings remain unchanged in the current separately hashed configuration"
+    }
   },
   "prepared_counts": {
     "programs": 1,
@@ -1401,47 +3999,93 @@
       "planning/decision-register.json": "f5d3ae2ea86cedab150f1b6dc304b4330b1bd016d2d1a46b5a7bb87f97ccd4b3",
       "planning/release-manifest.json": "3c94608a1c1f68c172129139684c80a11ba51d9a1b3be99d01bc084025f41698"
     },
-    "source_manifest_hashes_match": true
+    "source_manifest_hashes_match": true,
+    "project_config_at_graph_apply_sha256": "e1731c6e1a352d78d75f2bd7ae6c3299e09629c38178ac514fd57f5ceeae2c87",
+    "scope": "Historical reviewed input for the completed issue publication and native graph apply at revision 63c1c6e881ddaba817fb1c58a6a8e629ad85e33f; these hashes and matching assertion remain immutable and do not describe the later metadata-only source revision"
   },
   "validation": {
-    "scope": "Repository structure, synthetic-contract boundaries, generated consistency and safety behavior; no implementation or production acceptance",
-    "tests_passed": 100,
-    "tests_failed": 0,
-    "evidence_kind": "Hosted GitHub Actions result at the recorded source revision",
-    "head_sha": "63c1c6e881ddaba817fb1c58a6a8e629ad85e33f",
-    "run_id": 39900854598,
-    "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/actions/runs/39900854598",
+    "scope": "Hosted validation and individual validation/test steps at published governance-input revision 77f92e8; this later status/configuration snapshot still requires its own PR checks and independent approval",
+    "status": "completed",
+    "conclusion": "success",
+    "head_sha": "77f92e8ee6b4c35a7cacb3be6ef26462888188a7",
+    "run_id": 39925283272,
+    "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/actions/runs/39925283272",
+    "tests_passed": null,
+    "tests_failed": null,
+    "test_count_evidence": "The current API receipt proves the test step succeeded without a captured numerical log. Exact 100-test evidence is retained under prior_log_verified_validation.",
+    "evidence_kind": "GitHub Actions workflow/check-run/job-step readback",
     "checks": [
       {
-        "command": "python scripts/validate_plan.py",
-        "result": "Passed: 657 stable records, 14 ecosystem domains, 16 decisions, 5 implementation phases"
+        "name": "Validate planning, coverage and dependency graph",
+        "result": "success"
       },
       {
-        "command": "python scripts/validate_examples.py",
-        "result": "Passed: 3 draft schemas, 5 synthetic examples and rejection/integrity checks"
+        "name": "Validate synthetic draft examples and rejection boundaries",
+        "result": "success"
       },
       {
-        "command": "python scripts/render_docs.py --check",
-        "result": "Passed: 85 generated outputs match canonical sources"
+        "name": "Verify generated documents and issue payloads",
+        "result": "success"
       },
       {
-        "command": "python -m unittest discover -s tests",
-        "result": "Passed: 100 tests"
+        "name": "Run meaningful positive and negative tests",
+        "result": "success"
       }
     ],
-    "log_evidence": [
-      "2026-10-23T04:32:35.3375574Z Plan valid: 657 stable records, 14 ecosystem domains, 16 decisions, 5 release phases.",
-      "2026-10-23T04:32:35.5971793Z PASS: 3 draft schemas, 5 synthetic examples, byte-integrity and rejection checks; no production eligibility.",
-      "2026-10-23T04:32:35.6895222Z Generated documents verified: 85 outputs; no network or GitHub mutations.",
-      "2026-10-23T04:32:38.5991238Z Ran 100 tests in 2.251s",
-      "2026-10-23T04:32:38.5991568Z OK"
-    ],
-    "earlier_foundation_run": {
-      "head_sha": "b03eccc59b11b83ae7e8d546a498cce13fe52d7a",
-      "run_id": 39899203246,
-      "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/actions/runs/39899203246",
-      "conclusion": "success",
-      "tests_passed": 82
+    "prior_log_verified_validation": {
+      "scope": "Repository structure, synthetic-contract boundaries, generated consistency and safety behavior at the published 04:54:13 UTC checkpoint; not the later 06:52:03 UTC status/configuration/import files, implementation or production acceptance",
+      "tests_passed": 100,
+      "tests_failed": 0,
+      "evidence_kind": "Hosted GitHub Actions result at the recorded source revision",
+      "head_sha": "b00b37d14ce4b4fa208770bf6d0a1396bd092053",
+      "run_id": 39905082781,
+      "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/actions/runs/39905082781",
+      "checks": [
+        {
+          "command": "python scripts/validate_plan.py",
+          "result": "Passed: 657 stable records, 14 ecosystem domains, 16 decisions, 5 implementation phases"
+        },
+        {
+          "command": "python scripts/validate_examples.py",
+          "result": "Passed: 3 draft schemas, 5 synthetic examples and rejection/integrity checks"
+        },
+        {
+          "command": "python scripts/render_docs.py --check",
+          "result": "Passed: 85 generated outputs match canonical sources"
+        },
+        {
+          "command": "python -m unittest discover -s tests",
+          "result": "Passed: 100 tests"
+        }
+      ],
+      "log_evidence": [
+        "2026-10-23T05:19:21.3949579Z Plan valid: 657 stable records, 14 ecosystem domains, 16 decisions, 5 release phases.",
+        "2026-10-23T05:19:21.6212265Z PASS: 3 draft schemas, 5 synthetic examples, byte-integrity and rejection checks; no production eligibility.",
+        "2026-10-23T05:19:21.7045802Z Generated documents verified: 85 outputs; no network or GitHub mutations.",
+        "2026-10-23T05:19:24.6709338Z Ran 100 tests in 1.947s",
+        "2026-10-23T05:19:24.6709735Z OK",
+        "2026-10-23T05:19:25.0769456Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11d5960a326750d5838078e36cf38b85af677262, actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+      ],
+      "earlier_foundation_run": {
+        "head_sha": "b03eccc59b11b83ae7e8d546a498cce13fe52d7a",
+        "run_id": 39899203246,
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/actions/runs/39899203246",
+        "conclusion": "success",
+        "tests_passed": 82
+      },
+      "earlier_graph_foundation_run": {
+        "head_sha": "63c1c6e881ddaba817fb1c58a6a8e629ad85e33f",
+        "run_id": 39900854598,
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/actions/runs/39900854598",
+        "conclusion": "success",
+        "tests_passed": 100
+      },
+      "warnings": [
+        {
+          "kind": "existing_action_runtime_notice",
+          "effect": "No check failure. The pinned Node20-declaring actions were forced to Node24 and succeeded; previously assessed maintenance item."
+        }
+      ]
     }
   },
   "independent_local_review": {
@@ -1455,22 +4099,11 @@
     ],
     "additional_graph_review": "Internal independent API/code review resolved request-budget and non-user ownership detection issues; not a GitHub approving review"
   },
-  "current_blockers": [
-    {
-      "resource": "Repository team grants",
-      "status": "Blocked",
-      "reason": "GitHub requires administrative reauthentication (sudo) before the grant configuration can proceed",
-      "next_step": "An authorized administrator completes GitHub reauthentication; then read back authorized team grants without changing unapproved membership"
-    }
-  ],
+  "current_blockers": [],
   "pending": [
-    "Reconcile and verify the external research #509 parent independently of the internal graph",
-    "Finish Project item values and verify all 891 planned values without resetting concurrent progress",
-    "Configure and reload all eight saved views; verify their layouts, filters, groups, sorting, columns and complete result memberships",
-    "Complete authorized team grants after the GitHub administrative reauthentication requirement is satisfied",
-    "Apply and verify branch/tag rules, independent/latest-push review, main deletion/force-push restrictions and required ci-required enforcement",
-    "Verify final repository metadata/topics, security reporting and explicit Project repository association",
-    "Publish the updated dated report and retain hosted validation and consolidated readback for its delivered revision"
+    "Publish the eight-file checkpoint on a contrib branch: six status/configuration files, the bootstrap.state pointer correction and the generated payload source-hash update; open a PR without closing the implementation program or research parent",
+    "Obtain the actual required independent review, approval of the latest push and successful ci-required check; preserve all four active rules and their no-bypass mandatory review rule",
+    "Merge only after the configured gates pass, then verify the exact main revision, checks, issue/Project state and final publication receipt before declaring the initialization mission complete"
   ],
   "source_receipts": [
     {
@@ -1508,14 +4141,283 @@
       "sha256": "225b89777a2214a3f22ba6755cc24f0b7955d51f50c962a59ed4740fd3e0c449",
       "retention": "Executor receipt; sanitized observations and complete verified issue bindings are consolidated in this public execution receipt",
       "captured_with_readback_at": "2026-10-23 04:52:30 UTC"
+    },
+    {
+      "path": ".state/external-parent-readback.json",
+      "sha256": "83b0c3f6cb045d67fc6073020d8b197f4bb12a5975767261868f83908a798d0d",
+      "recorded_at": "2026-10-23 05:20:26 UTC",
+      "retention": "Executor receipt; sanitized observations are consolidated in this public execution receipt"
+    },
+    {
+      "path": ".state/security-and-project-link-readback.json",
+      "sha256": "99a8381186a2bfc66e956077de21d0c22de8cb36b4fed6a41683407e2cf6557d",
+      "recorded_at": "2026-10-23 05:22:53 UTC",
+      "retention": "Executor receipt; sanitized observations are consolidated in this public execution receipt"
+    },
+    {
+      "path": ".state/status-checkpoint-readback.json",
+      "sha256": "d3479e5cf73b7b7b1e153affe832c83c124af4f80c310e695f51fb17877f0513",
+      "recorded_at": "2026-10-23 05:21:07 UTC",
+      "retention": "Executor receipt; sanitized observations are consolidated in this public execution receipt"
+    },
+    {
+      "path": ".state/project-views-readback.json",
+      "sha256": "0aca08488081adf21e43c56301c38e755cb0c5835febce81a8f35afe5492b19f",
+      "recorded_at": "2026-10-23T05:46:43.374Z",
+      "retention": "Executor receipt; exact observed saved configurations and URLs are consolidated in this public execution receipt and Project configuration"
+    },
+    {
+      "path": ".state/project-values-readback.json",
+      "sha256": "e25b5641328bcfe639706a526ee99f56dbe386327c9b2bc8c514be4eb41ab1b7",
+      "retention": "Executor receipt; verified observations are consolidated in this public execution receipt",
+      "recorded_at": "2026-10-23T06:39:09.116Z"
+    },
+    {
+      "path": ".state/project-view-memberships-readback.json",
+      "sha256": "faceff4ecb94a361bcd0480f37501f0d86bd1ff9a81a37a6151b92f624b02fb2",
+      "retention": "Executor receipt; verified observations are consolidated in this public execution receipt",
+      "recorded_at": "2026-10-23T06:46:57.143Z"
+    },
+    {
+      "path": ".state/project-receipts-final-review.json",
+      "sha256": "593de8ea594f9c006747dd0dbe6cad568100dd2205b92db3a23de5c9a80f8f2d",
+      "retention": "Executor receipt; verified observations are consolidated in this public execution receipt",
+      "recorded_at": "2026-10-23T06:46:57.900638+00:00"
+    },
+    {
+      "path": ".state/final-issue-ownership-readback.json",
+      "sha256": "0957ca834eae037bc18727145ff8c5e71d9a971d8c1b104cd925cece05848dc4",
+      "retention": "Executor receipt; verified observations are consolidated in this public execution receipt",
+      "recorded_at": "2026-10-23T06:47:13.030Z"
+    },
+    {
+      "path": ".state/rulesets-import-manifest.json",
+      "sha256": "c076583c1ba359772d1223da52c91b5fab126fcd1b2491e7dbac5c2bd93ef789",
+      "retention": "Executor receipt; verified observations are consolidated in this public execution receipt",
+      "included_in_snapshot": "2026-10-23 06:52:03 UTC"
+    },
+    {
+      "path": ".state/ruleset-source-publication-readback.json",
+      "sha256": "d52be12720ad7b82578204ca00d4625d4c4f0b4a1c402487666ccaf1c8c2fb42",
+      "retention": "Executor receipt; sanitized observations are consolidated in this public execution receipt",
+      "recorded_at": "2026-10-23 13:24:29 UTC"
+    },
+    {
+      "path": ".state/team-access-readback.json",
+      "sha256": "0c93cf86c9314c0f05875d887a7b851f861639d21a727e1734e2f54d4a8ef1de",
+      "retention": "Executor receipt; sanitized observations are consolidated in this public execution receipt",
+      "recorded_at": "2026-10-23 13:36:53 UTC"
+    },
+    {
+      "path": ".state/final-repository.json",
+      "sha256": "fe799d929e2a42dc48de90d79cf9ebca9bfcdffce1bb32da9dc54b6b28c2a285",
+      "retention": "Executor receipt; sanitized observations are consolidated in this public execution receipt",
+      "included_in_snapshot": "2026-10-23 13:40:49 UTC"
+    },
+    {
+      "path": ".state/final-main.json",
+      "sha256": "1f41bf1c4937635bcd0961cebf6c418347eeb2ea6b6285f8f204e97b1d693550",
+      "retention": "Executor receipt; sanitized observations are consolidated in this public execution receipt",
+      "included_in_snapshot": "2026-10-23 13:40:49 UTC"
+    },
+    {
+      "path": ".state/final-rulesets.json",
+      "sha256": "2fc3c3f74ae34884c46025ba261e486705ab0f4770e0f562df18afb50e376c0c",
+      "retention": "Executor receipt; sanitized observations are consolidated in this public execution receipt",
+      "included_in_snapshot": "2026-10-23 13:40:49 UTC"
+    },
+    {
+      "path": ".state/final-rule-25725321.json",
+      "sha256": "db616d8d9ef658809672f75bb88c7827ca7e562ab3202441787702be44173b69",
+      "retention": "Executor receipt; sanitized observations are consolidated in this public execution receipt",
+      "included_in_snapshot": "2026-10-23 13:40:49 UTC"
+    },
+    {
+      "path": ".state/final-rule-25725653.json",
+      "sha256": "cbac2a1aa8e8064e8bad2034a4a10381a46abc5686c75614443a111c0b4e6f03",
+      "retention": "Executor receipt; sanitized observations are consolidated in this public execution receipt",
+      "included_in_snapshot": "2026-10-23 13:40:49 UTC"
+    },
+    {
+      "path": ".state/final-rule-25725655.json",
+      "sha256": "05c9adf56dc1a5d69f260e5489e12f51e26b53d0cc5b5f3c8ffebf01d06c0cfa",
+      "retention": "Executor receipt; sanitized observations are consolidated in this public execution receipt",
+      "included_in_snapshot": "2026-10-23 13:40:49 UTC"
+    },
+    {
+      "path": ".state/final-rule-25725657.json",
+      "sha256": "5bae9c59ea4d947785c9d95c1c070dea062f1c08c547dd6f9a576d2544747f5f",
+      "retention": "Executor receipt; sanitized observations are consolidated in this public execution receipt",
+      "included_in_snapshot": "2026-10-23 13:40:49 UTC"
+    },
+    {
+      "path": ".state/final-ci-check-runs.json",
+      "sha256": "4d4fa3fc157fc930ea277f9c683ba83547df2929253a8d3d174c481da613e293",
+      "retention": "Executor receipt; sanitized observations are consolidated in this public execution receipt",
+      "included_in_snapshot": "2026-10-23 13:40:49 UTC"
+    },
+    {
+      "path": ".state/final-governance-review.json",
+      "sha256": "3938fff2c38d3f5369adce5305756afed5cc622da798676b276c19bcd9a884cd",
+      "retention": "Executor receipt; sanitized observations are consolidated in this public execution receipt",
+      "included_in_snapshot": "2026-10-23 13:40:49 UTC",
+      "reviewed_at": "2026-10-23T13:38:33.195542+00:00"
     }
   ],
   "source_audit": "planning/source-audit.json",
   "report": "docs/BOOTSTRAP_STATUS.md",
   "compilation": {
-    "scope": "Local documentation and execution-receipt update from retained readbacks and root executor observations",
+    "scope": "Local status/configuration reconciliation plus an authorized single-field release-state metadata correction and its generated payload source hash; no remote mutations",
     "remote_mutations_performed": false,
-    "canonical_planning_modified": false,
-    "publication_of_this_updated_receipt": "Pending root publication and exact-revision readback"
+    "canonical_planning_modified": true,
+    "publication_of_this_updated_receipt": "Current 2026-10-23 13:45:25 UTC eight-file checkpoint awaits contrib PR publication, actual independent/latest-push approval, merge and exact-result readback. Earlier source receipts retain their own reviewed hashes and timestamps; the unchanged five-file governance package is verified at 77f92e8.",
+    "project_configuration_modified": true,
+    "governance_import_files_modified": false,
+    "canonical_change_scope": "Only planning/release-manifest.json bootstrap.state; no scope, phase/work-package gate, synthetic flag or issue object changes",
+    "publication_file_count": 8
+  },
+  "project_configuration_reconciliation": {
+    "observed_at": "2026-10-23T06:46:57.143Z",
+    "path": "planning/project-config.json",
+    "prior_sha256": "e1731c6e1a352d78d75f2bd7ae6c3299e09629c38178ac514fd57f5ceeae2c87",
+    "current_sha256": "8afd1d61a5e4621de93c16de9b27b35969dcc1cb51fe4808ad347ec903a194a9",
+    "project_number": 8,
+    "project_id": null,
+    "project_id_reason": "GraphQL node ID unavailable in retained observations; not invented",
+    "changes": [
+      "Recorded observed Project #8 identity and all eight actual saved configurations, visible fields and result memberships",
+      "Preserved all 891 verified Project values, native Assignees semantics and dated issue ownership evidence",
+      "Recorded exact repository metadata/topics from the latest verified source publication receipt",
+      "Replaced pending access/rule placeholders with four observed existing team grants and all four full active rules matching published inputs",
+      "Preserved concurrent-change attribution, original dynamic default-branch selectors and mandatory review without bypass actors",
+      "Preserved the original graph-apply configuration binding and recorded the latest observed configuration hash separately"
+    ],
+    "field_definitions_unchanged": true,
+    "canonical_source_hashes_unchanged": false,
+    "issue_payload_hash_unchanged": false,
+    "generated_issue_bodies_unchanged": true,
+    "configuration_verified": true,
+    "item_values_and_view_memberships_verified": true,
+    "journal_compatibility": "Journal fingerprints bind the payload and full configuration. The completed prior receipt and fingerprint remain bound to their original revision, payload and configuration. Future execution under changed inputs requires a new journal after preserving the completed receipt and reconciling live state; never discard unresolved intent records.",
+    "completion_metadata_prior_sha256": "5784f991734b2ce9fe7d2ffecfffbc5674149b549a8311d635363c17c0d3a6ae",
+    "governance_metadata_prior_sha256": "a0dd6f2b99887fae1ef17514ed89b149c7c6b6c9392de00c331b3cd23437cdbb",
+    "current_configuration_compiled_at": "2026-10-23 13:40:49 UTC",
+    "issue_payload_items_unchanged": true,
+    "canonical_change_scope": "One bootstrap.state status pointer and resulting source digest; original graph-reviewed hashes remain separately preserved",
+    "unchanged_canonical_source_paths": [
+      "planning/project-backlog.json",
+      "planning/coverage-matrix.json",
+      "planning/decision-register.json"
+    ]
+  },
+  "prepared_governance_imports": {
+    "directory": ".github/rulesets",
+    "readme": ".github/rulesets/README.md",
+    "readme_sha256": "4ba2e5a4403a2c07700077f2f8d2c756ec98ff0b25714e2d4fadc9f774e8fc4b",
+    "ruleset_count": 4,
+    "files": [
+      {
+        "path": ".github/rulesets/01-contributor-boundary-default-branch.json",
+        "file": "01-contributor-boundary-default-branch.json",
+        "name": "Contributor boundary: default branch",
+        "bytes": 645,
+        "sha256": "eb6f3ce65350d58732c99c00063df2596529adddc8d9095e68c687e25b3e5420",
+        "settings_match_approved": true,
+        "enforcement": "active",
+        "bypass_count": 3,
+        "applied": true,
+        "ruleset_id": 25725321,
+        "readback_url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/rules/25725321",
+        "live_settings_match": true
+      },
+      {
+        "path": ".github/rulesets/02-contributor-boundary-branches.json",
+        "file": "02-contributor-boundary-branches.json",
+        "name": "Contributor boundary: branches",
+        "bytes": 925,
+        "sha256": "4e468c8cf6289b2e8c9f8585eaf39746bbccd3866ddb124cf4af16462a9f1fba",
+        "settings_match_approved": true,
+        "enforcement": "active",
+        "bypass_count": 3,
+        "applied": true,
+        "ruleset_id": 25725653,
+        "readback_url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/rules/25725653",
+        "live_settings_match": true
+      },
+      {
+        "path": ".github/rulesets/03-contributor-boundary-tags.json",
+        "file": "03-contributor-boundary-tags.json",
+        "name": "Contributor boundary: tags",
+        "bytes": 697,
+        "sha256": "064149f09b1be0e22d05891bd5eb3002d4430429e2e5946047f56a8639b06640",
+        "settings_match_approved": true,
+        "enforcement": "active",
+        "bypass_count": 3,
+        "applied": true,
+        "ruleset_id": 25725655,
+        "readback_url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/rules/25725655",
+        "live_settings_match": true
+      },
+      {
+        "path": ".github/rulesets/04-review-required-default-branch.json",
+        "file": "04-review-required-default-branch.json",
+        "name": "Review required: default branch",
+        "bytes": 1313,
+        "sha256": "a7b83fccc26239cbe6ee91173488398ba55f93464aefe409a1d30172740ccf99",
+        "settings_match_approved": true,
+        "enforcement": "active",
+        "bypass_count": 0,
+        "applied": true,
+        "ruleset_id": 25725657,
+        "readback_url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/rules/25725657",
+        "live_settings_match": true
+      }
+    ],
+    "prepared_verified": true,
+    "applied": true,
+    "application": "All four live rules were read back and match the published inputs; no workflow automatically applies these files",
+    "scope": "Verified published configuration inputs and matching active live rule details; no implementation or independent PR acceptance is implied",
+    "readback_requirements": "Verify actual ruleset IDs, targets, conditions, full rule parameters, explicit bypass lists and required GitHub Actions check binding after import",
+    "active_count": 4,
+    "source_commit": "77f92e8ee6b4c35a7cacb3be6ef26462888188a7",
+    "attribution": "Observed existing settings include concurrent administrative changes; no claim that the executor created all four rules"
+  },
+  "current_input": {
+    "scope": "Current local checkpoint after the authorized bootstrap.state pointer correction; scope, acceptance gates, issue objects and bodies are unchanged",
+    "payload_path": "planning/github-issue-payloads.json",
+    "payload_sha256": "e95da405992b7a4567c3b91f8f5e3b24301bb08c02b3c12195c9c57d33e8b74d",
+    "canonical_source_sha256": {
+      "planning/project-backlog.json": "a37f04bd215cbb5b93a79835a2dd14554146176ece7ac83ce714d071207cb453",
+      "planning/coverage-matrix.json": "fd8ea76aa36479b169b494b31e02d651c6efa752f50394e1c2284e483d5b8ed3",
+      "planning/decision-register.json": "f5d3ae2ea86cedab150f1b6dc304b4330b1bd016d2d1a46b5a7bb87f97ccd4b3",
+      "planning/release-manifest.json": "b1c094678fa11cadd2631ae1be57be00ffe65ee8839ca3697c8717dbc98599fb"
+    },
+    "source_manifest_hashes_match": true,
+    "all_81_issue_objects_unchanged": true,
+    "all_81_generated_issue_bodies_unchanged": true
+  },
+  "bootstrap_state_metadata_correction": {
+    "recorded_at": "2026-10-23 13:45:25 UTC",
+    "source_path": "planning/release-manifest.json",
+    "json_path": "bootstrap.state",
+    "reason": "Replace an undated, obsolete administration blocker with a stable pointer to the dated execution receipt; avoid conflicting execution sources of truth",
+    "before": {
+      "value": "Prepared locally; remote creation and readback blocked by missing authorized administration capability.",
+      "source_sha256": "3c94608a1c1f68c172129139684c80a11ba51d9a1b3be99d01bc084025f41698",
+      "payload_sha256": "38c736c8e2baaf3bc12e486b2fb82765b7b9e56d2e789214f7d2c8c4c44f65e4"
+    },
+    "after": {
+      "value": "Repository setup requirements are defined here; dated execution state and verification evidence are recorded in planning/execution-receipt.json.",
+      "source_sha256": "b1c094678fa11cadd2631ae1be57be00ffe65ee8839ca3697c8717dbc98599fb",
+      "payload_sha256": "e95da405992b7a4567c3b91f8f5e3b24301bb08c02b3c12195c9c57d33e8b74d"
+    },
+    "generated_delta": "planning/github-issue-payloads.json source_sha256.planning/release-manifest.json only",
+    "unchanged_generated_output_count": 84,
+    "unchanged_payload_item_count": 81,
+    "implementation_phases_work_packages_and_gates_unchanged": true,
+    "synthetic_and_publication_boundaries_unchanged": true,
+    "historical_graph_payload_config_and_journal_bindings_preserved": true,
+    "prior_source_commit": "77f92e8ee6b4c35a7cacb3be6ef26462888188a7",
+    "scope": "Metadata-only source reconciliation; no issue body, native edge, Project value, acceptance criterion or remote resource mutation"
   }
 }
