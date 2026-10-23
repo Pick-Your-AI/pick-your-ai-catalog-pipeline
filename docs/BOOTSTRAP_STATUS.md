@@ -2,89 +2,119 @@
 
 ## Outcome
 
-**The public repository and organization Project exist; the GitHub initialization mission remains in progress.** The complete foundation is prepared and locally validated, and issue creation is under way. This snapshot does not claim completed foundation upload, issue inventory, native relationships, Project fields/views/membership, team grants, branch rules or hosted CI. No production service or catalog was deployed.
+**The repository foundation is published, hosted validation passes, all 81 canonical issues are audited, and the native graph is verified complete: 81 types, 80 internal parents and 135 prerequisite links. Project #8 has its requested metadata, 11 field definitions/options and all 81 members. The initialization mission remains incomplete.** The external research #509 relationship is pending, Project values and saved views remain unfinished, team grants are blocked by GitHub administrative reauthentication, and branch/check enforcement is not configured. No production ingestion service or real catalog release was deployed.
 
-Snapshot recorded **2026-10-23 00:24:35 UTC**. It is a dated readback, not a promise that later work has already completed. The machine-readable companion is [execution-receipt.json](../planning/execution-receipt.json); the original organization audit remains in [source-audit.json](../planning/source-audit.json).
+Snapshot recorded **2026-10-23 04:54:13 UTC**. Each observation below has its own evidence boundary; this report does not claim later actions have finished. The machine-readable companion is [execution-receipt.json](../planning/execution-receipt.json). The original organization inspection remains in [source-audit.json](../planning/source-audit.json).
 
-| Verified remote identity or observation | Readback |
+## Verified repository publication and hosted CI
+
+| Resource or result | Verified observation |
 | --- | --- |
-| Public repository | [Pick-Your-AI/pick-your-ai-catalog-pipeline](https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline) |
-| Repository ID | `1430404474` |
+| Public repository | [Pick-Your-AI/pick-your-ai-catalog-pipeline](https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline), repository ID `1430404474` |
 | Default branch | `main` |
-| Initial main commit | [`b30a2eabbd40404d71088c927e9b95ec0df50d1b`](https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/commit/b30a2eabbd40404d71088c927e9b95ec0df50d1b) |
-| Organization Project | [Pick Your AI — Catalog Pipeline, #8](https://github.com/orgs/Pick-Your-AI/projects/8) |
-| Project number | `8`, observed after creation; not inferred from earlier Projects |
-| Initial repository rules | Ruleset readback `[]`; initial main branch `protected: false` |
-| Issue publication | In progress; a complete published count has not yet been consolidated for this snapshot |
+| Foundation revision | [`b03eccc59b11b83ae7e8d546a498cce13fe52d7a`](https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/commit/b03eccc59b11b83ae7e8d546a498cce13fe52d7a) |
+| Foundation integrity | 135 remote blobs matched all 135 prepared files; no missing files, mismatches or truncated tree, observed at 04:14:55 UTC |
+| Foundation CI | [Run 39899203246](https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/actions/runs/39899203246) succeeded at that exact revision, including 82 tests |
+| Latest source revision verified in this snapshot | [`63c1c6e881ddaba817fb1c58a6a8e629ad85e33f`](https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/commit/63c1c6e881ddaba817fb1c58a6a8e629ad85e33f), tree `656e17b9dedae59394562e5c77610131c83d3631` |
+| Graph-initializer publication integrity | All five changed files matched their expected blobs: four initializer/workflow/test/documentation files and updated CODEOWNERS, observed at 04:32:54 UTC |
+| Latest hosted validation | [Run 39900854598](https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/actions/runs/39900854598), `ci-required`, completed successfully at revision `63c1c6e881ddaba817fb1c58a6a8e629ad85e33f`, including **100 tests** |
 
-The user-authorized repository bootstrap permits seeding the prepared foundation onto the newly initialized main branch. The observed lack of initial rules does not waive subsequent governance: apply and verify the required rules, checks and independent/latest-push review process, then use that process for later substantive changes. Existing protections must never be weakened to complete an upload.
+The published foundation contains the requested root guidance, MIT license, contribution and security policies, issue and pull-request templates, validation workflow, charter, architecture, delivery and dependency plans, research handoffs, governance, operations, Project specification, canonical planning JSON, schemas, synthetic examples, validators, deterministic renderer and reconciliation tooling. Exact source publication is distinct from approval of the planned implementation or operation of a service.
 
-## What exists locally
+The latest reported revision predates this status update. Publication and hosted validation of the updated status files require their own final revision receipt.
 
-The complete repository source package contains the requested root guidance, MIT license, contribution and security policies, issue and pull-request templates, validation workflow, charter, architecture, delivery/dependency plans, research handoffs, governance, operations and Project setup documentation. It also contains canonical planning JSON, planning and draft catalog schemas, explicitly synthetic examples, validators, a deterministic documentation renderer, a conservative GitHub setup helper and automated tests.
+## Published implementation backlog
 
-The locally prepared source and its earlier archive/bundle preserve the validated foundation. A remote `main` branch now exists at the initial commit listed above; full foundation upload and subsequent hosted verification remain separate pending steps. Neither a local commit nor repository creation is a GitHub approving review.
+The all-state issue audit completed at **2026-10-23 04:33:44 UTC**, exhausted pagination through a terminal empty page, and found **81 unique canonical IDs, issue numbers, numeric IDs and node IDs**. All 81 titles and bodies matched the prepared payload exactly. All issues were open and unassigned, labels matched the plan, and all **576 task/subtask checklist entries remained unchecked**. The public stable-ID-to-issue mapping, body hashes and subsequently verified native graph bindings are included in [execution-receipt.json](../planning/execution-receipt.json).
 
-| Prepared planning structure | Count |
-| --- | ---: |
-| Program | 1 |
-| Epics | 16 |
-| Work Packages | 64 |
-| Checklist Tasks | 192 |
-| Smaller checklist steps | 384 |
-| Total stable records | 657 |
-| Intended native GitHub issues | 81 |
-| Intended internal native parent edges | 80 |
-| Intended native prerequisite edges | 135 |
-| Ecosystem coverage domains | 14 |
-| Decision records | 16 |
-| Implementation release phases | 5 |
-| Requested Project field definitions, including native Status | 11 |
-| Proposed saved Project views | 8 |
+The implementation program is [catalog pipeline #1, CP](https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/1). Publication does not complete the program or its implementation packages. The parent [research #509](https://github.com/Pick-Your-AI/pick-your-ai-research/issues/509) remains broader than this repository.
 
-Native Assignees remain the ownership field. No implementation owner, completed task, review approval or acceptance receipt has been invented. Small tasks remain checklists under work packages, following the inspected organization precedent. The external relationship to research #509 is recorded separately from the 80 intended internal parent edges. Native relationship completion has not yet been verified in this snapshot.
+| Planning structure | Count | Current evidence boundary |
+| --- | ---: | --- |
+| Program | 1 | Published canonical issue |
+| Epics | 16 | Published canonical issues |
+| Work Packages | 64 | Published canonical issues |
+| Checklist Tasks | 192 | Present in audited bodies; unchecked |
+| Smaller checklist steps | 384 | Present in audited bodies; unchecked |
+| Total stable records | 657 | Validated scope and decomposition |
+| Native issue identities | 81 | Complete issue publication audit |
+| Native issue types | 81 | Verified final graph readback: 17 Feature and 64 Task values |
+| Internal parent links | 80 | Verified final graph readback |
+| Native prerequisite links | 135 | Verified final graph readback |
+| Ecosystem coverage domains | 14 | Validated scope coverage |
+| Decision records | 16 | Recorded decisions; acceptance is separate |
+| Implementation release phases | 5 | Foundation through Expansion; Bootstrap remains a separate setup boundary |
 
-The Project configuration includes all requested field values and eight proposed views: Program Overview; Epics and Work Packages; Priority and Readiness; Currently Active; Blocked and Decisions; Rights and Evidence; Consumer Handoffs; Release Readiness. The actual Project is [#8](https://github.com/orgs/Pick-Your-AI/projects/8); its GraphQL node ID and completion of the requested configuration are not yet recorded in this snapshot. Project visibility, description, repository association, fields, views and membership each require final readback.
+Native Assignees remain the ownership field. No implementation assignee, completed task, approving review or receiving acceptance was fabricated. Smaller work remains in checklists under the work packages, following the inspected organization convention.
 
-## Local verification
+## Native graph workflow
 
-The retained local preparation checks ran on Python 3.12 with the pinned dependencies in `requirements-validation.txt`. These results are local evidence from preparation, not hosted CI at the new remote repository.
+The repository-native [Reconcile catalog issue graph workflow](../.github/workflows/reconcile-issue-graph.yml) operates only on existing catalog issues. Its [inspection run 39900973114](https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/actions/runs/39900973114) completed successfully. [Apply run 39901223975](https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/actions/runs/39901223975) completed successfully at **2026-10-23 04:51:23 UTC**, at source revision `63c1c6e881ddaba817fb1c58a6a8e629ad85e33f`. The retained readback recorded at 04:52:30 UTC reports `mode: applied-and-read-back` and `graph_complete: true`.
 
-| Executed check | Observed result |
+The final observed scope matches the reviewed plan: **81 issues with 81 native type values, 80 internal parent links and 135 blocked-by links**, with no missing types, parents or blockers. The exact payload SHA-256 is `38c736c8e2baaf3bc12e486b2fb82765b7b9e56d2e789214f7d2c8c4c44f65e4`. All **296 journal operations are verified**, with **zero pending and zero rejected** operations, and the separately retained resume journal matches the workflow receipt. Native types are Feature for the program and 16 epics, and Task for the 64 work packages; the Project Record Type field preserves the finer planning hierarchy.
+
+Four independent representative GET readbacks also passed: the program's 16 epic children, the first epic's four work-package children, the final work package's parent and its two prerequisites. These spot checks corroborate the workflow's complete final readback; they do not replace it. Graph completion does not establish Project item values, saved views, governance enforcement or implementation acceptance.
+
+The external relationship from research #509 to the program issue is outside the repository token's mutation scope and remains a separate pending handoff. It is not included in the 80 internal parent links. [ISSUE_GRAPH_SETUP.md](ISSUE_GRAPH_SETUP.md) describes the manual trigger, fixed repository/actor restrictions, limited token permissions and uncertain-write recovery.
+
+## Project #8: verified configuration and unfinished values/views
+
+The executor read back the following through the authenticated GitHub UI:
+
+| Project observation | Result |
 | --- | --- |
-| `python scripts/validate_plan.py` | Pass: 657 records, 14 domains, 16 decisions and 5 implementation phases; references, hierarchy, prerequisites and release coverage consistent |
-| `python scripts/validate_examples.py` | Pass: 3 draft catalog schemas and 5 synthetic examples; exact-byte identity and rejection boundaries checked |
-| `python scripts/render_docs.py --check` | Pass: 85 generated outputs match their canonical inputs |
-| `python -m unittest discover -s tests` | Pass: 82 tests |
-| `python scripts/publish_plan.py` | Pass: offline dry-run reports 81 issues, 80 internal parents, 135 blockers, 11 fields and `network_used: false` |
+| Identity | [Pick Your AI — Catalog Pipeline, #8](https://github.com/orgs/Pick-Your-AI/projects/8); actual number observed after creation |
+| Visibility | Public |
+| Title | Exact requested title |
+| Description | Organization-wide AI research ingestion, source governance, normalization, evidence review, catalog publishing, freshness, and consumer delivery. |
+| Requested field definitions | All **11** configured with the requested options |
+| Status order | Backlog; Ready; In Progress; In Review; Blocked; Done |
+| Membership | All **81 canonical issues** added |
+| Automatic review/status workflows | **Five disabled**, preventing those workflows from supplying activity or acceptance progress |
+| Automatic sub-issue addition | Enabled |
+| Item-field values | Initialization in progress; **891 planned values are not yet fully verified** |
+| Saved views | Eight specified views remain incomplete; persisted configuration and result membership still require readback |
 
-Tests include duplicate and missing references, cycles and ancestor prerequisites, phase inversions, invalid completion claims, schema/semantic errors, synthetic-data escape attempts, artifact-path/revision/checksum substitution, generated-document drift, pagination and identity conflicts, ambiguous-write recovery, refusal to force-reparent, and preservation of existing human progress. These checks establish the local scope described above. They do not verify live GitHub APIs, source permissions, independent empirical evidence, consumer acceptance or deployment.
+The configured fields are Status, Priority, Workstream, Record Type, Readiness, Evidence Confidence, Source Rights Status, Dependency Status, Effort, Release Phase and Acceptance Status. Native Assignees is used for actual ownership; there is no invented Owner field. Configured option sets are reproduced in the execution receipt. Definition existence does not certify the values on each issue.
 
-Internal independent reviews found and corrected three material issues: manifest substitution of unvalidated same-ID bytes; baseline fields resetting existing issue progress when Project membership was new; and prerequisite edges that deadlocked an ancestor's completion. Regression tests cover each correction. Internal analysis is not the organization's required independent GitHub approving review.
+The eight intended views remain Program Overview; Epics and Work Packages; Priority and Readiness; Currently Active; Blocked and Decisions; Rights and Evidence; Consumer Handoffs; and Release Readiness. Final verification must reload each saved view and check its actual title, layout, filter, grouping, sorting, visible columns and full result set. An empty Currently Active view is appropriate while no implementation has begun. Project node/field/option IDs and explicit repository association have not been consolidated in this receipt and must not be invented.
 
-## Access observations and resolution
+## Governance and the current access blocker
 
-The earlier discovery returned a target-repository `404` through the then-available connection, showed only publicly visible Projects #1–#7, and could not obtain an authenticated browser administration route. Those observations describe the earlier access limitation; they are not the current repository or Project state.
+**Team-grant configuration is blocked by GitHub's administrative reauthentication (sudo) prompt.** An authorized administrator must satisfy that prompt before the intended grants can be configured and read back. This is the current access blocker; prior connection and authentication limitations are not being reported as current failures.
 
-Local browser reauthentication resolved the administrative access blocker. The authenticated route was then used to create and verify the public repository and Project #8. The ordinary GitHub connection supplies issue and repository-content operations, and live issue publication is in progress. The cloud browser remains a separate signed-out session and is not being treated as authenticated access. The checksum-verified local GitHub CLI and earlier preparation receipts remain available, but they do not establish a completed administrative CLI run.
+Branch/tag rules, independent/latest-push review enforcement, main deletion/force-push restrictions and mandatory `ci-required` enforcement are **not configured or verified**. Initial discovery found no rulesets, and the latest source-publication readback at 04:32:54 UTC still reported `main` as unprotected. Passing the named CI job does not make it a required branch check.
 
-Refresh authenticated repository, Project and issue state before further mutation. Reuse the verified resource identities and reconcile partial progress; do not create another repository or Project because an earlier report recorded them as unavailable. No token or credential is included in the source package.
+Published CODEOWNERS routes review to `@CompleteDotTech`. It grants no permission, assigns no implementation work and does not establish an independent approving review. The repository-specific team decision and authorized team grants remain separate. Final repository metadata/topics, security-reporting settings and governance readbacks also remain pending.
+
+The user-authorized foundation seed is distinct from later substantive changes, which follow the organization review policy. Existing protections must not be weakened to finish setup. Internal independent code review is supporting evidence, not another eligible person's GitHub approval.
+
+## Validation evidence
+
+The latest hosted run executed the repository checks at the exact published revision above:
+
+| Check | Observed hosted result |
+| --- | --- |
+| `python scripts/validate_plan.py` | Pass: 657 records, 14 domains, 16 decisions and 5 implementation phases |
+| `python scripts/validate_examples.py` | Pass: 3 draft schemas, 5 synthetic examples and byte-integrity/rejection checks |
+| `python scripts/render_docs.py --check` | Pass: 85 generated outputs |
+| `python -m unittest discover -s tests` | Pass: **100 tests** |
+
+The original 82-test suite covers contract and rights boundaries, hierarchy/dependency errors, release coverage, generated drift and publisher preservation. Eighteen additional graph tests cover existing-issue initialization, no-write reruns, conflicting metadata/relationships, missing or duplicate identities, non-user ownership, incomplete reads, silently ignored types, uncertain writes, recovery journals, fixed-repository boundaries and a complete synthetic request-budget rehearsal. These tests do not certify source rights, independent measurements, consumer acceptance, live graph completion or production operation.
 
 ## Remaining execution and acceptance
 
-1. Seed the complete prepared foundation into the verified public repository under the authorized initial bootstrap, then read back the exact remote main revision, metadata and topics.
-2. Verify actual team identities and authorized grants before enabling CODEOWNERS; apply and read back branch/tag boundaries, independent/latest-push review requirements, and the successful `ci-required` check. The current CODEOWNERS file contains explanatory comments only. Subsequent substantive changes follow the required review process.
-3. Finish Project #8's description, public visibility, repository association, fields and options; inspect default workflows so they cannot reset live execution state.
-4. Complete and reconcile the intended 81 issues, 80 internal parent edges and 135 genuine prerequisite edges. Creation is in progress; no completed count or relationship set is claimed here. Resolve the research #509 relationship without closing or recreating its broader research work.
-5. Add each issue once to Project #8, preserving existing execution state and accepted Assignees. Initialize baseline fields only for verified new pristine work.
-6. Configure all eight saved views and verify persisted layouts, filters, grouping, columns and complete item memberships after reload.
-7. Run hosted CI at the delivered revision and produce a fresh consolidated readback covering resources, hierarchy, dependencies, fields, views, rules, checks and unresolved acceptance conditions.
+1. Reconcile and read back the external research #509 relationship without closing its broader research scope.
+2. Finish and verify all 891 Project item-field values while preserving any concurrent human progress.
+3. Configure, save and reload the eight views; compare their full configuration and result memberships with the intended plan.
+4. Complete authorized team grants after administrative reauthentication, then apply and verify branch/tag restrictions, independent/latest-push review and required-check enforcement.
+5. Verify final repository metadata/topics, security reporting and Project repository association.
+6. Publish the updated execution report, verify its delivered revision and hosted checks, and consolidate the final resource/configuration readback. Keep `complete_mission: false` until the required initialization outcomes are actually evidenced.
 
-The optional setup helper implements only part of this sequence. Its default mode is offline; `--inspect` is read-only; `--apply` requires preauthenticated `gh` and explicit invocation. It does not upload source, merge a PR, configure saved views or governance, or deploy anything. Read [PROJECT_SETUP.md](PROJECT_SETUP.md) before using it. Preserve its journal after an interrupted or uncertain write; do not erase the journal to force a retry.
+The four canonical planning JSON files, Project configuration and prepared issue payload remain unchanged by this execution report. Observed GitHub execution belongs in this receipt and live GitHub state; the prepared baseline must not overwrite human progress.
 
-## Research and consumer decisions preserved
+## Research and deployment boundary
 
-The frozen builder `contracts/v1/` remains an upstream authority and a consumer projection, not the limit of the general catalog. The broader draft schema has a separate namespace and version. Accepted research #39, #40, #41 and #60 remains referenced input rather than duplicated unfinished work. Source checking, independent measurement, confidence and per-operation source rights remain distinct.
+The research repository remains authoritative for methods, accepted source policy and the frozen builder `contracts/v1/`. Broader catalog contracts retain their separate namespace and version. Accepted research #39, #40, #41 and #60 is reused rather than recreated as unfinished research. Source documentation, independent measurements, confidence and permissions for each intended use remain distinct.
 
-The existing canonical service boundary remains in the website's `services/planner-api` lane. This pipeline supplies qualified immutable artifacts and does not create another user-build, evaluation, authentication or cost-estimation service. Website, Apple and Android retain their own receiving conformance and acceptance responsibilities. Initial data is entirely synthetic and carries no production publication eligibility.
-
+The canonical future shared service remains in the website's `services/planner-api` lane. This pipeline supplies qualified immutable artifacts and does not create another builder, evaluation, authentication or cost-estimation backend. Website, Apple and Android retain their own receiving conformance and acceptance. All bootstrap data remains synthetic, with no production publication eligibility or deployment acceptance.

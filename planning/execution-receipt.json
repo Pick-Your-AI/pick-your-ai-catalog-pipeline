@@ -1,51 +1,1379 @@
 {
   "schema_version": "catalog-pipeline-bootstrap-execution-receipt-1",
-  "recorded_at": "2026-10-23 00:24:35 UTC",
+  "recorded_at": "2026-10-23 04:54:13 UTC",
   "complete_mission": false,
-  "outcome": "Public repository and organization Project created and verified; foundation and issue/Project initialization in progress",
+  "outcome": "Published foundation and graph initializer with successful hosted validation; 81 canonical issues audited; internal native graph verified complete with 81 types, 80 parents and 135 blockers; public Project #8 has 11 configured fields and 81 members; external research parent, Project values/views and governance remain incomplete",
   "target": {
     "repository": "Pick-Your-AI/pick-your-ai-catalog-pipeline",
     "repository_visibility": "public",
-    "project_title": "Pick Your AI — Catalog Pipeline",
-    "parent_research_issue": "https://github.com/Pick-Your-AI/pick-your-ai-research/issues/509",
     "repository_url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline",
+    "project_title": "Pick Your AI — Catalog Pipeline",
     "project_number": 8,
-    "project_url": "https://github.com/orgs/Pick-Your-AI/projects/8"
+    "project_url": "https://github.com/orgs/Pick-Your-AI/projects/8",
+    "parent_research_issue": "https://github.com/Pick-Your-AI/pick-your-ai-research/issues/509"
   },
   "remote": {
     "mutations_performed": true,
     "repository_id": 1430404474,
-    "project_id": null,
-    "project_number": 8,
-    "project_url": "https://github.com/orgs/Pick-Your-AI/projects/8",
-    "published_issue_ids": null,
-    "published_internal_parent_edges": null,
-    "published_blocker_edges": null,
-    "configured_fields": null,
-    "configured_views": null,
-    "hosted_ci_run": null,
-    "team_grants_verified": false,
-    "branch_rules_verified": false,
-    "required_checks_verified": false,
-    "production_deployed": false,
     "repository_url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline",
     "repository_visibility": "public",
     "default_branch": "main",
     "initial_main_commit": "b30a2eabbd40404d71088c927e9b95ec0df50d1b",
-    "initial_main_commit_url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/commit/b30a2eabbd40404d71088c927e9b95ec0df50d1b",
-    "foundation_upload_status": "Pending exact source upload and delivered-commit readback at this snapshot",
+    "foundation_upload_status": "Verified: 135 foundation blobs at the foundation commit; all five graph/bootstrap file changes verified at the later commit",
+    "foundation_commit": "b03eccc59b11b83ae7e8d546a498cce13fe52d7a",
+    "foundation_commit_url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/commit/b03eccc59b11b83ae7e8d546a498cce13fe52d7a",
+    "latest_verified_main_commit": "63c1c6e881ddaba817fb1c58a6a8e629ad85e33f",
+    "latest_verified_main_commit_url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/commit/63c1c6e881ddaba817fb1c58a6a8e629ad85e33f",
+    "latest_source_readback_at": "2026-10-23 04:32:54 UTC",
+    "latest_verified_tree_sha": "656e17b9dedae59394562e5c77610131c83d3631",
+    "project_id": null,
+    "project_id_reason": "GraphQL node ID has not been captured in this consolidated receipt; Project number/title/URL are verified",
+    "project_number": 8,
+    "project_url": "https://github.com/orgs/Pick-Your-AI/projects/8",
     "project_title": "Pick Your AI — Catalog Pipeline",
-    "issue_publication_status": "In Progress",
-    "published_issue_count": null,
-    "project_membership_count": null,
-    "project_configuration_status": "In Progress; final description/visibility/repository association/field/view/membership readback pending",
+    "project_visibility": "public",
+    "project_description": "Organization-wide AI research ingestion, source governance, normalization, evidence review, catalog publishing, freshness, and consumer delivery.",
+    "project_metadata_evidence": {
+      "method": "Authenticated GitHub UI readback by the root executor",
+      "included_in_snapshot": "2026-10-23 04:47:33 UTC",
+      "scope": "Observed administrative configuration and membership; not an independent GitHub approving review"
+    },
+    "project_repository_link_status": "Final explicit association readback pending; membership is verified separately",
+    "configured_field_count": 11,
+    "configured_fields": [
+      {
+        "name": "Status",
+        "type": "SINGLE_SELECT",
+        "options": [
+          "Backlog",
+          "Ready",
+          "In Progress",
+          "In Review",
+          "Blocked",
+          "Done"
+        ],
+        "native": true,
+        "option_ids_status": "Not captured in this receipt",
+        "evidence": "Root executor UI readback confirmed requested option set"
+      },
+      {
+        "name": "Priority",
+        "type": "SINGLE_SELECT",
+        "options": [
+          "P0",
+          "P1",
+          "P2",
+          "P3"
+        ],
+        "native": false,
+        "option_ids_status": "Not captured in this receipt",
+        "evidence": "Root executor UI readback confirmed requested option set"
+      },
+      {
+        "name": "Workstream",
+        "type": "SINGLE_SELECT",
+        "options": [
+          "Program",
+          "01 Scope and delivery governance",
+          "02 Ecosystem contracts and ontology",
+          "03 Source rights and use governance",
+          "04 Permitted acquisition and connector runtime",
+          "05 Identity resolution and normalization",
+          "06 Evidence and provenance ledger",
+          "07 Validation, quarantine and quality",
+          "08 Human review and editorial control",
+          "09 Prices and qualified measurements",
+          "10 Immutable publishing and withdrawals",
+          "11 Freshness and change management",
+          "12 Website and mobile delivery contracts",
+          "13 Security, privacy and supply chain",
+          "14 Platform and operational reliability",
+          "15 Conformance and quality verification",
+          "16 Bounded pilots and ecosystem expansion"
+        ],
+        "native": false,
+        "option_ids_status": "Not captured in this receipt",
+        "evidence": "Root executor UI readback confirmed requested option set"
+      },
+      {
+        "name": "Record Type",
+        "type": "SINGLE_SELECT",
+        "options": [
+          "Program",
+          "Epic",
+          "Work Package",
+          "Task"
+        ],
+        "native": false,
+        "option_ids_status": "Not captured in this receipt",
+        "evidence": "Root executor UI readback confirmed requested option set"
+      },
+      {
+        "name": "Readiness",
+        "type": "SINGLE_SELECT",
+        "options": [
+          "Ready",
+          "Needs Input",
+          "Blocked",
+          "Awaiting Decision"
+        ],
+        "native": false,
+        "option_ids_status": "Not captured in this receipt",
+        "evidence": "Root executor UI readback confirmed requested option set"
+      },
+      {
+        "name": "Evidence Confidence",
+        "type": "SINGLE_SELECT",
+        "options": [
+          "Unverified",
+          "Low",
+          "Medium",
+          "High",
+          "Not Applicable"
+        ],
+        "native": false,
+        "option_ids_status": "Not captured in this receipt",
+        "evidence": "Root executor UI readback confirmed requested option set"
+      },
+      {
+        "name": "Source Rights Status",
+        "type": "SINGLE_SELECT",
+        "options": [
+          "Not Assessed",
+          "Research Only",
+          "Conditional",
+          "Approved",
+          "Restricted",
+          "Revoked",
+          "Not Applicable"
+        ],
+        "native": false,
+        "option_ids_status": "Not captured in this receipt",
+        "evidence": "Root executor UI readback confirmed requested option set"
+      },
+      {
+        "name": "Dependency Status",
+        "type": "SINGLE_SELECT",
+        "options": [
+          "Not Assessed",
+          "No Dependencies",
+          "Waiting",
+          "Ready",
+          "Blocked"
+        ],
+        "native": false,
+        "option_ids_status": "Not captured in this receipt",
+        "evidence": "Root executor UI readback confirmed requested option set"
+      },
+      {
+        "name": "Effort",
+        "type": "SINGLE_SELECT",
+        "options": [
+          "Unknown",
+          "S",
+          "M",
+          "L"
+        ],
+        "native": false,
+        "option_ids_status": "Not captured in this receipt",
+        "evidence": "Root executor UI readback confirmed requested option set"
+      },
+      {
+        "name": "Release Phase",
+        "type": "SINGLE_SELECT",
+        "options": [
+          "Bootstrap",
+          "Foundation",
+          "Bounded Pilot",
+          "Beta",
+          "Production",
+          "Expansion"
+        ],
+        "native": false,
+        "option_ids_status": "Not captured in this receipt",
+        "evidence": "Root executor UI readback confirmed requested option set"
+      },
+      {
+        "name": "Acceptance Status",
+        "type": "SINGLE_SELECT",
+        "options": [
+          "Not Started",
+          "In Review",
+          "Accepted",
+          "Changes Required",
+          "Deferred"
+        ],
+        "native": false,
+        "option_ids_status": "Not captured in this receipt",
+        "evidence": "Root executor UI readback confirmed requested option set"
+      }
+    ],
+    "status_option_order_verified": true,
+    "project_membership_count": 81,
+    "project_membership_evidence": {
+      "method": "Authenticated GitHub UI readback by the root executor",
+      "included_in_snapshot": "2026-10-23 04:47:33 UTC",
+      "scope": "Observed administrative configuration and membership; not an independent GitHub approving review",
+      "observation": "All 81 canonical issue members added to Project #8"
+    },
+    "project_automation": {
+      "automatic_review_status_workflows_disabled": 5,
+      "auto_add_sub_issues_enabled": true,
+      "evidence": {
+        "method": "Authenticated GitHub UI readback by the root executor",
+        "included_in_snapshot": "2026-10-23 04:47:33 UTC",
+        "scope": "Observed administrative configuration and membership; not an independent GitHub approving review"
+      }
+    },
+    "project_field_values_status": "Initialization in progress; all 891 planned item-field values have not yet received complete readback",
+    "project_field_values_complete": false,
+    "verified_project_field_value_count": null,
+    "configured_views": null,
+    "saved_views_status": "Eight requested views remain incomplete; persisted layouts, filters, groups, sorts, columns and result memberships are not yet accepted",
+    "project_configuration_status": "Partial: metadata, field definitions/options and 81 members verified; item values, views and final association/readback pending",
+    "issue_publication_status": "Verified complete for issue identity and content scope",
+    "published_issue_count": 81,
+    "published_issue_ids": {
+      "CP": {
+        "number": 1,
+        "id": 5991796694,
+        "node_id": "I_kwDOVUI9es8AAAABZSOP1g",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/1",
+        "body_sha256": "75253ffb076506ea42c566b6310a357e1d57e9739d83378b66b4762bc5f91d26",
+        "native_issue_type": "Feature",
+        "internal_parent_id": null,
+        "blocked_by_ids": []
+      },
+      "CP-01": {
+        "number": 2,
+        "id": 5991801047,
+        "node_id": "I_kwDOVUI9es8AAAABZSOg1w",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/2",
+        "body_sha256": "121ac2e5d34feebd50094680828e294b7836d49203938763f49ca5b727a9724f",
+        "native_issue_type": "Feature",
+        "internal_parent_id": "CP",
+        "blocked_by_ids": []
+      },
+      "CP-01.01": {
+        "number": 3,
+        "id": 5991801648,
+        "node_id": "I_kwDOVUI9es8AAAABZSOjMA",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/3",
+        "body_sha256": "1a37a30f8b09a9bc60d82dbddd0a199ca28e9287f691174ed9fba056497c89b6",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-01",
+        "blocked_by_ids": []
+      },
+      "CP-01.02": {
+        "number": 4,
+        "id": 5991802367,
+        "node_id": "I_kwDOVUI9es8AAAABZSOl_w",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/4",
+        "body_sha256": "8a9bedccd6e3a25cbb816179d7d5e852762de2de8903acc626a2a7582bdacb0f",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-01",
+        "blocked_by_ids": [
+          "CP-01.01"
+        ]
+      },
+      "CP-01.03": {
+        "number": 5,
+        "id": 5991802940,
+        "node_id": "I_kwDOVUI9es8AAAABZSOoPA",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/5",
+        "body_sha256": "af38c5db3dc55e52b3b393b6c0aa6839488941b8f9576eb9522b0e51ce8117ad",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-01",
+        "blocked_by_ids": [
+          "CP-01.01"
+        ]
+      },
+      "CP-01.04": {
+        "number": 6,
+        "id": 5991803558,
+        "node_id": "I_kwDOVUI9es8AAAABZSOqpg",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/6",
+        "body_sha256": "afc3163b01cf9730ff2f123a68268d96a94383e761ef8cc80a1497233d7664b9",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-01",
+        "blocked_by_ids": [
+          "CP-01.01",
+          "CP-01.02"
+        ]
+      },
+      "CP-02": {
+        "number": 7,
+        "id": 5991817627,
+        "node_id": "I_kwDOVUI9es8AAAABZSPhmw",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/7",
+        "body_sha256": "05797d3b66d64fdefdd597ce9374036fb42c4a7d2ed5d88a21c96d67727933ff",
+        "native_issue_type": "Feature",
+        "internal_parent_id": "CP",
+        "blocked_by_ids": []
+      },
+      "CP-02.01": {
+        "number": 8,
+        "id": 5991818211,
+        "node_id": "I_kwDOVUI9es8AAAABZSPj4w",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/8",
+        "body_sha256": "a41adde298e1366b17f1e10581de3deb7a02cb99c11478a28f4004f907ccd0a4",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-02",
+        "blocked_by_ids": [
+          "CP-01.01"
+        ]
+      },
+      "CP-02.02": {
+        "number": 9,
+        "id": 5991818898,
+        "node_id": "I_kwDOVUI9es8AAAABZSPmkg",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/9",
+        "body_sha256": "69866d1eca31116ffcca8eccd8779e3eecc7399ca96cf5ae4d2f5cbbca70a04d",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-02",
+        "blocked_by_ids": [
+          "CP-02.01"
+        ]
+      },
+      "CP-02.03": {
+        "number": 10,
+        "id": 5991819574,
+        "node_id": "I_kwDOVUI9es8AAAABZSPpNg",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/10",
+        "body_sha256": "c16724d39292e6f573d9434d2d18321445dd3fd412a77ebf49d7ae28a239a834",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-02",
+        "blocked_by_ids": [
+          "CP-02.02"
+        ]
+      },
+      "CP-02.04": {
+        "number": 11,
+        "id": 5991820213,
+        "node_id": "I_kwDOVUI9es8AAAABZSPrtQ",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/11",
+        "body_sha256": "74698ae75237188430aec5b23719001ea434e98cc522b9dd8195e6680e6e1e84",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-02",
+        "blocked_by_ids": [
+          "CP-02.01",
+          "CP-02.02"
+        ]
+      },
+      "CP-03": {
+        "number": 12,
+        "id": 5991821063,
+        "node_id": "I_kwDOVUI9es8AAAABZSPvBw",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/12",
+        "body_sha256": "ee6ac35577731a7ae31c4b338a05a6c6c96642f91e5994b785ecb245e461556b",
+        "native_issue_type": "Feature",
+        "internal_parent_id": "CP",
+        "blocked_by_ids": []
+      },
+      "CP-03.01": {
+        "number": 13,
+        "id": 5991821655,
+        "node_id": "I_kwDOVUI9es8AAAABZSPxVw",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/13",
+        "body_sha256": "dd02ed86b61ff8e7ebc05c21d86a38a01fc933f3f286ac7768a199c26e5c124f",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-03",
+        "blocked_by_ids": [
+          "CP-02.01",
+          "CP-02.02"
+        ]
+      },
+      "CP-03.02": {
+        "number": 14,
+        "id": 5991822337,
+        "node_id": "I_kwDOVUI9es8AAAABZSP0AQ",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/14",
+        "body_sha256": "129da4a23c33227178c2ad3202064a9eaf244457d0134e00d324d467224bac62",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-03",
+        "blocked_by_ids": [
+          "CP-03.01"
+        ]
+      },
+      "CP-03.03": {
+        "number": 15,
+        "id": 5991822927,
+        "node_id": "I_kwDOVUI9es8AAAABZSP2Tw",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/15",
+        "body_sha256": "00dc98d703f8e1081bdc2294db50c0f4e976d7db7debee44dfb5b45001edf6ae",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-03",
+        "blocked_by_ids": [
+          "CP-03.01",
+          "CP-06.01"
+        ]
+      },
+      "CP-03.04": {
+        "number": 16,
+        "id": 5991823617,
+        "node_id": "I_kwDOVUI9es8AAAABZSP5AQ",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/16",
+        "body_sha256": "366da273739709917b7d7e8e992fdaddd49cf1286eea47f4c7cfed5c54d7746e",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-03",
+        "blocked_by_ids": [
+          "CP-03.03",
+          "CP-10.03"
+        ]
+      },
+      "CP-04": {
+        "number": 17,
+        "id": 5991824206,
+        "node_id": "I_kwDOVUI9es8AAAABZSP7Tg",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/17",
+        "body_sha256": "ebd7cbd2b8e0596a135683f932091796d4edfe433e0e0150af1904707620e592",
+        "native_issue_type": "Feature",
+        "internal_parent_id": "CP",
+        "blocked_by_ids": []
+      },
+      "CP-04.01": {
+        "number": 18,
+        "id": 5991824756,
+        "node_id": "I_kwDOVUI9es8AAAABZSP9dA",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/18",
+        "body_sha256": "687c5138935e84ca5ab0e36574cf2c81daf05860e08e34ea4c92600564d52389",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-04",
+        "blocked_by_ids": [
+          "CP-03.02",
+          "CP-01.04"
+        ]
+      },
+      "CP-04.02": {
+        "number": 19,
+        "id": 5991825342,
+        "node_id": "I_kwDOVUI9es8AAAABZSP_vg",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/19",
+        "body_sha256": "2d7827c6f26799f60bc68eae9acd0b8cdd996f3351098eecfb97f0957f903fb0",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-04",
+        "blocked_by_ids": [
+          "CP-04.01",
+          "CP-03.01"
+        ]
+      },
+      "CP-04.03": {
+        "number": 20,
+        "id": 5991825968,
+        "node_id": "I_kwDOVUI9es8AAAABZSQCMA",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/20",
+        "body_sha256": "ca9a215a149e03b146a91227d9f140581f84c9ef0ba5c8a3d27492c7595daedf",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-04",
+        "blocked_by_ids": [
+          "CP-04.01",
+          "CP-02.02"
+        ]
+      },
+      "CP-04.04": {
+        "number": 21,
+        "id": 5991826496,
+        "node_id": "I_kwDOVUI9es8AAAABZSQEQA",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/21",
+        "body_sha256": "8fb537cee730e3153ab46e49340742c265fe1be57480ddd8080f6f2041bb652c",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-04",
+        "blocked_by_ids": [
+          "CP-04.01",
+          "CP-14.01"
+        ]
+      },
+      "CP-05": {
+        "number": 22,
+        "id": 5991854527,
+        "node_id": "I_kwDOVUI9es8AAAABZSRxvw",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/22",
+        "body_sha256": "08fd03a596fa765279d579e3fe9fcc223266c072860eeda20a21c64cc263ff55",
+        "native_issue_type": "Feature",
+        "internal_parent_id": "CP",
+        "blocked_by_ids": []
+      },
+      "CP-05.01": {
+        "number": 23,
+        "id": 5991855069,
+        "node_id": "I_kwDOVUI9es8AAAABZSRz3Q",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/23",
+        "body_sha256": "a44862b2eb7667991ddd3d651a4b0fa8c55ef3babb03a3e23c53aae0451a40c2",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-05",
+        "blocked_by_ids": [
+          "CP-02.01"
+        ]
+      },
+      "CP-05.02": {
+        "number": 24,
+        "id": 5991856490,
+        "node_id": "I_kwDOVUI9es8AAAABZSR5ag",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/24",
+        "body_sha256": "a9a6ebfd5626a62e4d778992bb0e91948ab1a4dcd204640ba073bfaabecaf36d",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-05",
+        "blocked_by_ids": [
+          "CP-05.01",
+          "CP-06.01"
+        ]
+      },
+      "CP-05.03": {
+        "number": 25,
+        "id": 5991857166,
+        "node_id": "I_kwDOVUI9es8AAAABZSR8Dg",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/25",
+        "body_sha256": "f8a569cdd93db071b047cdb969f75a2c052b2b23f7a14b142c6e6760586992d0",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-05",
+        "blocked_by_ids": [
+          "CP-02.01",
+          "CP-05.01"
+        ]
+      },
+      "CP-05.04": {
+        "number": 26,
+        "id": 5991857698,
+        "node_id": "I_kwDOVUI9es8AAAABZSR-Ig",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/26",
+        "body_sha256": "bff94d06dd1491ee7468cfd4c61e932cb13aea473e6e86fa68659b66bc3c7a17",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-05",
+        "blocked_by_ids": [
+          "CP-05.01",
+          "CP-02.04"
+        ]
+      },
+      "CP-06": {
+        "number": 27,
+        "id": 5991858232,
+        "node_id": "I_kwDOVUI9es8AAAABZSSAOA",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/27",
+        "body_sha256": "6ba648fff437d5f9dd860ba54414d175fce7af8ce09f7351a7d3577a9563645a",
+        "native_issue_type": "Feature",
+        "internal_parent_id": "CP",
+        "blocked_by_ids": []
+      },
+      "CP-06.01": {
+        "number": 28,
+        "id": 5991858807,
+        "node_id": "I_kwDOVUI9es8AAAABZSSCdw",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/28",
+        "body_sha256": "48348785bf2dace79fcd66ae39219233585a907419eeeb6ad51d57de8df6ad1d",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-06",
+        "blocked_by_ids": [
+          "CP-02.01",
+          "CP-03.01"
+        ]
+      },
+      "CP-06.02": {
+        "number": 29,
+        "id": 5991859339,
+        "node_id": "I_kwDOVUI9es8AAAABZSSEiw",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/29",
+        "body_sha256": "27b42dd7c2d54785548430fe8f2360d0cb7a86422796a280d9d5c4be57af2e90",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-06",
+        "blocked_by_ids": [
+          "CP-06.01"
+        ]
+      },
+      "CP-06.03": {
+        "number": 30,
+        "id": 5991859912,
+        "node_id": "I_kwDOVUI9es8AAAABZSSGyA",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/30",
+        "body_sha256": "23430c2a3f7a395afa404f47ac87ab3a3538d40640fcf8cc49da98cc208c8d8e",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-06",
+        "blocked_by_ids": [
+          "CP-06.01",
+          "CP-03.02"
+        ]
+      },
+      "CP-06.04": {
+        "number": 31,
+        "id": 5991860517,
+        "node_id": "I_kwDOVUI9es8AAAABZSSJJQ",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/31",
+        "body_sha256": "e69fac716549a735d048101b13e71e6c5c07174c0aeea8eb9b8d31af34c94fb1",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-06",
+        "blocked_by_ids": [
+          "CP-06.01",
+          "CP-01.02"
+        ]
+      },
+      "CP-07": {
+        "number": 32,
+        "id": 5991861151,
+        "node_id": "I_kwDOVUI9es8AAAABZSSLnw",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/32",
+        "body_sha256": "fa48c2a8f7f6246d89cf171bbd235355ef0df4c94b7034228e9a9d97d0196185",
+        "native_issue_type": "Feature",
+        "internal_parent_id": "CP",
+        "blocked_by_ids": []
+      },
+      "CP-07.01": {
+        "number": 33,
+        "id": 5991861739,
+        "node_id": "I_kwDOVUI9es8AAAABZSSN6w",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/33",
+        "body_sha256": "dcb3310d75ea6baa76d26810d03c22661cd448a87c986263a58ae73c1a96e45e",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-07",
+        "blocked_by_ids": [
+          "CP-02.01",
+          "CP-05.03",
+          "CP-06.01"
+        ]
+      },
+      "CP-07.02": {
+        "number": 34,
+        "id": 5991862320,
+        "node_id": "I_kwDOVUI9es8AAAABZSSQMA",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/34",
+        "body_sha256": "7886bbac360ed1f999171cde14dbd07cd2504722756d92ee142daae61138e8a8",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-07",
+        "blocked_by_ids": [
+          "CP-07.01",
+          "CP-03.01"
+        ]
+      },
+      "CP-07.03": {
+        "number": 35,
+        "id": 5991862846,
+        "node_id": "I_kwDOVUI9es8AAAABZSSSPg",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/35",
+        "body_sha256": "34be41f617cd4726d52d24a0240d013649a747a9c1699e5561b7d34a9cb0c34d",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-07",
+        "blocked_by_ids": [
+          "CP-06.02",
+          "CP-07.01"
+        ]
+      },
+      "CP-07.04": {
+        "number": 36,
+        "id": 5991863345,
+        "node_id": "I_kwDOVUI9es8AAAABZSSUMQ",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/36",
+        "body_sha256": "a3d5da8ead404f37a42bb59bbf84505b09c0967354ade8288c75f5d12ebde3b4",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-07",
+        "blocked_by_ids": [
+          "CP-01.01",
+          "CP-05.02",
+          "CP-07.02"
+        ]
+      },
+      "CP-08": {
+        "number": 37,
+        "id": 5991877010,
+        "node_id": "I_kwDOVUI9es8AAAABZSTJkg",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/37",
+        "body_sha256": "c91160ce569640e6477edfc5c7e231b172dc2b2f10ba14fc4683ad40fb65ec97",
+        "native_issue_type": "Feature",
+        "internal_parent_id": "CP",
+        "blocked_by_ids": []
+      },
+      "CP-08.01": {
+        "number": 38,
+        "id": 5991877592,
+        "node_id": "I_kwDOVUI9es8AAAABZSTL2A",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/38",
+        "body_sha256": "daf84591ba3cf9149a8d40ca38fd98372d95ef3d052d8e71597ab09dc3676851",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-08",
+        "blocked_by_ids": [
+          "CP-07.02",
+          "CP-06.03",
+          "CP-01.02"
+        ]
+      },
+      "CP-08.02": {
+        "number": 39,
+        "id": 5991878128,
+        "node_id": "I_kwDOVUI9es8AAAABZSTN8A",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/39",
+        "body_sha256": "1811fba6cb7d2ad4a9657c0a745566acef8f58c9acd838ed3087a5dfb4c41496",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-08",
+        "blocked_by_ids": [
+          "CP-08.01",
+          "CP-13.01"
+        ]
+      },
+      "CP-08.03": {
+        "number": 40,
+        "id": 5991878731,
+        "node_id": "I_kwDOVUI9es8AAAABZSTQSw",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/40",
+        "body_sha256": "70918e9f5313d66c6d996392b500cc8a19f9dfe4b0acad50a24e393224d8c8a2",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-08",
+        "blocked_by_ids": [
+          "CP-08.01",
+          "CP-06.04"
+        ]
+      },
+      "CP-08.04": {
+        "number": 41,
+        "id": 5991879413,
+        "node_id": "I_kwDOVUI9es8AAAABZSTS9Q",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/41",
+        "body_sha256": "9710bb2767ba65a43913b79ecc204aaa8a8052b8638a44b4047231e38c34a27c",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-08",
+        "blocked_by_ids": [
+          "CP-08.01",
+          "CP-13.02"
+        ]
+      },
+      "CP-09": {
+        "number": 42,
+        "id": 5991879943,
+        "node_id": "I_kwDOVUI9es8AAAABZSTVBw",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/42",
+        "body_sha256": "d76e4882029ebe5a7102e4ce0071a3fa5c279d3fa60028eaad65068cbe5a67ce",
+        "native_issue_type": "Feature",
+        "internal_parent_id": "CP",
+        "blocked_by_ids": []
+      },
+      "CP-09.01": {
+        "number": 43,
+        "id": 5991880498,
+        "node_id": "I_kwDOVUI9es8AAAABZSTXMg",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/43",
+        "body_sha256": "b63dce6d282f75119463ce2c94f5c26daa64e5c925a20a560e6e8a4c10383c14",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-09",
+        "blocked_by_ids": [
+          "CP-05.03",
+          "CP-03.03"
+        ]
+      },
+      "CP-09.02": {
+        "number": 44,
+        "id": 5991880975,
+        "node_id": "I_kwDOVUI9es8AAAABZSTZDw",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/44",
+        "body_sha256": "f8f4c6ac40bdfb191339182de7788bf24e5893b5d7ceb95b834866a83e382764",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-09",
+        "blocked_by_ids": [
+          "CP-06.02",
+          "CP-07.01"
+        ]
+      },
+      "CP-09.03": {
+        "number": 45,
+        "id": 5991881521,
+        "node_id": "I_kwDOVUI9es8AAAABZSTbMQ",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/45",
+        "body_sha256": "dacaa49fe3cabb0288d95b85e67894f8c032cbd2e4be40dd1f8b4cc07599351b",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-09",
+        "blocked_by_ids": [
+          "CP-09.01",
+          "CP-09.02"
+        ]
+      },
+      "CP-09.04": {
+        "number": 46,
+        "id": 5991882032,
+        "node_id": "I_kwDOVUI9es8AAAABZSTdMA",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/46",
+        "body_sha256": "77bf838a7fdc4b190e52eedfe55c6e54547cb27090ced92bdca031f919ad1830",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-09",
+        "blocked_by_ids": [
+          "CP-09.02",
+          "CP-06.02"
+        ]
+      },
+      "CP-10": {
+        "number": 47,
+        "id": 5991882617,
+        "node_id": "I_kwDOVUI9es8AAAABZSTfeQ",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/47",
+        "body_sha256": "ac20c6ee31dca879aa1b4959ca59de72dec06b61d3b34c5af365fcfbad519548",
+        "native_issue_type": "Feature",
+        "internal_parent_id": "CP",
+        "blocked_by_ids": []
+      },
+      "CP-10.01": {
+        "number": 48,
+        "id": 5991883155,
+        "node_id": "I_kwDOVUI9es8AAAABZSThkw",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/48",
+        "body_sha256": "7f0d42b99697a647ff5d8f66fa2340532ce2981f0214cdccb07adb98fb61b4a5",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-10",
+        "blocked_by_ids": [
+          "CP-08.01",
+          "CP-03.03",
+          "CP-07.01"
+        ]
+      },
+      "CP-10.02": {
+        "number": 49,
+        "id": 5991883677,
+        "node_id": "I_kwDOVUI9es8AAAABZSTjnQ",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/49",
+        "body_sha256": "d0e0e91bffeb57cc4ae0a9b06cda4d0581254ea336dce01284ceedce1f162099",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-10",
+        "blocked_by_ids": [
+          "CP-10.01",
+          "CP-08.02",
+          "CP-13.03"
+        ]
+      },
+      "CP-10.03": {
+        "number": 50,
+        "id": 5991884174,
+        "node_id": "I_kwDOVUI9es8AAAABZSTljg",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/50",
+        "body_sha256": "c4b6b9806382e8c3831fc55287d4295d6647c9b0c5dffd6554a58c5b4e8f6d06",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-10",
+        "blocked_by_ids": [
+          "CP-10.02"
+        ]
+      },
+      "CP-10.04": {
+        "number": 51,
+        "id": 5991884701,
+        "node_id": "I_kwDOVUI9es8AAAABZSTnnQ",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/51",
+        "body_sha256": "7d271e47cf483a2cbbabd2929e02bd2588587b2eaa81a2e6ab8c1858fcd542a1",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-10",
+        "blocked_by_ids": [
+          "CP-10.02",
+          "CP-02.03"
+        ]
+      },
+      "CP-11": {
+        "number": 52,
+        "id": 5991905495,
+        "node_id": "I_kwDOVUI9es8AAAABZSU41w",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/52",
+        "body_sha256": "afd52ffeebdd816accc07550e4fd8a749c0bf32a4032d392f5c1e9780842149a",
+        "native_issue_type": "Feature",
+        "internal_parent_id": "CP",
+        "blocked_by_ids": []
+      },
+      "CP-11.01": {
+        "number": 53,
+        "id": 5991905989,
+        "node_id": "I_kwDOVUI9es8AAAABZSU6xQ",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/53",
+        "body_sha256": "523142f189f48ba08348cab6d832c914c876e2aeebf583acfa9dc9ea20eda2ff",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-11",
+        "blocked_by_ids": [
+          "CP-06.01",
+          "CP-02.02"
+        ]
+      },
+      "CP-11.02": {
+        "number": 54,
+        "id": 5991906598,
+        "node_id": "I_kwDOVUI9es8AAAABZSU9Jg",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/54",
+        "body_sha256": "6c60d8a2e2e073034a106e4f0559e753f7e8cfa0586c5fcb27a9f68124eb05d5",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-11",
+        "blocked_by_ids": [
+          "CP-11.01",
+          "CP-07.03",
+          "CP-04.04"
+        ]
+      },
+      "CP-11.03": {
+        "number": 55,
+        "id": 5991907343,
+        "node_id": "I_kwDOVUI9es8AAAABZSVADw",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/55",
+        "body_sha256": "0c0080a2c4f60af5b7520b71fb9f2832d254cc22698fc67c872789280f1f9f07",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-11",
+        "blocked_by_ids": [
+          "CP-11.01",
+          "CP-04.04"
+        ]
+      },
+      "CP-11.04": {
+        "number": 56,
+        "id": 5991908800,
+        "node_id": "I_kwDOVUI9es8AAAABZSVFwA",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/56",
+        "body_sha256": "b7161a2886dfb2ef6cef1d126cf542917be3674f6e4b10ebad6259e38dec776d",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-11",
+        "blocked_by_ids": [
+          "CP-11.02",
+          "CP-10.03",
+          "CP-12.01"
+        ]
+      },
+      "CP-12": {
+        "number": 57,
+        "id": 5991909354,
+        "node_id": "I_kwDOVUI9es8AAAABZSVH6g",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/57",
+        "body_sha256": "039b0cf2ab5339e5f86fa8e73be7faa87ec361840c136e0ee198cb3bdc027b0f",
+        "native_issue_type": "Feature",
+        "internal_parent_id": "CP",
+        "blocked_by_ids": []
+      },
+      "CP-12.01": {
+        "number": 58,
+        "id": 5991910208,
+        "node_id": "I_kwDOVUI9es8AAAABZSVLQA",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/58",
+        "body_sha256": "a7df3e8add5c3435e7467f9758b8220971155d810b5821294d7da0436e365c69",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-12",
+        "blocked_by_ids": [
+          "CP-02.02",
+          "CP-10.01"
+        ]
+      },
+      "CP-12.02": {
+        "number": 59,
+        "id": 5991911214,
+        "node_id": "I_kwDOVUI9es8AAAABZSVPLg",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/59",
+        "body_sha256": "e51a4123afa63b5768fc28defb62e84e5a4909a9161764513fa24f64bb67e658",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-12",
+        "blocked_by_ids": [
+          "CP-12.01",
+          "CP-10.04"
+        ]
+      },
+      "CP-12.03": {
+        "number": 60,
+        "id": 5991912043,
+        "node_id": "I_kwDOVUI9es8AAAABZSVSaw",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/60",
+        "body_sha256": "6ace303292a52884f47b519ec29c380e04cd876864c6743aa52aee70464c4e13",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-12",
+        "blocked_by_ids": [
+          "CP-12.01",
+          "CP-10.04"
+        ]
+      },
+      "CP-12.04": {
+        "number": 61,
+        "id": 5991912520,
+        "node_id": "I_kwDOVUI9es8AAAABZSVUSA",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/61",
+        "body_sha256": "43fee6892b30dfd6905da9b3486d5d224eda2dbf1cbec94ba8da533c0066bb08",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-12",
+        "blocked_by_ids": [
+          "CP-12.02",
+          "CP-12.03",
+          "CP-02.03"
+        ]
+      },
+      "CP-13": {
+        "number": 62,
+        "id": 5991913017,
+        "node_id": "I_kwDOVUI9es8AAAABZSVWOQ",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/62",
+        "body_sha256": "459c36be513b2fce717b58ab5967b9192970a08fb799af5eba6fdf2f99be5a1f",
+        "native_issue_type": "Feature",
+        "internal_parent_id": "CP",
+        "blocked_by_ids": []
+      },
+      "CP-13.01": {
+        "number": 63,
+        "id": 5991914144,
+        "node_id": "I_kwDOVUI9es8AAAABZSVaoA",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/63",
+        "body_sha256": "80528c1037407062587e464df811a0d9ab13075437c762d56871b140d5c90aaa",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-13",
+        "blocked_by_ids": [
+          "CP-01.02",
+          "CP-01.04"
+        ]
+      },
+      "CP-13.02": {
+        "number": 64,
+        "id": 5991915028,
+        "node_id": "I_kwDOVUI9es8AAAABZSVeFA",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/64",
+        "body_sha256": "2263864719e956f08554e9389e0c6ac847ecc6c6080601344e9a85f80e161dc2",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-13",
+        "blocked_by_ids": [
+          "CP-04.01",
+          "CP-13.01"
+        ]
+      },
+      "CP-13.03": {
+        "number": 65,
+        "id": 5991915560,
+        "node_id": "I_kwDOVUI9es8AAAABZSVgKA",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/65",
+        "body_sha256": "cc2d0b552cfc329ab389a520ac42504c45ad2d5115572726c4209e722d714685",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-13",
+        "blocked_by_ids": [
+          "CP-13.01",
+          "CP-10.01"
+        ]
+      },
+      "CP-13.04": {
+        "number": 66,
+        "id": 5991916482,
+        "node_id": "I_kwDOVUI9es8AAAABZSVjwg",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/66",
+        "body_sha256": "e875577af72d030de35ef04fa09256d5a7da935219b49e98fd3dfeeaff1443cc",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-13",
+        "blocked_by_ids": [
+          "CP-13.01",
+          "CP-03.04"
+        ]
+      },
+      "CP-14": {
+        "number": 67,
+        "id": 5991920655,
+        "node_id": "I_kwDOVUI9es8AAAABZSV0Dw",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/67",
+        "body_sha256": "a28032061ce29f2a16d46ea9a01170078c4fd0e062a656af0fd98745087fb7dc",
+        "native_issue_type": "Feature",
+        "internal_parent_id": "CP",
+        "blocked_by_ids": []
+      },
+      "CP-14.01": {
+        "number": 68,
+        "id": 5991921239,
+        "node_id": "I_kwDOVUI9es8AAAABZSV2Vw",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/68",
+        "body_sha256": "4ddf83e0e732fa85909efd6168d0e012fb51f7783e55ef43faa8da62eb7de2ab",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-14",
+        "blocked_by_ids": [
+          "CP-01.04",
+          "CP-06.01",
+          "CP-13.01"
+        ]
+      },
+      "CP-14.02": {
+        "number": 69,
+        "id": 5991921745,
+        "node_id": "I_kwDOVUI9es8AAAABZSV4UQ",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/69",
+        "body_sha256": "c5c54235c2cd771954e067cbb8e7ba43e4fa96a3eda262632b49c142ccc597d8",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-14",
+        "blocked_by_ids": [
+          "CP-14.01",
+          "CP-13.03"
+        ]
+      },
+      "CP-14.03": {
+        "number": 70,
+        "id": 5991922350,
+        "node_id": "I_kwDOVUI9es8AAAABZSV6rg",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/70",
+        "body_sha256": "e2f12f2a737dcffc0b1143bef664e945adf952c081d604a411bdda13568edf3c",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-14",
+        "blocked_by_ids": [
+          "CP-04.04",
+          "CP-10.02"
+        ]
+      },
+      "CP-14.04": {
+        "number": 71,
+        "id": 5991923506,
+        "node_id": "I_kwDOVUI9es8AAAABZSV_Mg",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/71",
+        "body_sha256": "a6515ada9ac714aa73d3f3dd85130c7b2c53d0abf696370b6907073b9ce27a0e",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-14",
+        "blocked_by_ids": [
+          "CP-14.02",
+          "CP-14.03",
+          "CP-03.04"
+        ]
+      },
+      "CP-15": {
+        "number": 72,
+        "id": 5991924000,
+        "node_id": "I_kwDOVUI9es8AAAABZSWBIA",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/72",
+        "body_sha256": "9f7be85ac71cc6062b6d8962dd8fecef2d5321f9271d6320ac358c9824816781",
+        "native_issue_type": "Feature",
+        "internal_parent_id": "CP",
+        "blocked_by_ids": []
+      },
+      "CP-15.01": {
+        "number": 73,
+        "id": 5991924709,
+        "node_id": "I_kwDOVUI9es8AAAABZSWD5Q",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/73",
+        "body_sha256": "b8b0048b2d9a8f4b22c21e9ffa971797027d6110b7a5e93ef37c493c1c6a4cc8",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-15",
+        "blocked_by_ids": [
+          "CP-01.03",
+          "CP-02.01",
+          "CP-03.01"
+        ]
+      },
+      "CP-15.02": {
+        "number": 74,
+        "id": 5991925373,
+        "node_id": "I_kwDOVUI9es8AAAABZSWGfQ",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/74",
+        "body_sha256": "50a500351ee90bd953bc11e1d0cd2b1f3864884da1cb2957640131a19d34710a",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-15",
+        "blocked_by_ids": [
+          "CP-10.02",
+          "CP-12.01",
+          "CP-04.04"
+        ]
+      },
+      "CP-15.03": {
+        "number": 75,
+        "id": 5991926064,
+        "node_id": "I_kwDOVUI9es8AAAABZSWJMA",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/75",
+        "body_sha256": "a8c526456cde65b714b56c2440e99deb45291abc790a6d68bf100fa112b06982",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-15",
+        "blocked_by_ids": [
+          "CP-15.02",
+          "CP-14.03"
+        ]
+      },
+      "CP-15.04": {
+        "number": 76,
+        "id": 5991926901,
+        "node_id": "I_kwDOVUI9es8AAAABZSWMdQ",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/76",
+        "body_sha256": "ef48067a9a92033b590a3909e0eb5ffc46eabe36b6b6093e7d5c48baf0e5ed48",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-15",
+        "blocked_by_ids": [
+          "CP-15.02",
+          "CP-15.03",
+          "CP-14.04",
+          "CP-12.04"
+        ]
+      },
+      "CP-16": {
+        "number": 77,
+        "id": 5991927389,
+        "node_id": "I_kwDOVUI9es8AAAABZSWOXQ",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/77",
+        "body_sha256": "c625d1efc8d3272080d10ff0057f5ac869736a2cf35ee2d3332b0b380fd72b0e",
+        "native_issue_type": "Feature",
+        "internal_parent_id": "CP",
+        "blocked_by_ids": []
+      },
+      "CP-16.01": {
+        "number": 78,
+        "id": 5991927893,
+        "node_id": "I_kwDOVUI9es8AAAABZSWQVQ",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/78",
+        "body_sha256": "0ee7f3e63d2d4e0f4ec4989a2d92e50038e3e08b9e64d9df02529701b1661399",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-16",
+        "blocked_by_ids": [
+          "CP-04.02",
+          "CP-09.01",
+          "CP-12.02",
+          "CP-15.02"
+        ]
+      },
+      "CP-16.02": {
+        "number": 79,
+        "id": 5991929554,
+        "node_id": "I_kwDOVUI9es8AAAABZSWW0g",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/79",
+        "body_sha256": "cba0fdde1cfb3faf4f9b4f883d6ee66595807f845a6c9ecce70cda1fa08b882b",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-16",
+        "blocked_by_ids": [
+          "CP-16.01",
+          "CP-02.04",
+          "CP-05.04"
+        ]
+      },
+      "CP-16.03": {
+        "number": 80,
+        "id": 5991930964,
+        "node_id": "I_kwDOVUI9es8AAAABZSWcVA",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/80",
+        "body_sha256": "e972374d3ef925f9612d896e87ccebda41da95c79a08a94e293985f3aaadf010",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-16",
+        "blocked_by_ids": [
+          "CP-16.02",
+          "CP-07.04",
+          "CP-15.04"
+        ]
+      },
+      "CP-16.04": {
+        "number": 81,
+        "id": 5991931745,
+        "node_id": "I_kwDOVUI9es8AAAABZSWfYQ",
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/81",
+        "body_sha256": "22485b0570a2a5cf661cd24b76d9c8574459e75de392d6687474803f4f40a6ab",
+        "native_issue_type": "Task",
+        "internal_parent_id": "CP-16",
+        "blocked_by_ids": [
+          "CP-16.03",
+          "CP-14.04"
+        ]
+      }
+    },
+    "issue_content_audit": {
+      "recorded_at": "2026-10-23T04:33:44.810Z",
+      "pagination_complete": true,
+      "terminal_empty_page": true,
+      "unique_canonical_ids": 81,
+      "exact_body_matches": 81,
+      "all_open": true,
+      "all_unassigned": true,
+      "labels_match_plan": true,
+      "unchecked_checklist_items": 576,
+      "checked_checklist_items": 0,
+      "failures": [],
+      "exclusions": [
+        "Native issue type",
+        "Native parent and prerequisite links",
+        "Project item values and views",
+        "Implementation acceptance"
+      ]
+    },
+    "native_graph": {
+      "status": "Verified complete for the internal graph; external research parent remains excluded",
+      "inspection": {
+        "run_id": 39900973114,
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/actions/runs/39900973114",
+        "status": "completed",
+        "conclusion": "success",
+        "evidence": "Root executor verified hosted inspection success"
+      },
+      "application": {
+        "run_id": 39901223975,
+        "job_id": 120243020144,
+        "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/actions/runs/39901223975",
+        "head_sha": "63c1c6e881ddaba817fb1c58a6a8e629ad85e33f",
+        "event": "workflow_dispatch",
+        "created_at": "2026-10-23T04:36:32Z",
+        "completed_at": "2026-10-23T04:51:23Z",
+        "status": "completed",
+        "conclusion": "success",
+        "readback_recorded_at": "2026-10-23 04:52:30 UTC",
+        "mode": "applied-and-read-back",
+        "evidence": "Completed hosted workflow receipt and matching resume journal; four independent representative GET readbacks passed"
+      },
+      "expected_typed_issues": 81,
+      "expected_internal_parent_edges": 80,
+      "expected_blocker_edges": 135,
+      "verified_complete": true,
+      "verified_scope": "All existing target-repository issue types, internal parent links and blocked-by links; excludes external research #509 parent, Project configuration, governance and implementation acceptance",
+      "observed_counts": {
+        "issues": 81,
+        "parent_edges": 80,
+        "blocker_edges": 135,
+        "typed_issues": 81
+      },
+      "native_type_counts": {
+        "Feature": 17,
+        "Task": 64
+      },
+      "missing_parents": [],
+      "missing_blockers": [],
+      "missing_types": [],
+      "operation_receipt_counts": {
+        "verified": 296,
+        "intent": 0,
+        "rejected": 0
+      },
+      "resume_journal_matches_receipt": true,
+      "resume_journal_sha256": "225b89777a2214a3f22ba6755cc24f0b7955d51f50c962a59ed4740fd3e0c449",
+      "representative_readback_checks": {
+        "programChildren": true,
+        "firstEpicChildren": true,
+        "finalParent": true,
+        "finalBlockers": true
+      },
+      "issue_bindings_location": "remote.published_issue_ids: native_issue_type, internal_parent_id and blocked_by_ids; mapped from exact verified journal identities"
+    },
+    "published_internal_parent_edges": 80,
+    "published_blocker_edges": 135,
+    "published_typed_issue_count": 81,
+    "external_research_parent": {
+      "url": "https://github.com/Pick-Your-AI/pick-your-ai-research/issues/509",
+      "program_issue_url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/1",
+      "status": "Separate cross-repository reconciliation and readback pending"
+    },
+    "hosted_ci_run": {
+      "run_id": 39900854598,
+      "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/actions/runs/39900854598",
+      "job_id": 120241854872,
+      "check": "ci-required",
+      "head_sha": "63c1c6e881ddaba817fb1c58a6a8e629ad85e33f",
+      "status": "completed",
+      "conclusion": "success",
+      "log_evidence": [
+        "2026-10-23T04:32:35.3375574Z Plan valid: 657 stable records, 14 ecosystem domains, 16 decisions, 5 release phases.",
+        "2026-10-23T04:32:35.5971793Z PASS: 3 draft schemas, 5 synthetic examples, byte-integrity and rejection checks; no production eligibility.",
+        "2026-10-23T04:32:35.6895222Z Generated documents verified: 85 outputs; no network or GitHub mutations.",
+        "2026-10-23T04:32:38.5991238Z Ran 100 tests in 2.251s",
+        "2026-10-23T04:32:38.5991568Z OK"
+      ]
+    },
+    "team_grants_verified": false,
+    "team_grants_status": "Blocked by GitHub administrative reauthentication (sudo) prompt",
+    "team_grants_evidence": {
+      "method": "Authenticated GitHub UI readback by the root executor",
+      "included_in_snapshot": "2026-10-23 04:47:33 UTC",
+      "scope": "Observed administrative configuration and membership; not an independent GitHub approving review"
+    },
+    "branch_rules_verified": false,
+    "branch_rules_status": "Not configured; branch/tag restrictions and review enforcement remain pending",
+    "required_checks_verified": false,
+    "required_checks_status": "ci-required passes at the recorded commit; mandatory branch-rule enforcement is not configured or verified",
+    "codeowners": {
+      "status": "Published review routing",
+      "path": ".github/CODEOWNERS",
+      "pattern": "*",
+      "review_target": "@CompleteDotTech",
+      "verified_commit": "63c1c6e881ddaba817fb1c58a6a8e629ad85e33f",
+      "meaning": "Review routing only; grants no repository permission, implementation assignment or independent approval"
+    },
     "initial_governance_readback": {
       "rulesets": [],
       "main_protected": false,
-      "interpretation": "Observed initial repository state; required governance has not yet been applied or verified. This does not waive subsequent independent/latest-push review."
+      "interpretation": "Initial repository observation; not permission to bypass subsequent review requirements"
     },
-    "initial_seed_authorization": "Current user mission authorizes initial repository foundation seeding; subsequent substantive changes follow verified organization review and branch rules.",
-    "readback_scope": "Repository identity/public visibility/main initial commit and Project number/title/URL are verified. Other counts and configuration remain unverified until consolidated readback."
+    "latest_source_governance_observation": {
+      "recorded_at": "2026-10-23 04:32:54 UTC",
+      "main_protected": false
+    },
+    "security_reporting_status": "Final repository security-reporting setting readback pending",
+    "repository_metadata_topics_status": "Final metadata/topic readback pending",
+    "production_deployed": false,
+    "readback_scope": "Exact published source and hosted checks, complete issue identity/content audit, verified complete internal native graph with matching journal and representative GET checks, and executor-verified Project metadata/field definitions/membership. External research parent, all item values/views, team grants and governance enforcement are not certified."
   },
   "prepared_counts": {
     "programs": 1,
@@ -64,38 +1392,57 @@
     "saved_view_definitions": 8,
     "generated_outputs": 85
   },
+  "reviewed_input": {
+    "payload_path": "planning/github-issue-payloads.json",
+    "payload_sha256": "38c736c8e2baaf3bc12e486b2fb82765b7b9e56d2e789214f7d2c8c4c44f65e4",
+    "canonical_source_sha256": {
+      "planning/project-backlog.json": "a37f04bd215cbb5b93a79835a2dd14554146176ece7ac83ce714d071207cb453",
+      "planning/coverage-matrix.json": "fd8ea76aa36479b169b494b31e02d651c6efa752f50394e1c2284e483d5b8ed3",
+      "planning/decision-register.json": "f5d3ae2ea86cedab150f1b6dc304b4330b1bd016d2d1a46b5a7bb87f97ccd4b3",
+      "planning/release-manifest.json": "3c94608a1c1f68c172129139684c80a11ba51d9a1b3be99d01bc084025f41698"
+    },
+    "source_manifest_hashes_match": true
+  },
   "validation": {
-    "scope": "Offline local structure, behavior and generated consistency; not remote resource or publication acceptance",
-    "tests_passed": 82,
+    "scope": "Repository structure, synthetic-contract boundaries, generated consistency and safety behavior; no implementation or production acceptance",
+    "tests_passed": 100,
     "tests_failed": 0,
+    "evidence_kind": "Hosted GitHub Actions result at the recorded source revision",
+    "head_sha": "63c1c6e881ddaba817fb1c58a6a8e629ad85e33f",
+    "run_id": 39900854598,
+    "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/actions/runs/39900854598",
     "checks": [
       {
         "command": "python scripts/validate_plan.py",
-        "exit_code": 0,
-        "observed_output": "Plan valid: 657 stable records, 14 ecosystem domains, 16 decisions, 5 release phases.\nOffline structure and consistency only; no source rights, remote review, GitHub setup or deployment is certified."
+        "result": "Passed: 657 stable records, 14 ecosystem domains, 16 decisions, 5 implementation phases"
       },
       {
         "command": "python scripts/validate_examples.py",
-        "exit_code": 0,
-        "observed_output": "PASS: 3 draft schemas, 5 synthetic examples, byte-integrity and rejection checks; no production eligibility."
+        "result": "Passed: 3 draft schemas, 5 synthetic examples and rejection/integrity checks"
       },
       {
         "command": "python scripts/render_docs.py --check",
-        "exit_code": 0,
-        "observed_output": "Generated documents verified: 85 outputs; no network or GitHub mutations."
+        "result": "Passed: 85 generated outputs match canonical sources"
       },
       {
         "command": "python -m unittest discover -s tests",
-        "exit_code": 0,
-        "observed_output": "..................................................................................\n----------------------------------------------------------------------\nRan 82 tests in 1.308s\n\nOK"
-      },
-      {
-        "command": "python scripts/publish_plan.py",
-        "exit_code": 0,
-        "observed_output": "{\n  \"mode\": \"offline-dry-run\",\n  \"repository\": \"Pick-Your-AI/pick-your-ai-catalog-pipeline\",\n  \"issues\": 81,\n  \"parent_edges\": 80,\n  \"blocker_edges\": 135,\n  \"project_fields\": 11,\n  \"network_used\": false,\n  \"pending\": [\n    \"Submit repository contents through a branch and independently approved PR; this helper never pushes or merges.\",\n    \"Verify main, repository topics/settings, team grants, CODEOWNERS, rulesets, required checks and hosted CI for the delivered revision.\",\n    \"Configure/reload the eight saved views and verify their layout, grouping, filters and complete membership.\",\n    \"Reconcile the program's external research #509 parent through the authorized cross-repository handoff.\",\n    \"Reconcile any reported Project metadata, issue content/type/labels or live field differences without resetting progress.\"\n  ],\n  \"complete_mission\": false\n}"
+        "result": "Passed: 100 tests"
       }
     ],
-    "recorded_during": "Local preparation before the current live repository/Project initialization; retained without claiming hosted CI"
+    "log_evidence": [
+      "2026-10-23T04:32:35.3375574Z Plan valid: 657 stable records, 14 ecosystem domains, 16 decisions, 5 release phases.",
+      "2026-10-23T04:32:35.5971793Z PASS: 3 draft schemas, 5 synthetic examples, byte-integrity and rejection checks; no production eligibility.",
+      "2026-10-23T04:32:35.6895222Z Generated documents verified: 85 outputs; no network or GitHub mutations.",
+      "2026-10-23T04:32:38.5991238Z Ran 100 tests in 2.251s",
+      "2026-10-23T04:32:38.5991568Z OK"
+    ],
+    "earlier_foundation_run": {
+      "head_sha": "b03eccc59b11b83ae7e8d546a498cce13fe52d7a",
+      "run_id": 39899203246,
+      "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/actions/runs/39899203246",
+      "conclusion": "success",
+      "tests_passed": 82
+    }
   },
   "independent_local_review": {
     "scope": "Internal independent code and architecture review; not an eligible GitHub approving review",
@@ -105,56 +1452,70 @@
       "Release artifacts bound to exact validated paths, revisions and checksums; unregistered fixture substitution rejected",
       "Project baseline values cannot reset pre-existing or progressed issues",
       "Ancestor and later-phase prerequisites rejected"
-    ]
+    ],
+    "additional_graph_review": "Internal independent API/code review resolved request-budget and non-user ownership detection issues; not a GitHub approving review"
   },
-  "access": {
-    "status": "Historical administration blocker resolved by local browser reauthentication",
-    "resolution_recorded_at": "2026-10-23 00:24:35 UTC",
-    "available_connection": "Ordinary repository-content and issue operations; local authenticated browser supplies unsupported repository/Project administration",
-    "authenticated_browser": "Local browser authentication established and used for verified repository and Project creation",
-    "target_repository_observation": "Public repository verified: ID 1430404474, main initial commit b30a2eabbd40404d71088c927e9b95ec0df50d1b",
-    "equivalent_project_observation": "Dedicated Project #8 created and exact title/URL observed; reuse this resource",
-    "cloud_browser": "Separate signed-out session; not used as an authenticated route",
-    "github_cli": "Official version 2.103.0 installed with published archive SHA-256 verification; no administrative authentication established",
-    "historical_blocked_observations": {
-      "recorded_at": "2026-10-22 23:38:07 UTC",
-      "target_repository_observation": "404 through available connection at discovery and recheck; not an authenticated all-resource absence proof",
-      "equivalent_project_observation": "No equivalent among publicly visible Projects 1–7; private inventory unresolved",
-      "cloud_browser": "Signed out after secure authentication timeout"
-    },
-    "next_required_step": "Continue authorized foundation upload, issue publication and Project configuration using existing verified identities; refresh live state and preserve concurrent progress"
-  },
-  "pending": [
-    "Seed the complete prepared foundation on verified repository main and read back exact delivered commit, metadata and topics",
-    "Verify authorized team access, CODEOWNERS, rulesets, latest-push review and required checks for subsequent substantive changes",
-    "Complete Project #8 description, visibility, association, fields/options and default-workflow inspection",
-    "Complete and reconcile the 81 intended issues; issue creation is currently in progress",
-    "Create and verify native internal hierarchy/dependencies; completed relationship counts are not yet consolidated",
-    "Reconcile research #509 external relationship without closing its broader scope",
-    "Add Project membership and initialize only verified new pristine work while preserving live progress",
-    "Configure and reload eight saved views with membership verification",
-    "Run hosted CI and record exact delivered revision and complete remote readback"
-  ],
-  "sources": "planning/source-audit.json",
-  "report": "docs/BOOTSTRAP_STATUS.md",
-  "remote_observations": [
+  "current_blockers": [
     {
-      "resource": "repository",
-      "status": "Verified created",
-      "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline",
-      "id": 1430404474,
-      "visibility": "public",
-      "default_branch": "main",
-      "initial_commit": "b30a2eabbd40404d71088c927e9b95ec0df50d1b",
-      "evidence_basis": "Authenticated GitHub creation and repository/main readback reported by the root executor"
-    },
-    {
-      "resource": "project",
-      "status": "Verified created",
-      "url": "https://github.com/orgs/Pick-Your-AI/projects/8",
-      "number": 8,
-      "title": "Pick Your AI — Catalog Pipeline",
-      "evidence_basis": "Authenticated local-browser creation and resulting Project URL/title observed by the root executor"
+      "resource": "Repository team grants",
+      "status": "Blocked",
+      "reason": "GitHub requires administrative reauthentication (sudo) before the grant configuration can proceed",
+      "next_step": "An authorized administrator completes GitHub reauthentication; then read back authorized team grants without changing unapproved membership"
     }
-  ]
+  ],
+  "pending": [
+    "Reconcile and verify the external research #509 parent independently of the internal graph",
+    "Finish Project item values and verify all 891 planned values without resetting concurrent progress",
+    "Configure and reload all eight saved views; verify their layouts, filters, groups, sorting, columns and complete result memberships",
+    "Complete authorized team grants after the GitHub administrative reauthentication requirement is satisfied",
+    "Apply and verify branch/tag rules, independent/latest-push review, main deletion/force-push restrictions and required ci-required enforcement",
+    "Verify final repository metadata/topics, security reporting and explicit Project repository association",
+    "Publish the updated dated report and retain hosted validation and consolidated readback for its delivered revision"
+  ],
+  "source_receipts": [
+    {
+      "path": ".state/foundation-readback.json",
+      "sha256": "56c1659ab167fe6b84d4584b64782e20746b1cb1d6146a7b021c7e9e5d6d30f3",
+      "recorded_at": "2026-10-23 04:14:55 UTC",
+      "retention": "Executor receipt; sanitized observations are consolidated in this public execution receipt"
+    },
+    {
+      "path": ".state/graph-foundation-readback.json",
+      "sha256": "7f4666157adc0f026be14930f80850412ef82152603f33314e74c36431747ee7",
+      "recorded_at": "2026-10-23 04:32:54 UTC",
+      "retention": "Executor receipt; sanitized observations are consolidated in this public execution receipt"
+    },
+    {
+      "path": ".state/issue-publication-audit.json",
+      "sha256": "0c8950d2b43dcedeb3d60398db61a45610b1d31807913da0dac165f4e9c8acf5",
+      "recorded_at": "2026-10-23T04:33:44.810Z",
+      "retention": "Executor receipt; sanitized observations are consolidated in this public execution receipt"
+    },
+    {
+      "path": ".state/live-issue-map.json",
+      "sha256": "c4f7b3a2b936cd007144c34fcf6cffe48fdd213e4b9343840e300b2c8ba7a5ca",
+      "recorded_at": "2026-10-23T04:33:04.375962+00:00",
+      "retention": "Executor receipt; sanitized observations are consolidated in this public execution receipt"
+    },
+    {
+      "path": ".state/graph-apply-readback.json",
+      "sha256": "a4f3a171724d11e4a91c43c1f343fea96ace2590f2e5ec0e0e18b63992ee152d",
+      "retention": "Executor receipt; sanitized observations and complete verified issue bindings are consolidated in this public execution receipt",
+      "recorded_at": "2026-10-23 04:52:30 UTC"
+    },
+    {
+      "path": ".state/graph-apply-resume-journal.json",
+      "sha256": "225b89777a2214a3f22ba6755cc24f0b7955d51f50c962a59ed4740fd3e0c449",
+      "retention": "Executor receipt; sanitized observations and complete verified issue bindings are consolidated in this public execution receipt",
+      "captured_with_readback_at": "2026-10-23 04:52:30 UTC"
+    }
+  ],
+  "source_audit": "planning/source-audit.json",
+  "report": "docs/BOOTSTRAP_STATUS.md",
+  "compilation": {
+    "scope": "Local documentation and execution-receipt update from retained readbacks and root executor observations",
+    "remote_mutations_performed": false,
+    "canonical_planning_modified": false,
+    "publication_of_this_updated_receipt": "Pending root publication and exact-revision readback"
+  }
 }

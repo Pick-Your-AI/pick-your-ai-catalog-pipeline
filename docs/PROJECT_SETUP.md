@@ -2,21 +2,23 @@
 
 ## Publication status
 
-This document contains the configuration specification and a dated execution snapshot. At **2026-10-23 00:24:35 UTC**, the public repository [Pick-Your-AI/pick-your-ai-catalog-pipeline](https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline) exists with repository ID `1430404474` and default branch `main`. Its observed initial commit is [`b30a2eabbd40404d71088c927e9b95ec0df50d1b`](https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/commit/b30a2eabbd40404d71088c927e9b95ec0df50d1b). The actual organization Project is [**Pick Your AI — Catalog Pipeline, #8**](https://github.com/orgs/Pick-Your-AI/projects/8). These identities were read back after creation; the Project number was not guessed.
+This document separates the configuration specification from dated execution evidence. At **2026-10-23 04:54:13 UTC**, the public repository [Pick-Your-AI/pick-your-ai-catalog-pipeline](https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline) has verified ID `1430404474` and default branch `main`. The latest source-publication receipt verifies revision [`63c1c6e881ddaba817fb1c58a6a8e629ad85e33f`](https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/commit/63c1c6e881ddaba817fb1c58a6a8e629ad85e33f) and [hosted `ci-required` success with 100 tests](https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/actions/runs/39900854598). The actual organization Project is [**Pick Your AI — Catalog Pipeline, #8**](https://github.com/orgs/Pick-Your-AI/projects/8); its number was observed after creation.
 
-Local browser reauthentication resolved the earlier administrative access blocker. Issue publication is now in progress. Full foundation upload, Project description/visibility/association/fields/views/membership, native relationships, team grants, required reviews/checks and hosted CI still need their own completion readbacks. Keep `complete_mission: false` until those required acceptance steps pass; see [BOOTSTRAP_STATUS.md](BOOTSTRAP_STATUS.md).
+All 81 issues have audited identities, exact planned titles/bodies/checklists, open state and unassigned ownership. Project #8 is public with the exact requested title and description, all 11 field definitions and option sets, ordered Status options, and 81 members. Five automatic review/status workflows are disabled; automatic addition of sub-issues is enabled. These Project observations were read back by the executor through GitHub's UI. Project field-value initialization and all eight saved views remain incomplete and require a full final readback; membership does not certify field values.
 
-Fresh initial repository readback reported no rulesets (`[]`) and `main` as unprotected. Seeding the prepared foundation is the authorized initial bootstrap. Apply and verify the organization governance for subsequent substantive changes; do not weaken rules or mistake an initial unprotected branch for continuing review exemption. Before every remaining mutation, refresh current state and reuse these existing resources rather than creating duplicates.
+The manual graph [inspection run](https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/actions/runs/39900973114) succeeded. The [apply run](https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/actions/runs/39901223975) completed successfully at 04:51:23 UTC. Its final `applied-and-read-back` receipt verifies 81 native types, 80 internal parent links and 135 blocked-by links, with 296 verified journal operations and no pending or rejected operations. Four independent representative relationship reads also passed. The research #509 parent remains a separate pending cross-repository handoff. Team grants are blocked by GitHub's administrative reauthentication (sudo) prompt. Branch/tag rules and required-check enforcement are not configured or verified; the 04:32:54 UTC source readback still showed `main` unprotected. Keep `complete_mission: false`; see [BOOTSTRAP_STATUS.md](BOOTSTRAP_STATUS.md) and [execution-receipt.json](../planning/execution-receipt.json).
+
+The published foundation is the authorized initial seed. Subsequent substantive changes follow the organization review and branch policy; an initially unprotected branch does not create a continuing review exemption. Refresh live state before each remaining mutation and preserve the existing repository, Project, issue identities and human progress.
 
 | Resource | Required configuration |
 |---|---|
 | Organization | `Pick-Your-AI` |
 | Repository | [`pick-your-ai-catalog-pipeline`](https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline); verified ID `1430404474` |
 | Repository visibility | Public, verified at creation |
-| Default branch | `main`; verified initial commit `b30a2eabbd40404d71088c927e9b95ec0df50d1b` |
+| Default branch | `main`; latest source revision in this snapshot `63c1c6e881ddaba817fb1c58a6a8e629ad85e33f` |
 | Organization Project | [**Pick Your AI — Catalog Pipeline, #8**](https://github.com/orgs/Pick-Your-AI/projects/8), verified after creation |
 | Project description | Organization-wide AI research ingestion, source governance, normalization, evidence review, catalog publishing, freshness, and consumer delivery. |
-| Project visibility | Public is required; final configuration/readback remains pending. Exclude private source and operating details |
+| Project visibility | Public, verified through GitHub UI; exclude private source and operating details |
 | Parent research authority | [pick-your-ai-research #509](https://github.com/Pick-Your-AI/pick-your-ai-research/issues/509) |
 | Source of planned scope | [planning/project-backlog.json](../planning/project-backlog.json) |
 | Source of live execution state | Actual GitHub issues, Assignees, native hierarchy, dependencies and Project items |
@@ -87,7 +89,7 @@ The user request ended after “Currently.” The additional views below complet
 
 Use the actual configured field names when GitHub derives filter identifiers, and test each saved filter by reading its resulting item membership. Workstream values for Consumer Handoffs must be resolved from the created field's actual options rather than a guessed identifier. Sort priority views by Priority and stable title; no invented date range or iteration is needed.
 
-GitHub Projects does not support arbitrary OR expressions across different fields. These views use values within a single field or a simple exclusion. A separate metadata audit detects missing owners or fields; it must not be replaced by a filter that appears useful but cannot express the intended logic. An empty Currently Active view is expected for a newly published backlog and must not be populated by inventing progress.
+The saved filters listed here use values within a single field or a simple exclusion; they do not require cross-field OR expressions. A separate metadata audit detects missing owners or fields and verifies each view's actual result set. An empty Currently Active view is expected for a newly published backlog and must not be populated by inventing progress.
 
 Save every view, reload it and inspect its title, layout, filter, grouping, sorting, visible fields and expected membership. Record actual view numbers and URLs only after readback. View names in documentation alone do not satisfy the request to configure a Project.
 
