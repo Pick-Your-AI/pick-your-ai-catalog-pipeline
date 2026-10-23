@@ -1,4 +1,5 @@
-# No active rule is claimed before repository access is verified.
-# Configure the authorized maintainer team after reading its actual slug
-# and confirming its write permission on this repository. See CP-01.02.
-# This file is not evidence that an owner, reviewer, or permission was assigned.
+# Bootstrap review routing follows the research repository's existing convention.
+# CompleteDotTech's administrator access was verified on this repository.
+# This grants no permissions and does not assign implementation work.
+# A repository-specific maintainer team remains a CP-01.02 governance decision.
+* @CompleteDotTech
