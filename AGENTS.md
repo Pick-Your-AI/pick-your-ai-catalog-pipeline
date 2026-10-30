@@ -59,3 +59,13 @@ python -m unittest discover -s tests -v
 Tests should address meaningful contract, hierarchy, dependency, rights-boundary, reproducibility and failure risks. Do not add tests that merely repeat implementation text. Passing local checks does not certify source truth, rights, freshness, independent review or live resource creation.
 
 After a permitted merge, verify the exact default-branch commit, relevant checks, issue states and Project fields. Mark Done only when the complete deliverable and required receiving receipts are accepted. Keep implementation backlog items open after bootstrap unless their actual criteria are met. Distinguish prepared, submitted, merged, accepted, deployed and verified states in the final report.
+
+## Decisions and escalation
+
+For unresolved decisions, follow [CONTRIBUTING.md#routing-decisions](CONTRIBUTING.md#routing-decisions)
+and the [canonical escalation guide](https://github.com/Pick-Your-AI/.github/blob/main/docs/governance/ESCALATION.md).
+Refresh private routing evidence before choosing a recipient. Report unresolved
+roles and failed or stale lookups explicitly; do not infer accepted ownership from
+membership or access. Preserve the existing assignee, local gates and private-reporting
+boundaries. Central links depend on the governance change merging; no automatic
+routing, permission change or recurring job is enabled by these instructions.
