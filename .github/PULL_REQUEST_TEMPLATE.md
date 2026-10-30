@@ -21,3 +21,13 @@ Distinguish local conformance from source truth, rights clearance and deployment
 
 Record the independent review required by organization policy, remaining work,
 rollback/migration impact and consumer receipts. Do not invent approval.
+
+## Routing context (optional)
+
+<!-- Only for an unresolved decision; reuse information above. See CONTRIBUTING.md,
+Routing decisions. Keep private rosters and security details out of this template. -->
+
+- Decision needed:
+- Current responsible role:
+- Prior disposition:
+- Proposed next recipient:
