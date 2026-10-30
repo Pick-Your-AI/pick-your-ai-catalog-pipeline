@@ -1,0 +1,93 @@
+{
+ "config_sha256": "bd2386d654a06b2602ae9a379db613a44b7718a69e59e596c1aa59b3a6519e56",
+ "fingerprint": "012e366e396ee0813fa1fb9ca926c617716c4964be6ea20f665223c221180da0",
+ "inputs": {
+  "description": "Shared AI research catalog ingestion and publishing: implementation backlog, evidence, source governance and synthetic bootstrap.",
+  "icon_sha256": "e2342047e79a92cb9a1b75708d0c9b9520a8f839529f8d8d27aa0fbb123fac9e",
+  "language": "Python",
+  "license": "MIT",
+  "override_sha256": "4db94ac9c6d013650492310d932a4696db8b69cdf2d8ea95a7c2db6c291d72e2",
+  "owner": "Pick-Your-AI",
+  "repo": "pick-your-ai-catalog-pipeline",
+  "topics": [
+   "ai",
+   "data-catalog",
+   "data-pipeline",
+   "data-provenance",
+   "etl",
+   "evidence",
+   "open-source",
+   "pick-your-ai",
+   "research"
+  ],
+  "type": "dataset",
+  "visibility": "public"
+ },
+ "outputs": {
+  "banner.png": {
+   "bytes": 78130,
+   "chips": [
+    {
+     "box": [
+      520,
+      237.2,
+      210.6,
+      38
+     ],
+     "kind": "key",
+     "source": "override",
+     "text": "Source governance"
+    },
+    {
+     "box": [
+      742.6,
+      237.2,
+      213.5,
+      38
+     ],
+     "kind": "key",
+     "source": "override",
+     "text": "Synthetic bootstrap"
+    },
+    {
+     "box": [
+      968.1,
+      237.2,
+      132.7,
+      38
+     ],
+     "kind": "attr",
+     "source": "override",
+     "text": "Python 3.12"
+    },
+    {
+     "box": [
+      1112.8,
+      237.2,
+      63.6,
+      38
+     ],
+     "kind": "attr",
+     "source": "override",
+     "text": "MIT"
+    }
+   ],
+   "icon_source": "override",
+   "px": [
+    2560,
+    720
+   ],
+   "repository_id": 1430404474,
+   "scale": 2,
+   "sha256": "0347867d7f5010524d4ba648899f8b504f28c8a3e8c04a137a26405474dee51e"
+  },
+  "card.svg": {
+   "bytes": 22035,
+   "repository_id": 1430404474,
+   "sha256": "c49e94a40421cac6040701d6db7bce370067e3767546cad8bd643823abfd415d"
+  }
+ },
+ "schema": 1,
+ "skill_version": "1.0.0",
+ "standard": "ct-std-v1"
+}
