@@ -1,0 +1,9 @@
+# Showcase overrides (content only; colours and fonts come from the skill's brand data).
+for: Pick-Your-AI/pick-your-ai-catalog-pipeline
+# Planning and tooling repository: its large planning JSON would otherwise be typed as a dataset (rule 24).
+type: workspace
+icon: assets/icon.png
+subtitle: "Shared AI research catalog ingestion and publishing"
+chips:
+  key: ["Source governance", "Synthetic bootstrap"]
+  attrs: ["Python 3.12", "MIT"]
