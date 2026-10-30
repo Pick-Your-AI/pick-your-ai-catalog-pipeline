@@ -14,7 +14,7 @@ Use native subissues for deliverables that can be reviewed or owned independentl
 
 Use native GitHub Assignees when a person accepts responsibility. Do not assign new pipeline work based solely on an old research owner table. Unclaimed work remains unassigned. The machine plan may describe a responsible role without implying that a named person has accepted it.
 
-Repository access is granted through the organization's teams. Only authorized organization administrators configure access, and only CompleteDotTech and BunsDev change team membership under the current organization policy. A CODEOWNERS entry does not grant repository permissions or establish a person's acceptance of an issue.
+Repository access is granted through the organization's teams. Access changes remain owner-approved. Organization owners and each team's explicitly designated GitHub maintainers manage team membership under the [accepted delegation record](https://github.com/Pick-Your-AI/.github/issues/18). A CODEOWNERS entry does not grant repository permissions or establish a person's acceptance of an issue.
 
 The bootstrap does not claim that teams, repository rules, private reporting, Project permissions or branch checks are configured until those settings are read back from GitHub. See [Project setup](docs/PROJECT_SETUP.md).
 
