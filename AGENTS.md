@@ -67,5 +67,5 @@ and the [canonical escalation guide](https://github.com/Pick-Your-AI/.github/blo
 Refresh private routing evidence before choosing a recipient. Report unresolved
 roles and failed or stale lookups explicitly; do not infer accepted ownership from
 membership or access. Preserve the existing assignee, local gates and private-reporting
-boundaries. Central links depend on the governance change merging; no automatic
+boundaries. Do not claim the central tooling is installed or active. No automatic
 routing, permission change or recurring job is enabled by these instructions.
