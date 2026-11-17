@@ -11,7 +11,7 @@ from jsonschema import Draft202012Validator
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
-from src.changes import ChangeError, classify  # noqa: E402
+from src.changes import ChangeError, _timestamp, classify  # noqa: E402
 
 
 def observation(tag="before"):
@@ -103,11 +103,71 @@ class ChangeClassifierTests(unittest.TestCase):
         self.assertEqual(classify(before, after)["decision"], "rights_hold")
 
     def test_evidence_only_changes_remain_material(self):
+        for kind in ("identity", "price", "availability", "evidence", "other"):
+            with self.subTest(kind=kind):
+                before, after = pair()
+                for obs in (before, after):
+                    obs["claims"][0]["kind"] = kind
+                    if kind == "price":
+                        obs["claims"][0].update(value="1.25", unit="per_token", currency="USD")
+                after["claims"][0]["evidence_ref"] = "urn:pya:synthetic:evidence:new"
+                result = classify(before, after)
+                self.assertEqual(set(result["impact_classes"]), {kind, "evidence"})
+                self.assertEqual(result["changes"][0]["priority"], "review")
+                self.assertEqual(result["changes"][0]["review_route"], "evidence_lineage_review")
+                self.assertEqual(result["changes"][0]["review_requirements"], ["evidence_lineage_review"])
+                self.assertEqual(result["decision"], "semantic_review")
+                self.assertTrue(result["requires_review"])
+                self.assertEqual(result["previous"], before)
+                self.assertEqual(result["current"], after)
+                self.assertFalse(result["publication_eligible"])
+
+    def test_mixed_identity_and_evidence_changes_require_both_reviews(self):
         before, after = pair()
-        after["claims"][0]["evidence_ref"] = "urn:pya:synthetic:evidence:new"
+        after["claims"][0].update(value="model-b", evidence_ref="urn:pya:synthetic:evidence:new")
         result = classify(before, after)
+        self.assertEqual(result["impact_classes"], ["evidence", "identity"])
+        self.assertEqual(result["changes"][0]["priority"], "critical")
         self.assertEqual(result["changes"][0]["review_route"], "identity_or_claim_kind_review")
+        self.assertEqual(result["changes"][0]["review_requirements"],
+                         ["identity_or_claim_kind_review", "evidence_lineage_review"])
         self.assertEqual(result["decision"], "semantic_review")
+
+    def test_evidence_changes_never_override_rights_or_license_hold(self):
+        for kind in ("rights", "license"):
+            for semantic_change in (False, True):
+                with self.subTest(kind=kind, semantic_change=semantic_change):
+                    before, after = pair()
+                    for obs in (before, after):
+                        obs["claims"][0].update(kind=kind, value="unknown")
+                    after["claims"][0]["evidence_ref"] = "urn:pya:synthetic:evidence:new"
+                    if semantic_change:
+                        after["claims"][0]["value"] = "unreviewed-new-terms"
+                    result = classify(before, after)
+                    self.assertEqual(set(result["impact_classes"]), {kind, "evidence"})
+                    self.assertEqual(result["changes"][0]["priority"], "hold")
+                    self.assertEqual(result["changes"][0]["review_route"], "source_rights_review_before_any_operation")
+                    self.assertEqual(result["changes"][0]["review_requirements"],
+                                     ["source_rights_review_before_any_operation", "evidence_lineage_review"])
+                    self.assertEqual(result["decision"], "rights_hold")
+                    self.assertEqual(result["next_action"], "pause_source_operations_and_request_exact_rights_decision")
+                    self.assertFalse(result["publication_eligible"])
+
+    def test_adding_or_removing_claims_preserves_evidence_review(self):
+        for added in (False, True):
+            with self.subTest(added=added):
+                before, after = pair()
+                (before if added else after)["claims"] = []
+                result = classify(before, after)
+                self.assertEqual(result["impact_classes"], ["evidence", "identity"])
+                self.assertIn("evidence_lineage_review", result["changes"][0]["review_requirements"])
+
+    def test_identity_value_change_does_not_invent_evidence_change(self):
+        before, after = pair()
+        after["claims"][0]["value"] = "model-b"
+        result = classify(before, after)
+        self.assertEqual(result["impact_classes"], ["identity"])
+        self.assertEqual(result["changes"][0]["review_requirements"], ["identity_or_claim_kind_review"])
 
     def test_generic_unknowns_are_visible_not_discarded(self):
         before, after = pair()
@@ -148,6 +208,88 @@ class ChangeClassifierTests(unittest.TestCase):
         after["captured_at"] = "2026-13-17T01:00:00Z"
         with self.assertRaises(ChangeError):
             classify(before, after)
+
+    def test_supported_fractional_timestamps_preserve_exact_observations(self):
+        for fraction in ("1", "12", "123", "1234", "12345", "123456"):
+            with self.subTest(fraction=fraction):
+                before, after = pair()
+                before["captured_at"] = "2026-11-17T00:00:00Z"
+                after["captured_at"] = f"2026-11-17T00:00:00.{fraction}Z"
+                result = classify(before, after)
+                self.assertEqual(result["previous"], before)
+                self.assertEqual(result["current"], after)
+                self.assertEqual(result["decision"], "unchanged")
+
+    def test_supported_fractional_chronology_compares_instants(self):
+        before, after = pair()
+        before["captured_at"] = "2026-11-17T00:00:00.123456Z"
+        after["captured_at"] = "2026-11-17T00:00:00.123455Z"
+        with self.assertRaises(ChangeError):
+            classify(before, after)
+        before["captured_at"] = "2026-11-17T00:00:00.1Z"
+        after["captured_at"] = "2026-11-17T00:00:00.100000Z"
+        self.assertEqual(classify(before, after)["decision"], "unchanged")
+
+    def test_submicrosecond_timestamps_rejected_in_either_observation(self):
+        for side in ("previous", "current", "both"):
+            for fraction in ("1234569", "1234560", "0000001", "12345678901234567890"):
+                with self.subTest(side=side, fraction=fraction):
+                    before, after = pair()
+                    if side in ("previous", "both"):
+                        before["captured_at"] = f"2026-11-17T00:00:00.{fraction}Z"
+                    if side in ("current", "both"):
+                        current_fraction = "1234561" if side == "both" else fraction
+                        after["captured_at"] = f"2026-11-17T00:00:00.{current_fraction}Z"
+                    with self.assertRaises(ChangeError):
+                        classify(before, after)
+
+    def test_runtime_timestamp_guard_rejects_precision_without_schema(self):
+        self.assertEqual(_timestamp("2026-11-17T00:00:00.123456Z").microsecond, 123456)
+        for invalid in ("2026-11-17T00:00:00.1234569Z", "2026-11-17T00:00:00.1234561Z",
+                        "2026-11-17T00:00:00.1234560Z", "2026-11-17T00:00:00Z\n"):
+            with self.subTest(invalid=invalid):
+                with self.assertRaises(ChangeError):
+                    _timestamp(invalid)
+
+    def test_trailing_line_terminators_fail_without_changing_inputs(self):
+        setters = {
+            "source_id": lambda obs, suffix: obs.update(source_id=obs["source_id"] + suffix),
+            "material_id": lambda obs, suffix: obs.update(material_id=obs["material_id"] + suffix),
+            "observation_id": lambda obs, suffix: obs.update(observation_id=obs["observation_id"] + suffix),
+            "captured_at": lambda obs, suffix: obs.update(captured_at=obs["captured_at"] + suffix),
+            "content_sha256": lambda obs, suffix: obs.update(content_sha256=obs["content_sha256"] + suffix),
+            "parser_revision": lambda obs, suffix: obs.update(parser_revision=obs["parser_revision"] + suffix),
+            "path": lambda obs, suffix: obs["claims"][0].update(path="price.input" + suffix),
+            "evidence_ref": lambda obs, suffix: obs["claims"][0].update(evidence_ref=obs["claims"][0]["evidence_ref"] + suffix),
+            "value": lambda obs, suffix: obs["claims"][0].update(value="1.25" + suffix),
+            "unit": lambda obs, suffix: obs["claims"][0].update(unit="per_token" + suffix),
+            "currency": lambda obs, suffix: obs["claims"][0].update(currency="USD" + suffix),
+        }
+        for field, setter in setters.items():
+            for suffix in ("\r", "\n", "\r\n"):
+                with self.subTest(field=field, suffix=repr(suffix)):
+                    before, after = pair()
+                    for obs in (before, after):
+                        obs["claims"][0].update(kind="price", value="1.25", unit="per_token", currency="USD")
+                        setter(obs, suffix)
+                    originals = deepcopy((before, after))
+                    with self.assertRaises(ChangeError):
+                        classify(before, after)
+                    self.assertEqual((before, after), originals)
+
+    def test_malformed_direct_inputs_fail_closed(self):
+        for invalid in (None, [], "observation", 1):
+            with self.subTest(invalid=invalid):
+                before, after = pair()
+                for previous, current in ((invalid, after), (before, invalid)):
+                    with self.assertRaises(ChangeError):
+                        classify(previous, current)
+        for key, invalid in (("captured_at", None), ("claims", ()), ("claims", [None])):
+            with self.subTest(key=key, invalid=invalid):
+                before, after = pair()
+                after[key] = invalid
+                with self.assertRaises(ChangeError):
+                    classify(before, after)
 
     def test_synthetic_production_rejection(self):
         before, after = pair()

@@ -10,12 +10,14 @@ from copy import deepcopy
 from datetime import datetime
 import json
 from pathlib import Path
+import re
 from typing import Any, Mapping
 
 from jsonschema import Draft202012Validator, FormatChecker
 
 _VERSION = "change-set-draft-0.1.0"
 _KINDS = frozenset({"identity", "price", "license", "availability", "evidence", "rights", "other"})
+_UTC_INSTANT = re.compile(r"[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\.[0-9]{1,6})?Z")
 
 
 class ChangeError(ValueError):
@@ -31,8 +33,8 @@ def _validator() -> tuple[Draft202012Validator, Draft202012Validator]:
 
 
 def _timestamp(value: str) -> datetime:
-    if not isinstance(value, str) or not value.endswith("Z"):
-        raise ChangeError("captured_at must be a UTC Z instant")
+    if not isinstance(value, str) or _UTC_INSTANT.fullmatch(value) is None:
+        raise ChangeError("captured_at must be a UTC Z instant with at most six fractional digits")
     try:
         parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
     except ValueError as exc:
@@ -77,6 +79,25 @@ def _classification(before: Mapping[str, Any] | None,
     return "review", "unclassified_claim_review"
 
 
+def _evidence_changed(before: Mapping[str, Any] | None,
+                      after: Mapping[str, Any] | None) -> bool:
+    return before is None or after is None or before["evidence_ref"] != after["evidence_ref"]
+
+
+def _review_requirements(before: Mapping[str, Any] | None,
+                         after: Mapping[str, Any] | None) -> tuple[str, str, list[str]]:
+    priority, route = _classification(before, after)
+    evidence_changed = _evidence_changed(before, after)
+    if (evidence_changed and priority != "hold" and before is not None and after is not None
+            and {key: value for key, value in before.items() if key != "evidence_ref"}
+            == {key: value for key, value in after.items() if key != "evidence_ref"}):
+        priority, route = "review", "evidence_lineage_review"
+    requirements = [route]
+    if evidence_changed and "evidence_lineage_review" not in requirements:
+        requirements.append("evidence_lineage_review")
+    return priority, route, requirements
+
+
 def classify(previous: Mapping[str, Any], current: Mapping[str, Any]) -> dict[str, Any]:
     """Compare exact synthetic observations; return no authorization or side effects.
 
@@ -100,9 +121,10 @@ def classify(previous: Mapping[str, Any], current: Mapping[str, Any]) -> dict[st
         before, after = old_claims.get(path), new_claims.get(path)
         if before == after:
             continue
-        priority, route = _classification(before, after)
+        priority, route, requirements = _review_requirements(before, after)
         changes.append({"path": path, "before": before, "after": after,
-                        "priority": priority, "review_route": route})
+                        "priority": priority, "review_route": route,
+                        "review_requirements": requirements})
 
     byte_changed = old["content_sha256"] != new["content_sha256"]
     parser_changed = old["parser_revision"] != new["parser_revision"]
@@ -126,6 +148,9 @@ def classify(previous: Mapping[str, Any], current: Mapping[str, Any]) -> dict[st
     else:
         decision, action = "unchanged", "retain_last_known_no_automatic_publication"
 
+    impact_classes = {item["kind"] for c in changes for item in (c["before"], c["after"]) if item}
+    if any(_evidence_changed(c["before"], c["after"]) for c in changes):
+        impact_classes.add("evidence")
     result = {
         "schema_version": _VERSION,
         "synthetic": True,
@@ -135,7 +160,7 @@ def classify(previous: Mapping[str, Any], current: Mapping[str, Any]) -> dict[st
         "previous": old,
         "current": new,
         "cause_flags": causes,
-        "impact_classes": sorted({item["kind"] for c in changes for item in (c["before"], c["after"]) if item}),
+        "impact_classes": sorted(impact_classes),
         "changes": changes,
         "decision": decision,
         "requires_review": decision != "unchanged",
