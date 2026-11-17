@@ -1,7 +1,7 @@
 {
   "schema_version": "catalog-pipeline-release-plan-1",
   "bootstrap": {
-    "state": "Prepared locally; remote creation and readback blocked by missing authorized administration capability.",
+    "state": "Repository setup requirements are defined here; dated execution state and verification evidence are recorded in planning/execution-receipt.json.",
     "meaning": "Repository and planning setup only, no production service or dataset.",
     "required_receipts": [
       "Public target repository identity and main commit",

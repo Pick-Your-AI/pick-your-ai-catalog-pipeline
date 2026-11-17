@@ -18,7 +18,7 @@
       "rights",
       "consumer delivery"
     ],
-    "non_claim": "No claim of ecosystem-wide exhaustiveness."
+    "non_claim": "No claim of ecosystem-wide exhaustiveness. Broad reference coverage does not expand research #47's adopted NARROW product-validation comparison or establish demand, runtime feasibility or commercial-launch acceptance. The reviewed decision remains canonical at https://github.com/Pick-Your-AI/pick-your-ai-research/blob/5dd6e1c2174033a279325eb8fb445a0c4a694587/research/market/synthesis.md; see docs/charter.md for the separate scope boundaries."
   },
   "requirements": [
     {
