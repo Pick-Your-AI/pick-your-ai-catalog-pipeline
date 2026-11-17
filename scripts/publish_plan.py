@@ -242,8 +242,13 @@ def choose_project(projects: list[dict], *, read_only=False,
     candidates = []
     normalized = re.sub(r"[^a-z0-9]", "", TITLE.lower())
     for project in projects:
+        if type(project) is not dict:
+            raise PublicationError("Malformed Project inventory entry")
         linked = project.get("repositories", [])
         title = project.get("title", "")
+        if (type(title) is not str or not title.strip() or
+                type(linked) is not list or any(type(name) is not str for name in linked)):
+            raise PublicationError("Malformed Project title or repository-link inventory")
         if title == TITLE or REPO in linked or re.sub(r"[^a-z0-9]", "", title.lower()) == normalized:
             candidates.append(project)
     if len(candidates) > 1:
@@ -261,6 +266,7 @@ def choose_project(projects: list[dict], *, read_only=False,
             type(candidate.get("number")) is int and
             candidate["number"] == expected_number and
             type(candidate.get("id")) is str and bool(candidate["id"]) and
+            not any(char.isspace() for char in candidate["id"]) and
             candidate.get("closed") is False and REPO in candidate.get("repositories", []))
         if read_only is not True or not verified_identity:
             raise PublicationError("Equivalent or closed Project requires deliberate reconciliation")

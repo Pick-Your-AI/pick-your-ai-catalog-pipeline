@@ -421,6 +421,13 @@ class AdapterTest(unittest.TestCase):
                    "repositories": [pub.REPO]}
         cases = [([renamed], None), ([renamed], True), ([renamed], 9),
                  ([{**renamed, "id": ""}], 8),
+                 ([{**renamed, "id": " \t"}], 8),
+                 ([{**renamed, "id": "PVT synthetic"}], 8),
+                 ([{**renamed, "title": None}], 8),
+                 ([{**renamed, "title": " \n"}], 8),
+                 ([{**renamed, "repositories": "prefix/" + pub.REPO}], 8),
+                 ([{**renamed, "repositories": [None, pub.REPO]}], 8),
+                 ([None], 8),
                  ([{**renamed, "number": "8"}], 8),
                  ([{**renamed, "closed": True}], 8),
                  ([{**renamed, "closed": None}], 8),
