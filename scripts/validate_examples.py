@@ -71,7 +71,7 @@ def _bounded_fixture_data(value):
         if nodes > 10_000 or depth > 32:
             return False
         kind = type(item)
-        if kind in (dict, list):
+        if kind is dict or kind is list:
             # Check length before allocating work proportional to a container.
             if len(item) > 10_000 - nodes:
                 return False
@@ -97,7 +97,7 @@ def _bounded_fixture_data(value):
         elif kind is float:
             if not math.isfinite(item):
                 return False
-        elif kind not in (bool, type(None)):
+        elif kind is not bool and kind is not type(None):
             return False
     return True
 

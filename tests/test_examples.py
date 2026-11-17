@@ -231,6 +231,21 @@ class ExampleBoundaryTests(unittest.TestCase):
             [self.record], [duplicate_operation], "display", self.product
         )[0])
 
+    def test_direct_gate_never_invokes_payload_metaclass_comparisons(self):
+        class ComparisonTrap(type):
+            def __eq__(cls, other):
+                raise AssertionError("A payload-defined comparison was invoked")
+
+        class UntrustedValue(metaclass=ComparisonTrap):
+            pass
+
+        record = deepcopy(self.record)
+        record["unknowns"] = UntrustedValue()
+        allowed, reasons = MODULE.fixture_policy_decision(
+            [record], [self.rights], "display", self.product
+        )
+        self.assertFalse(allowed, reasons)
+
     def test_direct_gate_bounds_schema_work_and_rejects_non_json_values(self):
         cycle = []
         cycle.append(cycle)
