@@ -5,7 +5,9 @@ from copy import deepcopy
 import json
 from pathlib import Path
 import sys
+import traceback
 import unittest
+from unittest.mock import patch
 
 from jsonschema import Draft202012Validator
 
@@ -343,6 +345,58 @@ class ChangeClassifierTests(unittest.TestCase):
         result["publication_eligible"] = False
         result["private_info"] = "test"
         self.assertTrue(list(validator.iter_errors(result)))
+
+
+class ChangeDiagnosticTests(unittest.TestCase):
+    def assert_safe_error(self, before, after, marker, expected):
+        try:
+            classify(before, after)
+        except ChangeError as error:
+            self.assertEqual(str(error), expected)
+            self.assertLessEqual(len(str(error)), 80)
+            self.assertIsNone(error.__cause__)
+            self.assertNotIn(marker, "".join(traceback.format_exception(error)))
+        else:
+            self.fail("Invalid observation or result was accepted")
+
+    def test_schema_errors_never_reflect_values_or_property_names(self):
+        marker = "SYNTHETIC_PRIVATE_MARKER_DO_NOT_ECHO!"
+        before, after = pair()
+        invalid_observations = []
+        for change in (
+            {"parser_revision": marker},
+            {marker: "unexpected property"},
+            {"claims": [{"nested": marker}]},
+        ):
+            invalid_observations.append({**after, **change})
+        nested_extra = deepcopy(after)
+        nested_extra["claims"][0][marker] = "unexpected nested property"
+        invalid_observations.append(nested_extra)
+        for index, invalid in enumerate(invalid_observations):
+            with self.subTest(case=index):
+                self.assert_safe_error(before, invalid, marker,
+                                       "invalid draft observation: schema validation failed")
+
+    def test_internal_result_error_never_reflects_nested_output(self):
+        marker = "SYNTHETIC_PRIVATE_MARKER_DO_NOT_ECHO!"
+        before, after = pair()
+        after["claims"][0]["value"] = "synthetic-alias-change"
+        # Fault injection exercises the internal result validator separately
+        # from input rejection without changing either schema or valid inputs.
+        with patch("src.changes._review_requirements", return_value=("review", marker, [marker])):
+            self.assert_safe_error(before, after, marker,
+                                   "internal change-set schema violation: validation failed")
+
+    def test_calendar_error_does_not_chain_parser_exception(self):
+        try:
+            _timestamp("2026-02-30T12:00:00Z")
+        except ChangeError as error:
+            self.assertIsNone(error.__cause__)
+            rendered = "".join(traceback.format_exception(error))
+            self.assertNotIn("ValueError:", rendered)
+            self.assertNotIn("During handling", rendered)
+        else:
+            self.fail("Invalid calendar instant was accepted")
 
 
 if __name__ == "__main__":

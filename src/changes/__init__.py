@@ -37,8 +37,8 @@ def _timestamp(value: str) -> datetime:
         raise ChangeError("captured_at must be a UTC Z instant with at most six fractional digits")
     try:
         parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
-    except ValueError as exc:
-        raise ChangeError("invalid captured_at calendar instant") from exc
+    except ValueError:
+        raise ChangeError("invalid captured_at calendar instant") from None
     if parsed.utcoffset().total_seconds() != 0:
         raise ChangeError("captured_at must use UTC")
     return parsed
@@ -47,9 +47,10 @@ def _timestamp(value: str) -> datetime:
 def _check(observation: Any, validator: Draft202012Validator) -> dict[str, Any]:
     if not isinstance(observation, dict):
         raise ChangeError("observation must be a plain object")
-    errors = sorted(validator.iter_errors(observation), key=lambda e: (str(list(e.path)), e.message))
-    if errors:
-        raise ChangeError("invalid draft observation: " + errors[0].message)
+    if next(validator.iter_errors(observation), None) is not None:
+        # Neither validation messages nor instance paths are safe diagnostics:
+        # both can contain submitted values and attacker-chosen property names.
+        raise ChangeError("invalid draft observation: schema validation failed") from None
     if observation["synthetic"] is not True or observation["schema_version"] != _VERSION:
         raise ChangeError("synthetic draft observations only")
     _timestamp(observation["captured_at"])
@@ -166,7 +167,6 @@ def classify(previous: Mapping[str, Any], current: Mapping[str, Any]) -> dict[st
         "requires_review": decision != "unchanged",
         "next_action": action,
     }
-    errors = list(output_validator.iter_errors(result))
-    if errors:
-        raise ChangeError("internal change-set schema violation: " + errors[0].message)
+    if next(output_validator.iter_errors(result), None) is not None:
+        raise ChangeError("internal change-set schema violation: validation failed") from None
     return result
