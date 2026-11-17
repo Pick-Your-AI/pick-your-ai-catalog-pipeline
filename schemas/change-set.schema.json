@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:pya:synthetic:schema:change-set-draft-0.1.0",
+  "title": "Synthetic draft source change set — review-only, never publication authority",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "synthetic", "publication_eligible", "source_id", "material_id", "previous", "current", "cause_flags", "impact_classes", "changes", "decision", "requires_review", "next_action"],
+  "properties": {
+    "schema_version": {"const": "change-set-draft-0.1.0"},
+    "synthetic": {"const": true},
+    "publication_eligible": {"const": false},
+    "source_id": {"$ref": "#/$defs/synthetic_id"},
+    "material_id": {"$ref": "#/$defs/synthetic_id"},
+    "previous": {"$ref": "#/$defs/observation"},
+    "current": {"$ref": "#/$defs/observation"},
+    "cause_flags": {"type": "array", "uniqueItems": true, "items": {"enum": ["raw_bytes_changed", "parser_revision_changed", "semantic_claims_changed", "same_bytes_claim_conflict"]}},
+    "impact_classes": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/kind"}},
+    "changes": {"type": "array", "maxItems": 128, "items": {"type": "object", "additionalProperties": false, "required": ["path", "before", "after", "priority", "review_route"], "properties": {"path": {"$ref": "#/$defs/path"}, "before": {"anyOf": [{"$ref": "#/$defs/claim"}, {"type": "null"}]}, "after": {"anyOf": [{"$ref": "#/$defs/claim"}, {"type": "null"}]}, "priority": {"enum": ["hold", "critical", "review"]}, "review_route": {"enum": ["source_rights_review_before_any_operation", "identity_or_claim_kind_review", "price_meter_or_currency_review", "price_value_review", "availability_or_retirement_review", "evidence_lineage_review", "unclassified_claim_review"]}}}},
+    "decision": {"enum": ["rights_hold", "semantic_review", "parser_review", "byte_only_review", "unchanged"]},
+    "requires_review": {"type": "boolean"},
+    "next_action": {"enum": ["pause_source_operations_and_request_exact_rights_decision", "retain_both_and_route_all_changed_claims", "requalify_parser_version_before_publication", "verify_parser_coverage_no_unrestricted_refetch", "retain_last_known_no_automatic_publication"]}
+  },
+  "$defs": {
+    "synthetic_id": {"type": "string", "pattern": "^urn:pya:synthetic:[a-z0-9][a-z0-9:._-]{1,120}$"},
+    "path": {"type": "string", "minLength": 1, "maxLength": 80, "pattern": "^[a-z][a-z0-9]*(?:[._][a-z0-9]+)*$"},
+    "kind": {"enum": ["identity", "price", "license", "availability", "evidence", "rights", "other"]},
+    "claim": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "kind", "value", "evidence_ref"],
+      "properties": {
+        "path": {"$ref": "#/$defs/path"},
+        "kind": {"$ref": "#/$defs/kind"},
+        "value": {"type": "string", "maxLength": 256},
+        "evidence_ref": {"$ref": "#/$defs/synthetic_id"},
+        "unit": {"type": "string", "minLength": 1, "maxLength": 64, "pattern": "^[a-zA-Z0-9_./-]+$"},
+        "currency": {"type": "string", "pattern": "^[A-Z]{3}$"}
+      },
+      "if": {"properties": {"kind": {"const": "price"}}},
+      "then": {"required": ["unit", "currency"], "properties": {"value": {"pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]{1,8})?$"}}},
+      "else": {"not": {"anyOf": [{"required": ["unit"]}, {"required": ["currency"]}]}}
+    },
+    "observation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "synthetic", "source_id", "material_id", "observation_id", "captured_at", "content_sha256", "parser_revision", "claims"],
+      "properties": {
+        "schema_version": {"const": "change-set-draft-0.1.0"},
+        "synthetic": {"const": true},
+        "source_id": {"$ref": "#/$defs/synthetic_id"},
+        "material_id": {"$ref": "#/$defs/synthetic_id"},
+        "observation_id": {"$ref": "#/$defs/synthetic_id"},
+        "captured_at": {"type": "string", "format": "date-time", "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?Z$"},
+        "content_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "parser_revision": {"type": "string", "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,47}$"},
+        "claims": {"type": "array", "maxItems": 64, "items": {"$ref": "#/$defs/claim"}}
+      }
+    }
+  }
+}
