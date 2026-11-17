@@ -50,6 +50,12 @@ def schema_errors(instance, schema):
             for error in sorted(validator.iter_errors(instance), key=lambda e: str(list(e.absolute_path)))]
 
 
+def _synthetic_identity(value):
+    """Require reserved synthetic identifiers, not only a synthetic=true flag."""
+    prefix = "urn:pya:synthetic:"
+    return isinstance(value, str) and value.startswith(prefix) and len(value) > len(prefix)
+
+
 def fixture_policy_decision(records, decisions, operation, product_id, *, production=False):
     """Demonstrate exact-scope fail-closed behavior with synthetic fixtures only.
 
@@ -65,6 +71,25 @@ def fixture_policy_decision(records, decisions, operation, product_id, *, produc
         return False, ["Empty records or source-use decisions cannot authorize an operation."]
     if any(item.get("synthetic") is not True for item in records + decisions):
         return False, ["Only explicitly synthetic fixtures are supported by this offline gate."]
+    if not _synthetic_identity(product_id):
+        return False, ["An offline product scope must have a reserved synthetic identity."]
+    for record in records:
+        if not _synthetic_identity(record.get("id")):
+            return False, ["An offline record must have a reserved synthetic identity."]
+        for claim in record.get("claims", []):
+            if not _synthetic_identity(claim.get("id")):
+                return False, ["An offline claim must have a reserved synthetic identity."]
+            for source in claim.get("sources", []):
+                if not all(_synthetic_identity(source.get(key))
+                           for key in ("source_id", "material_id")):
+                    return False, ["An offline source and material must have synthetic identities."]
+    for decision in decisions:
+        scope = decision.get("scope", {})
+        if not _synthetic_identity(decision.get("id")) or not all(
+                _synthetic_identity(scope.get(key))
+                for key in ("source_id", "material_id", "product_id")) or not all(
+                _synthetic_identity(identity) for identity in scope.get("record_ids", [])):
+            return False, ["An offline source-use decision must have synthetic identities."]
     allowed_ops = {"retrieve", "retain", "display", "redistribute", "commercial_use", "derive"}
     if operation not in allowed_ops:
         return False, ["Unknown operation is denied."]
@@ -84,12 +109,15 @@ def fixture_policy_decision(records, decisions, operation, product_id, *, produc
                 if not matching:
                     reasons.append(f"{claim.get('id')}: no permission for exact source/material/product/field")
                     continue
-                for decision in matching:
-                    operations = [o for o in decision.get("operations", []) if o.get("operation") == operation]
-                    if decision.get("withdrawn") or len(operations) != 1:
-                        reasons.append(f"{claim.get('id')}: withdrawn or ambiguous operation permission")
-                    elif operations[0].get("decision") != "permit" or operations[0].get("conditions"):
-                        reasons.append(f"{claim.get('id')}: {operation} is not unconditionally permitted")
+                if len(matching) != 1:
+                    reasons.append(f"{claim.get('id')}: ambiguous overlapping source-use decisions")
+                    continue
+                decision = matching[0]
+                operations = [o for o in decision.get("operations", []) if o.get("operation") == operation]
+                if decision.get("withdrawn") or len(operations) != 1:
+                    reasons.append(f"{claim.get('id')}: withdrawn or ambiguous operation permission")
+                elif operations[0].get("decision") != "permit" or operations[0].get("conditions"):
+                    reasons.append(f"{claim.get('id')}: {operation} is not unconditionally permitted")
     return not reasons, reasons
 
 
