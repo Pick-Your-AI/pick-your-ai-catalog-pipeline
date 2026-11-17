@@ -104,6 +104,147 @@ class ExampleBoundaryTests(unittest.TestCase):
                 )
                 self.assertFalse(allowed, (kind, reasons))
 
+    def test_direct_gate_rejects_string_scope_instead_of_exact_path_list(self):
+        rights = deepcopy(self.rights)
+        # Both requested paths are substrings, but neither has an array grant.
+        rights["scope"]["claim_paths"] = "prefix:" + ",".join(
+            claim["path"] for claim in self.record["claims"]
+        ) + ":suffix"
+        allowed, reasons = MODULE.fixture_policy_decision(
+            [self.record], [rights], "display", self.product
+        )
+        self.assertFalse(allowed, reasons)
+
+    def test_direct_gate_rejects_malformed_nested_contract_shapes(self):
+        cases = [
+            ("record", ("claims",), {}),
+            ("record", ("claims",), [None]),
+            ("record", ("claims", 0, "sources"), "source"),
+            ("record", ("claims", 0, "sources"), [False]),
+            ("record", ("claims", 0, "path"), ["spec.context_tokens"]),
+            ("record", ("claims", 0, "evidence"), []),
+            ("record", ("synthetic",), 1),
+            ("record", ("schema_version",), "unsupported"),
+            ("record", ("lifecycle",), []),
+            ("record", ("revision",), True),
+            ("record", ("unexpected",), True),
+            ("rights", ("scope",), []),
+            ("rights", ("scope", "record_ids"), self.record["id"]),
+            ("rights", ("scope", "record_ids"), [None]),
+            ("rights", ("scope", "record_ids"), [self.record["id"], self.record["id"]]),
+            ("rights", ("scope", "claim_paths"), {"spec.context_tokens": True}),
+            ("rights", ("scope", "claim_paths"), []),
+            ("rights", ("scope", "claim_paths"), [False]),
+            ("rights", ("scope", "claim_paths"), ["spec.context_tokens"] * 2),
+            ("rights", ("operations",), {"display": "permit"}),
+            ("rights", ("operations",), "display"),
+            ("rights", ("operations",), [None]),
+            ("rights", ("operations", 2, "decision"), True),
+            ("rights", ("operations", 2, "decision"), ["permit"]),
+            ("rights", ("operations", 2, "decision"), "PERMIT"),
+            ("rights", ("operations", 2, "conditions"), ""),
+            ("rights", ("operations", 2, "conditions"), {}),
+            ("rights", ("operations", 2, "conditions"), [None]),
+            ("rights", ("operations", 2, "operation"), ["display"]),
+            ("rights", ("withdrawn",), "false"),
+            ("rights", ("withdrawn",), 0),
+            ("rights", ("synthetic",), "true"),
+            ("rights", ("decision_at",), "invalid-date"),
+            ("rights", ("decision_at",), "2026-10-01T12:00:00+01:00"),
+            ("rights", ("unexpected",), True),
+        ]
+        for target, path, value in cases:
+            with self.subTest(target=target, path=path, value=value):
+                record, rights = deepcopy(self.record), deepcopy(self.rights)
+                parent = record if target == "record" else rights
+                for key in path[:-1]:
+                    parent = parent[key]
+                parent[path[-1]] = value
+                allowed, reasons = MODULE.fixture_policy_decision(
+                    [record], [rights], "display", self.product
+                )
+                self.assertFalse(allowed, reasons)
+
+    def test_direct_gate_requires_contract_fields_instead_of_defaulting(self):
+        for target, field in (("record", "claims"), ("record", "schema_version"),
+                              ("rights", "withdrawn"), ("rights", "synthetic"),
+                              ("rights", "operations"), ("rights", "scope")):
+            with self.subTest(target=target, field=field):
+                record, rights = deepcopy(self.record), deepcopy(self.rights)
+                del (record if target == "record" else rights)[field]
+                self.assertFalse(MODULE.fixture_policy_decision(
+                    [record], [rights], "display", self.product
+                )[0])
+
+    def test_direct_gate_rejects_invalid_top_level_containers_and_arguments(self):
+        for value in (None, {}, "records", (), [None], [False], [[]]):
+            for side in ("records", "decisions"):
+                with self.subTest(side=side, value=value):
+                    records = value if side == "records" else [self.record]
+                    decisions = value if side == "decisions" else [self.rights]
+                    allowed, reasons = MODULE.fixture_policy_decision(
+                        records, decisions, "display", self.product
+                    )
+                    self.assertFalse(allowed, reasons)
+        for operation in (None, [], {}, True, "DISPLAY", "unknown"):
+            with self.subTest(operation=operation):
+                self.assertFalse(MODULE.fixture_policy_decision(
+                    [self.record], [self.rights], operation, self.product
+                )[0])
+        for production in (True, None, 0, [], {}, "false"):
+            with self.subTest(production=production):
+                self.assertFalse(MODULE.fixture_policy_decision(
+                    [self.record], [self.rights], "display", self.product,
+                    production=production
+                )[0])
+
+    def test_direct_gate_rejects_malformed_reserved_identities(self):
+        for identity in ("urn:pya:synthetic:", "urn:pya:synthetic:bad id",
+                         "urn:pya:synthetic:bad\n", "urn:pya:synthetic:UPPER",
+                         "urn:pya:synthetic:bad/identity", None, []):
+            with self.subTest(identity=identity):
+                record, rights = deepcopy(self.record), deepcopy(self.rights)
+                record["claims"][0]["sources"][0]["material_id"] = identity
+                rights["scope"]["material_id"] = identity
+                self.assertFalse(MODULE.fixture_policy_decision(
+                    [record], [rights], "display", self.product
+                )[0])
+                self.assertFalse(MODULE.fixture_policy_decision(
+                    [self.record], [self.rights], "display", identity
+                )[0])
+
+    def test_direct_gate_rejects_duplicate_authority_and_operation_identities(self):
+        other_scope = deepcopy(self.rights)
+        other_scope["scope"]["product_id"] = "urn:pya:synthetic:product:other"
+        self.assertFalse(MODULE.fixture_policy_decision(
+            [self.record], [self.rights, other_scope], "display", self.product
+        )[0])
+        other_grant = deepcopy(self.rights)
+        other_grant["id"] += ":other"
+        self.assertFalse(MODULE.fixture_policy_decision(
+            [self.record], [self.rights, other_grant], "display", self.product
+        )[0])
+        duplicate_operation = deepcopy(self.rights)
+        # Even duplicate unrequested operations make the decision ambiguous.
+        duplicate_operation["operations"].append(deepcopy(duplicate_operation["operations"][0]))
+        self.assertFalse(MODULE.fixture_policy_decision(
+            [self.record], [duplicate_operation], "display", self.product
+        )[0])
+
+    def test_direct_gate_bounds_schema_work_and_rejects_non_json_values(self):
+        cycle = []
+        cycle.append(cycle)
+        for value in (cycle, ["x"] * 10_001, "x" * 1_048_577,
+                      object(), {"nested": {1: "non-string key"}},
+                      float("inf"), float("nan"), 1 << 4097, "\ud800"):
+            with self.subTest(kind=type(value).__name__):
+                record = deepcopy(self.record)
+                record["unknowns"] = value
+                allowed, reasons = MODULE.fixture_policy_decision(
+                    [record], [self.rights], "display", self.product
+                )
+                self.assertFalse(allowed, reasons)
+
     def test_unknown_claim_cannot_contain_invented_zero(self):
         schema = MODULE.read_json(ROOT / "schemas/v0.1/catalog-record.schema.json")
         self.record["claims"][1]["value"] = 0

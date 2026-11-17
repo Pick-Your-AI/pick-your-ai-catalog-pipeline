@@ -6,7 +6,9 @@ import argparse
 from datetime import datetime
 import hashlib
 import json
+import math
 from pathlib import Path
+import re
 import sys
 from urllib.parse import urlsplit
 
@@ -52,8 +54,52 @@ def schema_errors(instance, schema):
 
 def _synthetic_identity(value):
     """Require reserved synthetic identifiers, not only a synthetic=true flag."""
-    prefix = "urn:pya:synthetic:"
-    return isinstance(value, str) and value.startswith(prefix) and len(value) > len(prefix)
+    return type(value) is str and re.fullmatch(r"urn:pya:synthetic:[a-z0-9][a-z0-9:._-]*", value) is not None
+
+
+def _bounded_fixture_data(value):
+    """Bound schema work and reject non-JSON containers before inspecting scope.
+
+    These are offline fixture ceilings, not production parser guarantees. Cycles
+    also terminate at the depth/node bounds. Never invoke payload-defined methods.
+    """
+    stack = [(value, 0)]
+    nodes = text_bytes = 0
+    while stack:
+        item, depth = stack.pop()
+        nodes += 1
+        if nodes > 10_000 or depth > 32:
+            return False
+        kind = type(item)
+        if kind in (dict, list):
+            # Check length before allocating work proportional to a container.
+            if len(item) > 10_000 - nodes:
+                return False
+            if kind is dict:
+                if any(type(key) is not str for key in item):
+                    return False
+                stack.extend((key, depth + 1) for key in item)
+                stack.extend((child, depth + 1) for child in item.values())
+            else:
+                stack.extend((child, depth + 1) for child in item)
+        elif kind is str:
+            if len(item) > 1_048_576:
+                return False
+            try:
+                text_bytes += len(item.encode("utf-8", errors="strict"))
+            except UnicodeEncodeError:
+                return False
+            if text_bytes > 1_048_576:
+                return False
+        elif kind is int:
+            if item.bit_length() > 4096:
+                return False
+        elif kind is float:
+            if not math.isfinite(item):
+                return False
+        elif kind not in (bool, type(None)):
+            return False
+    return True
 
 
 def fixture_policy_decision(records, decisions, operation, product_id, *, production=False):
@@ -65,10 +111,24 @@ def fixture_policy_decision(records, decisions, operation, product_id, *, produc
     conditional grants are rejected; the caller cannot assert conditions met.
     """
     reasons = []
-    if production:
+    if production is not False:
         return False, ["The offline bootstrap gate cannot authorize production."]
-    if not records or not decisions:
+    allowed_ops = {"retrieve", "retain", "display", "redistribute", "commercial_use", "derive"}
+    if type(operation) is not str or operation not in allowed_ops:
+        return False, ["Unknown operation is denied."]
+    if type(records) is not list or type(decisions) is not list or not records or not decisions:
         return False, ["Empty records or source-use decisions cannot authorize an operation."]
+    if not _bounded_fixture_data([records, decisions]):
+        return False, ["Malformed or oversized fixture data is denied."]
+    date_errors = []
+    _check_dates([records, decisions], date_errors)
+    if date_errors:
+        return False, ["Fixture dates require explicit valid UTC timestamps."]
+    for items, schema_name in ((records, "catalog-record.schema.json"),
+                               (decisions, "source-use-decision.schema.json")):
+        schema = read_json(ROOT / "schemas/v0.1" / schema_name)
+        if any(schema_errors(item, schema) for item in items):
+            return False, ["Fixture data does not satisfy its declared draft schema."]
     if any(item.get("synthetic") is not True for item in records + decisions):
         return False, ["Only explicitly synthetic fixtures are supported by this offline gate."]
     if not _synthetic_identity(product_id):
@@ -84,15 +144,19 @@ def fixture_policy_decision(records, decisions, operation, product_id, *, produc
                            for key in ("source_id", "material_id")):
                     return False, ["An offline source and material must have synthetic identities."]
     for decision in decisions:
+        operation_names = [entry["operation"] for entry in decision["operations"]]
+        if len(set(operation_names)) != len(operation_names):
+            return False, ["Ambiguous duplicate source-use operations are denied."]
         scope = decision.get("scope", {})
         if not _synthetic_identity(decision.get("id")) or not all(
                 _synthetic_identity(scope.get(key))
                 for key in ("source_id", "material_id", "product_id")) or not all(
                 _synthetic_identity(identity) for identity in scope.get("record_ids", [])):
             return False, ["An offline source-use decision must have synthetic identities."]
-    allowed_ops = {"retrieve", "retain", "display", "redistribute", "commercial_use", "derive"}
-    if operation not in allowed_ops:
-        return False, ["Unknown operation is denied."]
+    identities = [record["id"] for record in records] + [decision["id"] for decision in decisions]
+    identities.extend(claim["id"] for record in records for claim in record["claims"])
+    if len(set(identities)) != len(identities):
+        return False, ["Denied: ambiguous overlapping decisions or duplicate fixture identities."]
     for record in records:
         if not record.get("claims"):
             reasons.append(f"{record.get('id')}: missing claims")
