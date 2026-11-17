@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/pick-your-ai/schemas/freshness-policy.schema.json",
+  "title": "Synthetic source-aware freshness policy proposal",
+  "description": "Draft-only policy. A schema-valid fixture is not a source authorization or publication receipt.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "synthetic", "decision_status", "policy_id", "claim_type", "mode", "source_id", "rationale", "event_triggers"],
+  "properties": {
+    "schema_version": {"const": "freshness-draft-0.1.0"},
+    "synthetic": {"const": true},
+    "decision_status": {"const": "proposed"},
+    "policy_id": {"type": "string", "pattern": "^urn:pya:synthetic:[a-z0-9][a-z0-9:._-]+$(?![\\s\\S])"},
+    "claim_type": {"enum": ["version_pinned_fact", "immutable_release", "historical_evidence", "current_price", "current_availability", "current_offering"]},
+    "mode": {"enum": ["pinned", "current"]},
+    "source_id": {"type": "string", "pattern": "^urn:pya:synthetic:[a-z0-9][a-z0-9:._-]+$(?![\\s\\S])"},
+    "review_interval_seconds": {"type": "integer", "minimum": 1, "maximum": 3153600000},
+    "event_triggers": {"type": "array", "uniqueItems": true, "items": {"enum": ["source_corrected", "price_changed", "availability_changed", "offering_changed", "source_policy_changed"]}},
+    "rationale": {"type": "string", "minLength": 12}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"claim_type": {"enum": ["version_pinned_fact", "immutable_release", "historical_evidence"]}}, "required": ["claim_type"]},
+      "then": {"properties": {"mode": {"const": "pinned"}}, "not": {"required": ["review_interval_seconds"]}},
+      "else": {"properties": {"mode": {"const": "current"}}, "anyOf": [{"required": ["review_interval_seconds"]}, {"properties": {"event_triggers": {"minItems": 1}}}]}
+    }
+  ]
+}

@@ -401,6 +401,57 @@ class InputAndInventoryTest(unittest.TestCase):
 
 
 class AdapterTest(unittest.TestCase):
+    def test_readonly_title_drift_preserves_verified_project_and_reports_difference(self):
+        renamed = {"id": "PVT_synthetic", "number": 8,
+                   "title": "Synthetic maintained catalog project", "closed": False,
+                   "repositories": [pub.REPO]}
+        before = deepcopy(renamed)
+        selected = pub.choose_project([renamed], read_only=True, expected_number=8)
+        self.assertEqual(selected["id"], renamed["id"])
+        self.assertEqual(selected["number"], 8)
+        self.assertEqual(selected["title_drift"]["expected"], pub.TITLE)
+        self.assertEqual(selected["title_drift"]["observed"], renamed["title"])
+        self.assertEqual(renamed, before)
+        with self.assertRaises(pub.PublicationError):
+            pub.choose_project([renamed], expected_number=8)
+
+    def test_readonly_title_drift_rejects_ambiguous_closed_or_unverified_identity(self):
+        renamed = {"id": "PVT_synthetic", "number": 8,
+                   "title": "Synthetic maintained catalog project", "closed": False,
+                   "repositories": [pub.REPO]}
+        cases = [([renamed], None), ([renamed], True), ([renamed], 9),
+                 ([{**renamed, "id": ""}], 8),
+                 ([{**renamed, "id": " \t"}], 8),
+                 ([{**renamed, "id": "PVT synthetic"}], 8),
+                 ([{**renamed, "title": None}], 8),
+                 ([{**renamed, "title": " \n"}], 8),
+                 ([{**renamed, "repositories": "prefix/" + pub.REPO}], 8),
+                 ([{**renamed, "repositories": [None, pub.REPO]}], 8),
+                 ([None], 8),
+                 ([{**renamed, "number": "8"}], 8),
+                 ([{**renamed, "closed": True}], 8),
+                 ([{**renamed, "closed": None}], 8),
+                 ([{**renamed, "title": "Pick Your AI - Catalog Pipeline",
+                    "repositories": []}], 8),
+                 ([renamed, {**renamed, "id": "PVT_other", "number": 9}], 8)]
+        for rows, expected in cases:
+            with self.subTest(rows=rows, expected=expected), self.assertRaises(pub.PublicationError):
+                pub.choose_project(rows, read_only=True, expected_number=expected)
+
+    def test_project_adapter_keeps_title_guard_for_writable_discovery(self):
+        renamed = {"id": "PVT_synthetic", "number": 8,
+                   "title": "Synthetic maintained catalog project", "closed": False,
+                   "repositories": [pub.REPO]}
+        runner = Mock(side_effect=AssertionError("offline test must not invoke gh"))
+        reader = pub.GitHub(runner=runner, expected_project_number=8)
+        reader.projects = Mock(return_value=[renamed])
+        self.assertIn("title_drift", reader.project())
+        writer = pub.GitHub(writable=True, runner=runner, expected_project_number=8)
+        writer.projects = Mock(return_value=[renamed])
+        with self.assertRaises(pub.PublicationError):
+            writer.project()
+        runner.assert_not_called()
+
     def test_mutation_uses_safe_argv_and_json_stdin_without_shell(self):
         runner = Mock(return_value=subprocess.CompletedProcess([], 0, '{"id":1}', ""))
         api = pub.GitHub(writable=True, delay=0, runner=runner)
