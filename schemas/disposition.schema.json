@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:pya:catalog:offline-disposition-draft:0.1",
+  "title": "Synthetic offline quarantine disposition (non-authoritative)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["synthetic", "candidate_id", "revision", "attempt", "state", "causes", "next_actions", "evaluations"],
+  "properties": {
+    "synthetic": {"type": "boolean", "const": true},
+    "candidate_id": {"$ref": "#/$defs/id"},
+    "revision": {"type": "integer", "minimum": 1},
+    "attempt": {"type": "integer", "minimum": 1, "maximum": 32},
+    "state": {"enum": ["quarantined", "needs_independent_review"]},
+    "causes": {"type": "array", "uniqueItems": true, "items": {"enum": ["malformed", "identity_ambiguous", "evidence_insufficient", "rights_unknown", "policy_denied"]}},
+    "next_actions": {"type": "array", "uniqueItems": true, "items": {"enum": ["correct_and_retry", "resolve_identity", "supply_evidence", "request_rights_review", "request_policy_review"]}},
+    "evaluations": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": false,
+      "prefixItems": [
+        {"allOf": [{"$ref": "#/$defs/evaluation"}, {"properties": {"gate": {"const": "schema"}, "cause": {"const": "malformed"}}}]},
+        {"allOf": [{"$ref": "#/$defs/evaluation"}, {"properties": {"gate": {"const": "identity"}, "cause": {"const": "identity_ambiguous"}}}]},
+        {"allOf": [{"$ref": "#/$defs/evaluation"}, {"properties": {"gate": {"const": "evidence"}, "cause": {"const": "evidence_insufficient"}}}]},
+        {"allOf": [{"$ref": "#/$defs/evaluation"}, {"properties": {"gate": {"const": "rights"}, "cause": {"const": "rights_unknown"}}}]},
+        {"allOf": [{"$ref": "#/$defs/evaluation"}, {"properties": {"gate": {"const": "policy"}, "cause": {"const": "policy_denied"}}}]}
+      ]
+    }
+  },
+  "$defs": {
+    "id": {"type": "string", "maxLength": 256, "pattern": "^urn:pya:synthetic:[a-z0-9][a-z0-9:._-]*$", "not": {"pattern": "[\\r\\n]"}},
+    "evaluation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["gate", "status", "evaluation_id"],
+      "properties": {
+        "gate": {"enum": ["schema", "identity", "evidence", "rights", "policy"]},
+        "status": {"enum": ["pass", "reject", "unknown"]},
+        "evaluation_id": {"$ref": "#/$defs/id"},
+        "cause": {"enum": ["malformed", "identity_ambiguous", "evidence_insufficient", "rights_unknown", "policy_denied"]}
+      },
+      "allOf": [
+        {"if": {"properties": {"status": {"const": "pass"}}}, "then": {"not": {"required": ["cause"]}}},
+        {"if": {"properties": {"status": {"enum": ["reject", "unknown"]}}}, "then": {"required": ["cause"]}}
+      ]
+    }
+  },
+  "$comment": "Wire shape and diagnostic consistency only. Before use, runtime semantic validation must also enforce distinct evaluation identities, canonical cause/action ordering, revision monotonicity and cross-history freshness. Neither validation provides authority or proves gates ran.",
+  "allOf": [
+    {
+      "if": {"properties": {"evaluations": {"items": {"properties": {"status": {"const": "pass"}}}}}},
+      "then": {"properties": {"state": {"const": "needs_independent_review"}, "causes": {"maxItems": 0}, "next_actions": {"maxItems": 0}}},
+      "else": {"properties": {"state": {"const": "quarantined"}, "causes": {"minItems": 1}, "next_actions": {"minItems": 1}}}
+    },
+    {
+      "if": {"properties": {"evaluations": {"contains": {"properties": {"gate": {"const": "schema"}, "status": {"enum": ["reject", "unknown"]}}}}}},
+      "then": {"properties": {"causes": {"contains": {"const": "malformed"}}, "next_actions": {"contains": {"const": "correct_and_retry"}}}},
+      "else": {"properties": {"causes": {"not": {"contains": {"const": "malformed"}}}, "next_actions": {"not": {"contains": {"const": "correct_and_retry"}}}}}
+    },
+    {
+      "if": {"properties": {"evaluations": {"contains": {"properties": {"gate": {"const": "identity"}, "status": {"enum": ["reject", "unknown"]}}}}}},
+      "then": {"properties": {"causes": {"contains": {"const": "identity_ambiguous"}}, "next_actions": {"contains": {"const": "resolve_identity"}}}},
+      "else": {"properties": {"causes": {"not": {"contains": {"const": "identity_ambiguous"}}}, "next_actions": {"not": {"contains": {"const": "resolve_identity"}}}}}
+    },
+    {
+      "if": {"properties": {"evaluations": {"contains": {"properties": {"gate": {"const": "evidence"}, "status": {"enum": ["reject", "unknown"]}}}}}},
+      "then": {"properties": {"causes": {"contains": {"const": "evidence_insufficient"}}, "next_actions": {"contains": {"const": "supply_evidence"}}}},
+      "else": {"properties": {"causes": {"not": {"contains": {"const": "evidence_insufficient"}}}, "next_actions": {"not": {"contains": {"const": "supply_evidence"}}}}}
+    },
+    {
+      "if": {"properties": {"evaluations": {"contains": {"properties": {"gate": {"const": "rights"}, "status": {"enum": ["reject", "unknown"]}}}}}},
+      "then": {"properties": {"causes": {"contains": {"const": "rights_unknown"}}, "next_actions": {"contains": {"const": "request_rights_review"}}}},
+      "else": {"properties": {"causes": {"not": {"contains": {"const": "rights_unknown"}}}, "next_actions": {"not": {"contains": {"const": "request_rights_review"}}}}}
+    },
+    {
+      "if": {"properties": {"evaluations": {"contains": {"properties": {"gate": {"const": "policy"}, "status": {"enum": ["reject", "unknown"]}}}}}},
+      "then": {"properties": {"causes": {"contains": {"const": "policy_denied"}}, "next_actions": {"contains": {"const": "request_policy_review"}}}},
+      "else": {"properties": {"causes": {"not": {"contains": {"const": "policy_denied"}}}, "next_actions": {"not": {"contains": {"const": "request_policy_review"}}}}}
+    }
+  ]
+}
