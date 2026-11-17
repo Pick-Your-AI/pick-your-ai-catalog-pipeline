@@ -15,7 +15,7 @@ from typing import Any, Mapping
 from jsonschema import Draft202012Validator
 
 _VERSION = "freshness-draft-0.1.0"
-_UTC = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z$")
+_UTC = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,6})?Z$")
 _OBSERVATION_FIELDS = frozenset({
     "schema_version", "synthetic", "claim_id", "source_id", "claim_type",
     "captured_at", "checked_at", "effective_at", "published_at", "source_status",
@@ -39,7 +39,7 @@ class FreshnessError(ValueError):
 
 def _instant(value: Any, field: str) -> datetime:
     if not isinstance(value, str) or not _UTC.fullmatch(value):
-        raise FreshnessError(f"{field}: explicit UTC Z instant required")
+        raise FreshnessError(f"{field}: explicit UTC Z instant with at most six fractional digits required")
     try:
         return datetime.fromisoformat(value.replace("Z", "+00:00"))
     except ValueError as exc:
@@ -97,9 +97,10 @@ def evaluate(policy: Mapping[str, Any], observation: Mapping[str, Any], *,
              as_of: datetime, events: tuple[str, ...] = ()) -> dict[str, Any]:
     """Describe an *offline*, synthetic next step; never certify truth or release.
 
-    Pinned evidence has no age-based expiry. A changed snapshot never changes
-    that rule; a rights event always puts every class on hold. Current-state
-    outputs are qualified only as of the explicit last check, never as 'live'.
+    Pinned evidence has no age-based expiry; source corrections require review
+    even without a declared trigger. A rights event always puts every class on
+    hold. Current-state outputs are qualified only as of the explicit last
+    check, never as 'live'.
     """
     now = _as_of(as_of)
     if not isinstance(events, tuple):
@@ -107,7 +108,8 @@ def evaluate(policy: Mapping[str, Any], observation: Mapping[str, Any], *,
     dates = _validate(policy, observation, as_of=now, events=events)
     if "rights_changed" in events or "source_policy_changed" in events:
         status, action = "rights_hold", "review_exact_material_use_before_any_action"
-    elif any(event in policy["event_triggers"] for event in events):
+    elif (policy["mode"] == "pinned" and "source_corrected" in events
+          or any(event in policy["event_triggers"] for event in events)):
         status, action = "event_review", "preserve_last_known_and_review_event"
     elif observation["source_status"] == "unavailable":
         status, action = "source_unavailable", "preserve_last_known_and_escalate"

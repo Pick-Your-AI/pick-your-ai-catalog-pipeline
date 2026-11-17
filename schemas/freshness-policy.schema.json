@@ -10,17 +10,12 @@
     "schema_version": {"const": "freshness-draft-0.1.0"},
     "synthetic": {"const": true},
     "decision_status": {"const": "proposed"},
-    "policy_id": {"type": "string", "pattern": "^urn:pya:synthetic:[a-z0-9][a-z0-9:._-]+$"},
-    "claim_type": {
-      "enum": ["version_pinned_fact", "immutable_release", "historical_evidence", "current_price", "current_availability", "current_offering"]
-    },
+    "policy_id": {"type": "string", "pattern": "^urn:pya:synthetic:[a-z0-9][a-z0-9:._-]+$(?![\\s\\S])"},
+    "claim_type": {"enum": ["version_pinned_fact", "immutable_release", "historical_evidence", "current_price", "current_availability", "current_offering"]},
     "mode": {"enum": ["pinned", "current"]},
-    "source_id": {"type": "string", "pattern": "^urn:pya:synthetic:[a-z0-9][a-z0-9:._-]+$"},
+    "source_id": {"type": "string", "pattern": "^urn:pya:synthetic:[a-z0-9][a-z0-9:._-]+$(?![\\s\\S])"},
     "review_interval_seconds": {"type": "integer", "minimum": 1, "maximum": 3153600000},
-    "event_triggers": {
-      "type": "array", "uniqueItems": true,
-      "items": {"enum": ["source_corrected", "price_changed", "availability_changed", "offering_changed", "source_policy_changed"]}
-    },
+    "event_triggers": {"type": "array", "uniqueItems": true, "items": {"enum": ["source_corrected", "price_changed", "availability_changed", "offering_changed", "source_policy_changed"]}},
     "rationale": {"type": "string", "minLength": 12}
   },
   "allOf": [

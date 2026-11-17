@@ -75,6 +75,66 @@ class FreshnessTests(unittest.TestCase):
         self.assertEqual(self.check(o=observation(checked_at="2026-11-17T14:00:00Z"))["status"], "review_due")
         self.assertEqual(self.check(p=policy(review_interval_seconds=7200))["status"], "checked_as_of")
 
+    def test_review_interval_preserves_microsecond_boundary(self):
+        for checked_at, expected in (
+            ("2026-11-17T14:00:00.000001Z", "checked_as_of"),
+            ("2026-11-17T14:00:00.000000Z", "review_due"),
+            ("2026-11-17T13:59:59.999999Z", "review_due"),
+        ):
+            with self.subTest(checked_at=checked_at):
+                result = self.check(o=observation(checked_at=checked_at))
+                self.assertEqual(result["status"], expected)
+                self.assertEqual(result["checked_at"], checked_at)
+
+    def test_supported_fractional_precision_is_preserved_for_every_timestamp(self):
+        for field in ("captured_at", "checked_at", "effective_at", "published_at"):
+            for fraction in ("1", "12", "123", "1234", "12345", "123456"):
+                instant = observation()[field].replace("Z", "." + fraction + "Z")
+                with self.subTest(field=field, instant=instant):
+                    result = self.check(o=observation(**{field: instant}))
+                    self.assertEqual(result["status"], "checked_as_of")
+                    self.assertEqual(result[field], instant)
+
+    def test_unsupported_fractional_precision_is_rejected_for_every_timestamp(self):
+        for field in ("captured_at", "checked_at", "effective_at", "published_at"):
+            for instant in ("2026-11-17T15:00:00.0000001Z",
+                            "2026-11-17T12:00:00.1234567Z",
+                            "2026-11-17T12:00:00.0000000Z"):
+                with self.subTest(field=field, instant=instant):
+                    self.assert_invalid(o=observation(**{field: instant}))
+
+    def test_capture_check_and_publication_allow_now_but_reject_one_microsecond_future(self):
+        for field in ("captured_at", "checked_at", "published_at"):
+            with self.subTest(field=field):
+                values = {field: "2026-11-17T15:00:00.000000Z"}
+                if field == "captured_at":
+                    values["checked_at"] = values[field]
+                self.assertEqual(self.check(o=observation(**values))["status"], "checked_as_of")
+                values[field] = "2026-11-17T15:00:00.000001Z"
+                self.assert_invalid(o=observation(**values))
+
+    def test_effective_time_preserves_microsecond_boundary(self):
+        for instant, expected in (
+            ("2026-11-17T14:59:59.999999Z", "checked_as_of"),
+            ("2026-11-17T15:00:00.000000Z", "checked_as_of"),
+            ("2026-11-17T15:00:00.000001Z", "not_yet_effective"),
+        ):
+            with self.subTest(effective_at=instant):
+                result = self.check(o=observation(effective_at=instant))
+                self.assertEqual(result["status"], expected)
+                self.assertEqual(result["effective_at"], instant)
+
+    def test_check_ordering_preserves_microsecond_boundary(self):
+        captured_at = "2026-11-17T14:30:00.000001Z"
+        self.assert_invalid(o=observation(captured_at=captured_at,
+                                          checked_at="2026-11-17T14:30:00.000000Z"))
+        for checked_at in (captured_at, "2026-11-17T14:30:00.000002Z"):
+            with self.subTest(checked_at=checked_at):
+                result = self.check(o=observation(captured_at=captured_at, checked_at=checked_at))
+                self.assertEqual(result["status"], "checked_as_of")
+                self.assertEqual(result["captured_at"], captured_at)
+                self.assertEqual(result["checked_at"], checked_at)
+
     def test_pinned_evidence_and_releases_do_not_expire_on_snapshot_change(self):
         for claim_type in ["version_pinned_fact", "historical_evidence", "immutable_release"]:
             p = policy(claim_type)
@@ -101,6 +161,36 @@ class FreshnessTests(unittest.TestCase):
                 result = self.check(policy(claim_type), observation(claim_type), events=(event,))
                 self.assertEqual(result["status"], "rights_hold")
                 self.assertFalse(result["publication_eligible"])
+
+    def test_pinned_source_corrections_require_review_without_declared_trigger(self):
+        for claim_type in ("version_pinned_fact", "immutable_release", "historical_evidence"):
+            for triggers in ([], ["offering_changed"], ["source_corrected"]):
+                for source_status in ("available", "unknown", "unavailable"):
+                    with self.subTest(claim_type=claim_type, triggers=triggers, source_status=source_status):
+                        p = policy(claim_type, event_triggers=triggers)
+                        o = observation(claim_type, source_status=source_status)
+                        before = deepcopy(o)
+                        result = self.check(p, o, events=("snapshot_created", "source_corrected"))
+                        self.assertEqual(result["status"], "event_review")
+                        self.assertEqual(result["next_action"], "preserve_last_known_and_review_event")
+                        self.assertFalse(result["publication_eligible"])
+                        for field in ("observation_ref", "snapshot_ref", "captured_at", "checked_at",
+                                      "effective_at", "published_at"):
+                            self.assertEqual(result[field], o[field])
+                        self.assertEqual(o, before)
+                        self.assertEqual(p["event_triggers"], triggers)
+
+    def test_rights_hold_takes_priority_over_pinned_source_correction(self):
+        for claim_type in ("version_pinned_fact", "immutable_release", "historical_evidence"):
+            for event in ("rights_changed", "source_policy_changed"):
+                for events in ((event, "source_corrected"), ("source_corrected", event)):
+                    with self.subTest(claim_type=claim_type, events=events):
+                        result = self.check(policy(claim_type, event_triggers=[]), observation(claim_type),
+                                            events=events)
+                        self.assertEqual(result["status"], "rights_hold")
+                        self.assertEqual(result["observation_ref"], BASE + "observation:fictional")
+                        self.assertEqual(result["snapshot_ref"], BASE + "snapshot:v1")
+                        self.assertFalse(result["publication_eligible"])
 
     def test_triggers_and_no_universal_interval(self):
         p = policy()
@@ -140,6 +230,52 @@ class FreshnessTests(unittest.TestCase):
         self.assertEqual(before, observation())
         self.assertEqual(first["policy_id"], pol["policy_id"])
         self.assertEqual(first["next_action"], "retain_as_of_disclosure_and_monitor")
+
+    def test_public_input_container_and_event_types_fail_closed(self):
+        for invalid in (None, False, 1, "object", [], (), {}):
+            with self.subTest(input="policy", value=invalid):
+                with self.assertRaises(FreshnessError):
+                    evaluate(invalid, observation(), as_of=NOW)
+            with self.subTest(input="observation", value=invalid):
+                with self.assertRaises(FreshnessError):
+                    evaluate(policy(), invalid, as_of=NOW)
+        for events in (None, "source_corrected", ["source_corrected"], {"source_corrected"},
+                       (None,), (True,), ([],), ({},)):
+            with self.subTest(events=events):
+                self.assert_invalid(events=events)
+        for as_of in (None, False, "2026-11-17T15:00:00Z", NOW.replace(tzinfo=None),
+                      NOW.astimezone(timezone(timedelta(hours=1)))):
+            with self.subTest(as_of=as_of):
+                with self.assertRaises(FreshnessError):
+                    evaluate(policy(), observation(), as_of=as_of)
+
+    def test_public_field_types_fail_closed(self):
+        for field in ("captured_at", "checked_at", "effective_at", "published_at",
+                      "claim_id", "source_id", "observation_ref", "snapshot_ref", "source_status",
+                      "claim_type", "schema_version"):
+            for invalid in (None, False, 1, [], {}):
+                with self.subTest(field=field, value=invalid):
+                    self.assert_invalid(o=observation(**{field: invalid}))
+        for changes in ({"claim_type": []}, {"event_triggers": "source_corrected"},
+                        {"event_triggers": [None]}, {"review_interval_seconds": True},
+                        {"synthetic": 1},
+                        {"review_interval_seconds": float("nan")},
+                        {"review_interval_seconds": float("inf")}):
+            with self.subTest(policy_changes=changes):
+                self.assert_invalid(p={**policy(), **changes})
+
+    def test_synthetic_identity_rejects_trailing_newline(self):
+        schema = json.loads((ROOT / "schemas/freshness-policy.schema.json").read_text())
+        validator = Draft202012Validator(schema)
+        for field in ("policy_id", "source_id"):
+            for suffix in ("\n", "\r", "\r\n"):
+                with self.subTest(policy_field=field, suffix=suffix):
+                    invalid = policy(**{field: policy()[field] + suffix})
+                    self.assertTrue(list(validator.iter_errors(invalid)))
+                    self.assert_invalid(p=invalid)
+        for field in ("claim_id", "source_id", "observation_ref", "snapshot_ref"):
+            with self.subTest(observation_field=field):
+                self.assert_invalid(o=observation(**{field: observation()[field] + "\n"}))
 
 
 if __name__ == "__main__":
