@@ -1,0 +1,22 @@
+# Change delivery and withdrawal replay — synthetic draft CP-11.04
+
+This is a **proposed offline contract only**, not an accepted service, source feed, reviewer decision, consumer acknowledgement, rights grant, delivery mechanism or production release. It cannot send messages. Frozen builder v1 and upstream source-use governance are unchanged. Partial implementation of [#56](https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/56).
+
+## Proposed event contract
+
+`schemas/catalog-change-feed.schema.json` separates `release_available` (optional consumer review), `correction` (review changed material) and `mandatory_withdrawal` (withhold the exact versions and purge caches when authorized). Every event pins an opaque synthetic event ID, monotonic sequence, exact affected artifact IDs and revisions, required action and a fixed approved-for-fixture public explanation. Arbitrary source or error details cannot appear in the explanation slot. **Do not interpret this synthetic schema as a production information-disclosure filter**; real sources need reviewed field-level projections.
+
+`src/delivery.replay` takes an event batch and in-memory state, sorts by sequence, deduplicates identical retransmissions, and advances only over a contiguous sequence. A changed replay of a previously applied event, contradictory duplicates, unknown stream or missing sequence is denied or flagged for resynchronization. A gap sets `block_all_access=true`; clients must not assume that an unseen event contains no revocations. Withdrawn versions are never automatically reauthorized by a later release or correction. Output receipts are explicitly `synthetic_unverified`, not proof of a webhook, poll, app or repository handoff. No ACK is posted externally.
+
+`recover_from_snapshot` simulates receiving a *complete* withdrawal-state snapshot after prolonged offline operation. It remains globally blocked (`block_all_access=true`) and requires real source authenticity, authorization, version/sequence continuity, consumer compatibility and operator approval before any future implementation can allow access. Event history before a snapshot is not silently trusted or replayed without receipts; missing hashes cause fail-closed resynchronization. This is a rehearsal of withholding, not a live recovery protocol.
+
+## Non-goals and receiving gates
+
+- No invented consumer webhook URL, authentication secret, signed message, real event provenance, scheduled poll, sending messages, service subscription or external API call.
+- No approval of source/material/use rights, commercial redistribution, release promotion, unwithdrawal, or deletion of authoritative source data.
+- Decisions on polling/webhook/repository handoff, signing, durable ledger, retry retention, redaction and receiving implementations belong to the actual website, Apple, Android and operating owners.
+- Required accepted predecessors remain #54 (change classification), #50 (release rollback and withdrawal), and #58 (receiving packet). The issue remains open pending actual rights/operational/consumer receipts and independent eligible GitHub approval.
+
+## Offline verification
+
+With the repository's pinned Python validation requirements installed, run `python -m unittest discover -s tests -v`. The isolated fixture lane can be run with `python -m unittest discover -s tests/change-delivery -v`. Successful synthetic tests are not evidence of authenticated delivery or deployed clients.

@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/blob/main/schemas/catalog-change-feed.schema.json",
+  "title": "Synthetic draft catalog change feed (CP-11.04)",
+  "$defs": {
+    "identifier": {"type": "string", "pattern": "^synthetic:[a-z0-9][a-z0-9-]{0,62}$(?![\\s\\S])", "maxLength": 73},
+    "version": {"type": "object", "additionalProperties": false, "required": ["artifact_id", "revision"], "properties": {
+      "artifact_id": {"$ref": "#/$defs/identifier"}, "revision": {"type": "string", "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,63}$(?![\\s\\S])"}
+    }},
+    "event": {"type": "object", "additionalProperties": false,
+      "required": ["event_id", "sequence", "kind", "required_action", "public_explanation", "affected_versions"],
+      "properties": {
+        "event_id": {"$ref": "#/$defs/identifier"}, "sequence": {"type": "integer", "minimum": 1, "maximum": 1000000000},
+        "kind": {"enum": ["release_available", "correction", "mandatory_withdrawal"]},
+        "required_action": {"enum": ["optional_review", "review_correction", "withhold_and_purge"]},
+        "public_explanation": {"enum": ["A new catalog revision is available.", "Catalog information was corrected.", "This catalog version must be withdrawn."]},
+        "affected_versions": {"type": "array", "minItems": 1, "maxItems": 128, "uniqueItems": true, "items": {"$ref": "#/$defs/version"}}
+      }, "allOf": [
+        {"if": {"properties": {"kind": {"const": "release_available"}}}, "then": {"properties": {"required_action": {"const": "optional_review"}, "public_explanation": {"const": "A new catalog revision is available."}}}},
+        {"if": {"properties": {"kind": {"const": "correction"}}}, "then": {"properties": {"required_action": {"const": "review_correction"}, "public_explanation": {"const": "Catalog information was corrected."}}}},
+        {"if": {"properties": {"kind": {"const": "mandatory_withdrawal"}}}, "then": {"properties": {"required_action": {"const": "withhold_and_purge"}, "public_explanation": {"const": "This catalog version must be withdrawn."}}}}
+      ]},
+    "feed": {"type": "object", "additionalProperties": false,
+      "required": ["schema_version", "stream_id", "synthetic", "publication_eligible", "events"],
+      "properties": {"schema_version": {"const": "0.1-draft"}, "stream_id": {"$ref": "#/$defs/identifier"},
+        "synthetic": {"const": true}, "publication_eligible": {"const": false},
+        "events": {"type": "array", "minItems": 1, "maxItems": 128, "items": {"$ref": "#/$defs/event"}}}},
+    "state": {"type": "object", "additionalProperties": false,
+      "required": ["stream_id", "cursor", "hashes", "withheld_versions", "recovery_pending"],
+      "properties": {"stream_id": {"$ref": "#/$defs/identifier"},
+        "cursor": {"type": "integer", "minimum": 0, "maximum": 1000000000},
+        "recovery_pending": {"type": "boolean"},
+        "hashes": {"type": "object", "maxProperties": 10000, "propertyNames": {"pattern": "^[1-9][0-9]{0,9}$"}, "additionalProperties": {"type": "string", "pattern": "^[a-f0-9]{64}$"}},
+        "withheld_versions": {"type": "array", "maxItems": 10000, "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^synthetic:[a-z0-9][a-z0-9-]{0,62}@[a-zA-Z0-9][a-zA-Z0-9._-]{0,63}$(?![\\s\\S])"}}}},
+    "snapshot": {"type": "object", "additionalProperties": false,
+      "required": ["schema_version", "stream_id", "synthetic", "publication_eligible", "cursor", "complete_withdrawals"],
+      "properties": {"schema_version": {"const": "0.1-draft"}, "stream_id": {"$ref": "#/$defs/identifier"},
+        "synthetic": {"const": true}, "publication_eligible": {"const": false},
+        "cursor": {"type": "integer", "minimum": 0, "maximum": 1000000000},
+        "complete_withdrawals": {"type": "array", "maxItems": 10000, "uniqueItems": true, "items": {"$ref": "#/$defs/version"}}}}
+  },
+  "$ref": "#/$defs/feed"
+}
