@@ -42,8 +42,8 @@ def _instant(value: Any, field: str) -> datetime:
         raise FreshnessError(f"{field}: explicit UTC Z instant with at most six fractional digits required")
     try:
         return datetime.fromisoformat(value.replace("Z", "+00:00"))
-    except ValueError as exc:
-        raise FreshnessError(f"{field}: invalid calendar instant") from exc
+    except ValueError:
+        raise FreshnessError(f"{field}: invalid calendar instant") from None
 
 
 def _as_of(value: datetime) -> datetime:
@@ -63,10 +63,12 @@ def _validate(policy: Mapping[str, Any], observation: Mapping[str, Any], *,
               as_of: datetime, events: tuple[str, ...]) -> dict[str, datetime]:
     if not isinstance(policy, dict) or not isinstance(observation, dict):
         raise FreshnessError("policy and observation must be plain objects")
-    violations = list(_policy_validator().iter_errors(policy))
-    if violations:
-        raise FreshnessError("invalid proposed synthetic policy: " +
-                             "; ".join(sorted(error.message for error in violations)))
+    if next(_policy_validator().iter_errors(policy), None) is not None:
+        # Validation messages and instance paths may contain submitted values or
+        # property names. Keep diagnostics constant, including formatted traces.
+        raise FreshnessError(
+            "invalid proposed synthetic policy: schema validation failed"
+        ) from None
     if not (_REQUIRED_OBSERVATION_FIELDS <= observation.keys() <= _OBSERVATION_FIELDS):
         raise FreshnessError("observation: missing or extra keys")
     if observation["schema_version"] != _VERSION or observation["synthetic"] is not True:

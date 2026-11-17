@@ -4,6 +4,7 @@ from datetime import datetime, timezone, timedelta
 import json
 from pathlib import Path
 import sys
+import traceback
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -276,6 +277,41 @@ class FreshnessTests(unittest.TestCase):
         for field in ("claim_id", "source_id", "observation_ref", "snapshot_ref"):
             with self.subTest(observation_field=field):
                 self.assert_invalid(o=observation(**{field: observation()[field] + "\n"}))
+
+
+class FreshnessDiagnosticTests(unittest.TestCase):
+    def test_schema_errors_never_reflect_values_or_property_names(self):
+        marker = "SYNTHETIC_PRIVATE_MARKER_DO_NOT_ECHO"
+        invalid_policies = [
+            policy(mode=marker),
+            policy(event_triggers=[marker]),
+            policy(event_triggers=[{"nested": marker}]),
+            policy(**{marker: "unexpected property"}),
+        ]
+        for invalid in invalid_policies:
+            with self.subTest(case=invalid_policies.index(invalid)):
+                try:
+                    evaluate(invalid, observation(), as_of=NOW)
+                except FreshnessError as error:
+                    self.assertEqual(str(error),
+                                     "invalid proposed synthetic policy: schema validation failed")
+                    self.assertLessEqual(len(str(error)), 80)
+                    self.assertIsNone(error.__cause__)
+                    self.assertNotIn(marker, "".join(traceback.format_exception(error)))
+                else:
+                    self.fail("Malformed policy was accepted")
+
+    def test_calendar_errors_do_not_chain_parser_exceptions(self):
+        invalid = observation(captured_at="2026-02-30T12:00:00Z")
+        try:
+            evaluate(policy(), invalid, as_of=NOW)
+        except FreshnessError as error:
+            self.assertIsNone(error.__cause__)
+            rendered = "".join(traceback.format_exception(error))
+            self.assertNotIn("ValueError:", rendered)
+            self.assertNotIn("During handling", rendered)
+        else:
+            self.fail("Invalid calendar instant was accepted")
 
 
 if __name__ == "__main__":
