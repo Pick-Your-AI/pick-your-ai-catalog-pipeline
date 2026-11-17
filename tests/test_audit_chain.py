@@ -156,6 +156,15 @@ class AuditChainTest(unittest.TestCase):
                 chain.verify(snapshot, chain_id=CHAIN,
                              expected_head=snapshot[-1].digest, expected_count=count)
 
+    def test_identifiers_reject_del_and_c1_controls(self):
+        for codepoint in (0x7F, 0x80, 0x85, 0x9F):
+            identifier = "urn:pya:synthetic:control:" + chr(codepoint)
+            with self.subTest(codepoint=codepoint):
+                with self.assertRaises(chain.ChainError):
+                    chain.empty_head(identifier)
+                with self.assertRaises(chain.ChainError):
+                    self.add(objects={identifier: OBJECT_BYTES})
+
     def test_object_count_identifiers_and_aggregate_limits(self):
         for objects in [{}, {"": b'{}'}, {"x\n": b'{}'}, {"x" * 257: b'{}'},
                         {str(i): b'{}' for i in range(chain.MAX_OBJECTS + 1)}]:

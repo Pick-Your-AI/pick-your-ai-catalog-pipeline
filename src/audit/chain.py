@@ -40,7 +40,8 @@ def _identifier(value: str) -> None:
     if type(value) is not str or not value or len(value) > 256:
         raise ChainError("Expected a bounded nonempty identifier")
     try:
-        if len(value.encode("utf-8")) > 256 or any(ord(c) < 32 for c in value):
+        if (len(value.encode("utf-8")) > 256
+                or any(ord(c) < 32 or 0x7F <= ord(c) <= 0x9F for c in value)):
             raise ChainError("Invalid identifier")
     except UnicodeError as exc:
         raise ChainError("Invalid identifier Unicode") from exc
