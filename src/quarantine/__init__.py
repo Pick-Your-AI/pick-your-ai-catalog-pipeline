@@ -51,19 +51,30 @@ def _normalize(findings):
         raise QuarantineError("A fresh result from all five gates is required")
     by_gate = {}
     for finding in findings:
-        if type(finding) is not GateFinding or finding.gate not in GATES or finding.gate in by_gate:
-            raise QuarantineError("Unknown or duplicate gate")
-        if (type(finding.gate) is not str or type(finding.status) is not str
-                or (finding.cause is not None and type(finding.cause) is not str)):
+        if type(finding) is not GateFinding:
+            raise QuarantineError("Expected an exact gate finding")
+        try:
+            gate, status, evaluation_id, cause = (
+                finding.gate, finding.status, finding.evaluation_id, finding.cause)
+        except AttributeError as error:
+            raise QuarantineError("Incomplete gate finding") from error
+        # Validate exact primitive types before equality, membership or hashing:
+        # even a str subclass may override those operations or be unhashable.
+        if (type(gate) is not str or type(status) is not str
+                or (cause is not None and type(cause) is not str)):
             raise QuarantineError("Gate fields must use exact scalar types")
-        if finding.status not in ("pass", "reject", "unknown") or not _synthetic(finding.evaluation_id):
+        if not _synthetic(evaluation_id):
+            raise QuarantineError("Invalid synthetic evaluation identity")
+        if gate not in GATES or gate in by_gate:
+            raise QuarantineError("Unknown or duplicate gate")
+        if status not in ("pass", "reject", "unknown"):
             raise QuarantineError("Invalid gate result or synthetic evaluation identity")
-        if finding.status == "pass":
-            if finding.cause is not None:
+        if status == "pass":
+            if cause is not None:
                 raise QuarantineError("Passing gate cannot supply a failure cause")
-        elif finding.cause not in CAUSES or CAUSES[finding.cause][0] != finding.gate:
+        elif cause not in CAUSES or CAUSES[cause][0] != gate:
             raise QuarantineError("Failed/unknown gate requires matching cause")
-        by_gate[finding.gate] = finding
+        by_gate[gate] = finding
     ordered = tuple(by_gate[g] for g in GATES)
     if len({f.evaluation_id for f in ordered}) != len(GATES):
         raise QuarantineError("Gate evaluations must have distinct identities")
@@ -74,6 +85,38 @@ def _derived(findings):
     causes = tuple(f.cause for f in findings if f.cause is not None)
     actions = tuple(dict.fromkeys(CAUSES[c][1] for c in causes))
     return ("quarantined" if causes else "needs_independent_review", causes, actions)
+
+
+def _validate_attempt(entry):
+    """Check one stored attempt's bounded structure and derived consistency.
+
+    This cannot authenticate a history, prove a gate ran, or establish that a
+    caller supplied the complete prior history. Cross-attempt checks belong to
+    append_attempt; even a valid standalone document is not a trusted receipt.
+    """
+    if type(entry) is not Attempt:
+        raise QuarantineError("Expected an exact attempt")
+    try:
+        candidate_id, revision, number, state, causes, actions, findings = (
+            entry.candidate_id, entry.revision, entry.number, entry.state,
+            entry.causes, entry.next_actions, entry.findings)
+    except AttributeError as error:
+        raise QuarantineError("Incomplete attempt") from error
+    if not _synthetic(candidate_id) or type(revision) is not int or revision < 1:
+        raise QuarantineError("Candidate and positive revision must be synthetic and exact")
+    if type(number) is not int or not 1 <= number <= MAX_ATTEMPTS:
+        raise QuarantineError("Attempt number is outside the supported range")
+    if (type(state) is not str
+            or type(causes) is not tuple or len(causes) > len(GATES)
+            or type(actions) is not tuple or len(actions) > len(GATES)):
+        raise QuarantineError("Attempt metadata must use exact bounded types")
+    if any(type(value) is not str for value in causes + actions):
+        raise QuarantineError("Attempt causes and actions must use exact strings")
+    normalized = _normalize(findings)
+    if tuple(f.gate for f in findings) != GATES:
+        raise QuarantineError("Stored findings must use canonical gate order")
+    if (state, causes, actions) != _derived(normalized):
+        raise QuarantineError("Inconsistent prior attempt metadata")
 
 
 def append_attempt(history, *, candidate_id, revision, findings):
@@ -89,14 +132,12 @@ def append_attempt(history, *, candidate_id, revision, findings):
     seen = set()
     prior_revision = 0
     for number, entry in enumerate(history, 1):
-        if type(entry) is not Attempt or entry.candidate_id != candidate_id:
+        _validate_attempt(entry)
+        if entry.candidate_id != candidate_id:
             raise QuarantineError("Foreign or malformed prior attempt")
-        if type(entry.number) is not int or entry.number != number or type(entry.revision) is not int or entry.revision <= prior_revision:
+        if entry.number != number or entry.revision <= prior_revision:
             raise QuarantineError("Nonmonotonic prior attempt history")
-        normalized = _normalize(entry.findings)
-        if normalized != entry.findings or (entry.state, entry.causes, entry.next_actions) != _derived(normalized):
-            raise QuarantineError("Inconsistent prior attempt metadata")
-        for finding in normalized:
+        for finding in entry.findings:
             if finding.evaluation_id in seen:
                 raise QuarantineError("Reused evaluation identity in prior history")
             seen.add(finding.evaluation_id)
@@ -113,8 +154,7 @@ def append_attempt(history, *, candidate_id, revision, findings):
 
 def as_document(entry):
     """Machine-readable disposition, never an eligibility or rights receipt."""
-    if type(entry) is not Attempt:
-        raise QuarantineError("Expected an attempt")
+    _validate_attempt(entry)
     return {
         "synthetic": True, "candidate_id": entry.candidate_id,
         "revision": entry.revision, "attempt": entry.number,
