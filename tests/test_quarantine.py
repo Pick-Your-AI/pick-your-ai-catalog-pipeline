@@ -70,7 +70,9 @@ class QuarantineTest(unittest.TestCase):
                          valid[:1] + (GateFinding("rights", "pass", valid[1].evaluation_id),) + valid[2:],
                          tuple(GateFinding(f.gate, "unknown", f.evaluation_id) for f in valid),
                          tuple(GateFinding(f.gate, "pass", f.evaluation_id, "malformed") for f in valid),
-                         tuple(GateFinding(f.gate, f.status, "urn:pya:real:evaluation", f.cause) for f in valid)]
+                         tuple(GateFinding(f.gate, f.status, "urn:pya:real:evaluation", f.cause) for f in valid),
+                         tuple(GateFinding(f.gate, "reject", f.evaluation_id, {}) for f in valid),
+                         tuple(GateFinding([], f.status, f.evaluation_id, f.cause) for f in valid)]
         for bad in invalid_cases:
             with self.subTest(bad=bad), self.assertRaises(QuarantineError):
                 append_attempt((), candidate_id=CANDIDATE, revision=1, findings=bad)
