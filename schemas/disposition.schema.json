@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:pya:catalog:offline-disposition-draft:0.1",
+  "title": "Synthetic offline quarantine disposition (non-authoritative)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["synthetic", "candidate_id", "revision", "attempt", "state", "causes", "next_actions", "evaluations"],
+  "properties": {
+    "synthetic": {"const": true},
+    "candidate_id": {"$ref": "#/$defs/id"},
+    "revision": {"type": "integer", "minimum": 1},
+    "attempt": {"type": "integer", "minimum": 1, "maximum": 32},
+    "state": {"enum": ["quarantined", "needs_independent_review"]},
+    "causes": {"type": "array", "uniqueItems": true, "items": {"enum": ["malformed", "identity_ambiguous", "evidence_insufficient", "rights_unknown", "policy_denied"]}},
+    "next_actions": {"type": "array", "uniqueItems": true, "items": {"enum": ["correct_and_retry", "resolve_identity", "supply_evidence", "request_rights_review", "request_policy_review"]}},
+    "evaluations": {"type": "array", "minItems": 5, "maxItems": 5, "items": {"$ref": "#/$defs/evaluation"}}
+  },
+  "$defs": {
+    "id": {"type": "string", "maxLength": 256, "pattern": "^urn:pya:synthetic:[a-z0-9][a-z0-9:._-]*$"},
+    "evaluation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["gate", "status", "evaluation_id"],
+      "properties": {
+        "gate": {"enum": ["schema", "identity", "evidence", "rights", "policy"]},
+        "status": {"enum": ["pass", "reject", "unknown"]},
+        "evaluation_id": {"$ref": "#/$defs/id"},
+        "cause": {"enum": ["malformed", "identity_ambiguous", "evidence_insufficient", "rights_unknown", "policy_denied"]}
+      },
+      "allOf": [
+        {"if": {"properties": {"status": {"const": "pass"}}}, "then": {"not": {"required": ["cause"]}}},
+        {"if": {"properties": {"status": {"enum": ["reject", "unknown"]}}}, "then": {"required": ["cause"]}}
+      ]
+    }
+  }
+}
