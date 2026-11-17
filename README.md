@@ -16,7 +16,7 @@
 ![Language Python](https://img.shields.io/badge/language-Python-115E59)
 ![Type Workspace](https://img.shields.io/badge/type-Workspace-0F766E)
 ![License MIT](https://img.shields.io/badge/license-MIT-64748B)
-[![CI](https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/actions/workflows/reconcile-issue-graph.yml/badge.svg)](https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/actions/workflows/reconcile-issue-graph.yml)
+[![CI](https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/actions/workflows/validate.yml/badge.svg)](https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/actions/workflows/validate.yml)
 <!-- showcase:badges:end -->
 
 <!-- showcase:tagline:start -->
@@ -102,7 +102,3 @@ The research [publication eligibility handoff](https://github.com/Pick-Your-AI/p
 Read [CONTRIBUTING.md](CONTRIBUTING.md), [AGENTS.md](AGENTS.md), and the [organization contribution policy](https://github.com/Pick-Your-AI/.github/blob/main/CONTRIBUTING.md). Use native GitHub Assignees for actual ownership. The initial plan leaves work unassigned until a responsible maintainer accepts it; a historical research owner list does not assign new implementation work.
 
 Original code and documentation use the [MIT License](LICENSE), following the research repository. Third-party materials and derived datasets retain their own rights and notices. Report security-sensitive problems through the process in [SECURITY.md](SECURITY.md).
-
-## License
-
-Code and documentation are licensed under the MIT License; see `LICENSE`.
