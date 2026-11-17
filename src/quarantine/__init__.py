@@ -53,6 +53,9 @@ def _normalize(findings):
     for finding in findings:
         if type(finding) is not GateFinding or finding.gate not in GATES or finding.gate in by_gate:
             raise QuarantineError("Unknown or duplicate gate")
+        if (type(finding.gate) is not str or type(finding.status) is not str
+                or (finding.cause is not None and type(finding.cause) is not str)):
+            raise QuarantineError("Gate fields must use exact scalar types")
         if finding.status not in ("pass", "reject", "unknown") or not _synthetic(finding.evaluation_id):
             raise QuarantineError("Invalid gate result or synthetic evaluation identity")
         if finding.status == "pass":
