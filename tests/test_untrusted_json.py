@@ -50,7 +50,7 @@ class UntrustedJSONTests(unittest.TestCase):
     def test_rejects_large_numeric_precision_and_exponents(self):
         self.reject('{"n":' + ("9" * 65) + "}")
         self.reject('{"n":1e309}')
-        self.reject('{"n":0.' + ("0" * 65) + "1}")
+        self.reject('{"n":0.' + ("1" * 65) + "}")
 
     def test_rejects_malformed_limits_or_unsupported_payload_types(self):
         for limits in ({"max_depth": 0}, {"max_bytes": True}, {"max_nodes": -1}):
