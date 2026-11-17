@@ -69,6 +69,41 @@ class ExampleBoundaryTests(unittest.TestCase):
         next(o for o in deny["operations"] if o["operation"] == "display")["decision"] = "deny"
         self.assertFalse(self.decision(rights=[self.rights, deny]))
 
+    def test_duplicate_grant_is_ambiguous_even_if_both_permit(self):
+        allowed, reasons = MODULE.fixture_policy_decision(
+            [self.record], [self.rights, deepcopy(self.rights)], "display", self.product
+        )
+        self.assertFalse(allowed)
+        self.assertTrue(any("ambiguous overlapping" in reason for reason in reasons))
+
+    def test_synthetic_marker_cannot_approve_non_synthetic_identities(self):
+        for kind in ("product", "record", "claim", "source", "material", "decision"):
+            with self.subTest(kind=kind):
+                record, rights = deepcopy(self.record), deepcopy(self.rights)
+                if kind == "product":
+                    rights["scope"]["product_id"] = "urn:pya:real:product:1"
+                elif kind == "record":
+                    before = record["id"]
+                    record["id"] = "urn:pya:real:record:1"
+                    rights["scope"]["record_ids"] = [
+                        record["id"] if entry == before else entry
+                        for entry in rights["scope"]["record_ids"]
+                    ]
+                elif kind == "claim":
+                    record["claims"][0]["id"] = "urn:pya:real:claim:1"
+                elif kind == "source":
+                    record["claims"][0]["sources"][0]["source_id"] = "urn:pya:real:source:1"
+                    rights["scope"]["source_id"] = "urn:pya:real:source:1"
+                elif kind == "material":
+                    record["claims"][0]["sources"][0]["material_id"] = "urn:pya:real:material:1"
+                    rights["scope"]["material_id"] = "urn:pya:real:material:1"
+                else:
+                    rights["id"] = "urn:pya:real:rights:1"
+                allowed, reasons = MODULE.fixture_policy_decision(
+                    [record], [rights], "display", rights["scope"]["product_id"]
+                )
+                self.assertFalse(allowed, (kind, reasons))
+
     def test_unknown_claim_cannot_contain_invented_zero(self):
         schema = MODULE.read_json(ROOT / "schemas/v0.1/catalog-record.schema.json")
         self.record["claims"][1]["value"] = 0
