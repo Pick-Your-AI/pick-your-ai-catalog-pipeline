@@ -1,0 +1,15 @@
+# Evidence grades — synthetic CP-06.02 draft
+
+This is an **offline proposal**, not a source-checked catalog, accepted research assessment, authorized review, source-use grant or production release. It is partial work for issue #29. Accepted research policy #41 and its exact provenance/rights handoffs remain authoritative; frozen builder v1 is unchanged.
+
+The separate draft schema represents four evidence classes: **Primary documentation**, **Vendor claim**, **Independent measurement**, **Estimate**. These are provenance types, **not** a numeric ranking. The classifier produces a hypothetical proposed_evidence_state: unknown, source_checked, reviewed, or independently_reproduced. Every output remains synthetic_unverified, publication_eligible=false, rights_cleared=false and assessment_authorized=false regardless of result.
+
+A checked document is not independently reproduced. A reviewed vendor benchmark remains Vendor claim. The draft requires a synthetic_reproducer, independent measurement, and documented method and conditions to *simulate* reproduction. Multiple or derivative citations sharing a lineage_id count as **one lineage**, not corroboration. The classifier cannot authenticate receipt custody or independently verify that apparently distinct lineage identifiers are genuinely independent. The real provenance decision depends on accepted pipeline issue #28. Duplicate receipt IDs are rejected.
+
+Capability claims require version and runtime; benchmark claims also require workload. Hardware-fit claims require version, runtime, hardware and quantization. Price assertions require version, region and currency. Missing scope returns unknown, not an unqualified universal assertion; the claim-level independent-reproduction lineage count is also zero in that case. Supporting lineage count and evidence classes remain visible solely as synthetic input provenance, not as qualified evidence for an unscoped claim. These are deliberately minimal synthetic checks, **not** a sufficient policy for actual pricing, benchmarks, resource fit or consumer use. Unknowns remain unknown. Source provenance and publication eligibility are separate axes.
+
+Schema errors use a fixed diagnostic and omit submitted values, unexpected names and validator paths. Inputs and identifiers are synthetic-only and bounded to 64 receipt fixtures. No source fetching, paid API, external message, production side effect or source-rights decision occurs.
+
+**Remaining acceptance:** accepted field-level provenance and assessor custody under #28, exact research decisions and source/material/use rights, domain-specific reproduction conditions, owner/consumer review, eligible independent GitHub approval, receiving test evidence and actual operational acceptance. Keep issue #29 open if this bounded slice later merges.
+
+Local tests: run python -m unittest discover -s tests/evidence/grades -v. Repository checks: python scripts/validate_plan.py; python scripts/validate_examples.py; python scripts/render_docs.py --check; python -m unittest discover -s tests -v. Python 3.12 and pinned validation requirements apply.

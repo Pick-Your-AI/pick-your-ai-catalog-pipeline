@@ -452,6 +452,70 @@ class AdapterTest(unittest.TestCase):
             writer.project()
         runner.assert_not_called()
 
+    def test_writable_discovery_rejects_configured_project_without_title_or_link(self):
+        payload, config = fixture()
+        runner = Mock(side_effect=AssertionError("offline test must not invoke gh"))
+        api = pub.GitHub(writable=True, runner=runner, expected_project_number=8)
+        api.repo = Mock(return_value=None)
+        api.projects = Mock(return_value=[{"id": "PVT_recorded", "number": 8,
+                                            "title": "Renamed synthetic Project", "closed": False,
+                                            "repositories": []}])
+        with tempfile.TemporaryDirectory() as directory:
+            journal = pub.Journal(Path(directory) / "journal.json",
+                                  pub.digest({"payload": payload, "config": config}))
+            with self.assertRaisesRegex(pub.PublicationError, "Configured Project changed title"):
+                pub.Publisher(api, payload, config, journal).apply()
+        runner.assert_not_called()
+
+    def test_duplicate_configured_project_number_fails_even_if_other_row_unrelated(self):
+        original = {"id": "PVT_original", "number": 8, "title": pub.TITLE,
+                    "closed": False, "repositories": [pub.REPO]}
+        unrelated = {"id": "PVT_conflict", "number": 8,
+                     "title": "Unrelated synthetic Project", "closed": False,
+                     "repositories": []}
+        for writable in (False, True):
+            with self.subTest(writable=writable):
+                runner = Mock(side_effect=AssertionError("offline test must not invoke gh"))
+                api = pub.GitHub(writable=writable, runner=runner, expected_project_number=8)
+                api.projects = Mock(return_value=[original, unrelated])
+                with self.assertRaisesRegex(pub.PublicationError, "Duplicate Project number"):
+                    api.project()
+                runner.assert_not_called()
+
+    def test_configured_project_absence_requires_reconciliation_not_creation(self):
+        other = {"id": "PVT_other", "number": 9, "title": pub.TITLE,
+                 "closed": False, "repositories": []}
+        for rows in ([], [other]):
+            with self.subTest(rows=rows), self.assertRaisesRegex(pub.PublicationError, "Configured Project number is absent"):
+                pub.choose_project(rows, expected_number=8)
+        exact = {"id": "PVT_known", "number": 8, "title": pub.TITLE,
+                 "closed": False, "repositories": []}
+        self.assertEqual(pub.choose_project([exact], expected_number=8), exact)
+
+    def test_inspection_ignores_stale_apply_journal_but_apply_still_rejects_it(self):
+        payload, config = fixture()
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            payload_path, config_path = base / "payload.json", base / "config.json"
+            payload_path.write_text(json.dumps(payload), encoding="utf-8")
+            config_path.write_text(json.dumps(config), encoding="utf-8")
+            journal_path = base / "journal.json"
+            original = {"schema_version": "catalog-pipeline-publication-journal-1",
+                        "repository": pub.REPO, "fingerprint": "previous-baseline",
+                        "operations": {}}
+            journal_path.write_text(json.dumps(original), encoding="utf-8")
+            args = ["--payload", str(payload_path), "--config", str(config_path),
+                    "--state-dir", str(base)]
+            fake = FakeGitHub()
+            with patch.object(pub, "GitHub", return_value=fake), patch("sys.stdout", new_callable=io.StringIO) as output:
+                self.assertEqual(pub.main(["--inspect", *args]), 0)
+            self.assertEqual(json.loads(output.getvalue())["mode"], "live-read-only")
+            self.assertEqual(json.loads(journal_path.read_text(encoding="utf-8")), original)
+            with patch.object(pub, "GitHub", return_value=fake), patch("sys.stderr", new_callable=io.StringIO) as errors:
+                self.assertEqual(pub.main(["--apply", *args]), 2)
+            self.assertIn("Journal belongs to another repository", errors.getvalue())
+            self.assertEqual(fake.writes, [])
+
     def test_mutation_uses_safe_argv_and_json_stdin_without_shell(self):
         runner = Mock(return_value=subprocess.CompletedProcess([], 0, '{"id":1}', ""))
         api = pub.GitHub(writable=True, delay=0, runner=runner)
