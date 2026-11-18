@@ -73,9 +73,15 @@ def assess(payload: dict) -> dict:
         independent_lineages += int(lineage_reproduced)
         level = max(level, lineage_level)
 
+    has_qualifying_reproduction = independent_lineages > 0
     if missing_scope:
-        level = 0  # A universal capability, quote or hardware-fit assertion is not qualified.
-    if any(r["review_state"] == "independently_reproduced" for r in supporting) and not independent_lineages:
+        # Counts are claim-level qualification claims, not a raw tally of
+        # alleged receipts. Retain the evidence classes/lineage provenance,
+        # but never count reproduction of a missing-scope assertion.
+        level = 0
+        independent_lineages = 0
+    if (any(r["review_state"] == "independently_reproduced" for r in supporting)
+            and not has_qualifying_reproduction):
         warnings.append("reproduction_unsubstantiated")
 
     return {
