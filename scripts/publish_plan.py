@@ -38,7 +38,7 @@ MARKER = re.compile(r"<!-- pick-your-ai-catalog-pipeline:(" + KEY + r") -->")
 MAX_PAGES = 100
 PENDING = [
     "Submit repository contents through a branch and independently approved PR; this helper never pushes or merges.",
-    "Verify main, repository topics/settings, team grants, CODEOWNERS, rulesets, required checks and hosted CI for the delivered revision.",
+    "Complete the approved merge of this checkpoint and read back the merged result.",
     "Saved-view verification is outside this helper's scope: consult the dated receipt in docs/PROJECT_SETUP.md and refresh layout, grouping, filters and complete membership before considering any change.",
     "The external research #509 parent is outside this helper's reconciliation scope: consult the dated receipt in docs/PROJECT_SETUP.md and refresh the authorized cross-repository readback before considering any change.",
     "Reconcile any reported Project metadata, issue content/type/labels or live field differences without resetting progress.",
