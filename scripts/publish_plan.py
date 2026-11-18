@@ -239,23 +239,44 @@ def issue_is_pristine(issue: dict, planned: dict) -> bool:
 
 def choose_project(projects: list[dict], *, read_only=False,
                    expected_number: int | None = None) -> dict | None:
-    candidates = []
+    # Resolve a recorded Project number before any creation decision, even if
+    # both its title and repository association have changed.
+    if expected_number is not None and (type(expected_number) is not int or expected_number < 1):
+        raise PublicationError("Invalid configured Project number")
+    candidates, configured = [], None
     normalized = re.sub(r"[^a-z0-9]", "", TITLE.lower())
+    seen_numbers = set()
     for project in projects:
         if type(project) is not dict:
             raise PublicationError("Malformed Project inventory entry")
         linked = project.get("repositories", [])
         title = project.get("title", "")
+        number = project.get("number")
         if (type(title) is not str or not title.strip() or
                 type(linked) is not list or any(type(name) is not str for name in linked)):
             raise PublicationError("Malformed Project title or repository-link inventory")
+        if number is not None:
+            if type(number) is not int or number < 1:
+                raise PublicationError("Malformed Project number in inventory")
+            if number in seen_numbers:
+                raise PublicationError("Duplicate Project number in inventory; reconcile identity")
+            seen_numbers.add(number)
+        if expected_number is not None and number == expected_number:
+            configured = project
         if title == TITLE or REPO in linked or re.sub(r"[^a-z0-9]", "", title.lower()) == normalized:
             candidates.append(project)
+    if expected_number is not None:
+        if configured is None:
+            raise PublicationError("Configured Project number is absent; reconcile before creation")
+        if configured not in candidates:
+            raise PublicationError("Configured Project changed title and repository link; reconcile before creation")
     if len(candidates) > 1:
         raise PublicationError("Multiple equivalent Projects; refusing to create or choose a duplicate")
     if not candidates:
         return None
     candidate = candidates[0]
+    if expected_number is not None and candidate["number"] != expected_number:
+        raise PublicationError("Equivalent Project differs from the configured number; reconcile before creation")
     if candidate.get("closed"):
         raise PublicationError("Equivalent or closed Project requires deliberate reconciliation")
     if candidate.get("title") != TITLE:
@@ -274,7 +295,6 @@ def choose_project(projects: list[dict], *, read_only=False,
             "expected": TITLE, "observed": candidate["title"],
             "disposition": "Read-only inspection of the configured repository-linked identity; no title reconciliation or other mutation authorized"}}
     return candidate
-
 
 class Journal:
     """Intent is persisted before a write. Unknown outcomes are never retried."""
@@ -833,7 +853,9 @@ def main(argv=None):
             raise PublicationError("Write delay must be between 0 and 60 seconds")
         api = GitHub(writable=args.apply, delay=args.write_delay,
                      expected_project_number=config.get("project_number"))
-        journal = Journal(args.state_dir / "journal.json", digest({"payload": payload, "config": config}))
+        # Inspection gathers evidence even when an old apply journal must be reconciled.
+        # Applying still rejects mismatched receipts before any mutation.
+        journal = None if args.inspect else Journal(args.state_dir / "journal.json", digest({"payload": payload, "config": config}))
         publisher = Publisher(api, payload, config, journal)
         if args.inspect:
             state = publisher.inspect()
