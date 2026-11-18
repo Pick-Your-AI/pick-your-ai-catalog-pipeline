@@ -215,7 +215,7 @@ class ChangeDeliveryTests(unittest.TestCase):
         initial = {"stream_id": "synthetic:catalog-feed", "cursor": 10000,
                    "highest_observed_sequence": 10000,
                    "hashes": {str(i): "a" * 64 for i in range(1, 10001)},
-                   "withheld_versions": [], "recovery_pending": False}
+                   "pending_hashes": {}, "withheld_versions": [], "recovery_pending": False}
         x = replay(feed([event(10001)]), initial)
         self.assertTrue(x["block_all_access"] and x["requires_resync"])
         self.assertEqual(x["state"]["cursor"], 10000)
@@ -223,7 +223,7 @@ class ChangeDeliveryTests(unittest.TestCase):
 
     def test_withdrawal_capacity_blocks_before_invalid_state(self):
         initial = {"stream_id": "synthetic:catalog-feed", "cursor": 0,
-                   "highest_observed_sequence": 0, "hashes": {},
+                   "highest_observed_sequence": 0, "hashes": {}, "pending_hashes": {},
                    "withheld_versions": [f"synthetic:item-{i}@r1" for i in range(10000)],
                    "recovery_pending": False}
         x = replay(feed([event(1, "mandatory_withdrawal")]), initial)
