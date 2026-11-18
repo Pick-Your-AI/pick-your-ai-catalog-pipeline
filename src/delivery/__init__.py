@@ -12,6 +12,7 @@ from pathlib import Path
 from jsonschema import Draft202012Validator
 
 SCHEMA = Path(__file__).resolve().parents[2] / "schemas" / "catalog-change-feed.schema.json"
+MAX_REPLAY_ITEMS = 10_000
 
 
 class DeliveryError(ValueError):
@@ -23,6 +24,14 @@ def _check(payload: object, definition: str) -> None:
     validator = Draft202012Validator({**schema, "$ref": "#/$defs/" + definition})
     if not validator.is_valid(payload):
         raise DeliveryError("invalid synthetic change feed")
+    if definition == "feed":
+        integers = (event["sequence"] for event in payload["events"])
+    elif definition == "state":
+        integers = (payload["cursor"], payload["highest_observed_sequence"])
+    else:
+        integers = (payload["cursor"],)
+    if any(type(value) is not int for value in integers):
+        raise DeliveryError("noncanonical synthetic sequence")
 
 
 def _fingerprint(event: dict) -> str:
@@ -42,11 +51,14 @@ def replay(feed: dict, state: dict | None = None) -> dict:
     """
     _check(feed, "feed")
     if state is None:
-        state = {"stream_id": feed["stream_id"], "cursor": 0, "hashes": {}, "withheld_versions": [], "recovery_pending": False}
+        state = {"stream_id": feed["stream_id"], "cursor": 0, "highest_observed_sequence": 0,
+                 "hashes": {}, "withheld_versions": [], "recovery_pending": False}
     _check(state, "state")
     if state["stream_id"] != feed["stream_id"]:
         raise DeliveryError("synthetic stream identity mismatch")
     cursor = state["cursor"]
+    if state["highest_observed_sequence"] < cursor:
+        raise DeliveryError("invalid synthetic replay state")
     hashes = dict(state["hashes"])
     withheld = set(state["withheld_versions"])
     actions: list[dict] = []
@@ -63,6 +75,7 @@ def replay(feed: dict, state: dict | None = None) -> dict:
             raise DeliveryError("conflicting synthetic event identity")
         seen_ids[identity] = index
         unique[index] = event
+    highest_observed = max(state["highest_observed_sequence"], max(unique))
     for sequence in sorted(unique):
         event = unique[sequence]
         digest = _fingerprint(event)
@@ -74,9 +87,13 @@ def replay(feed: dict, state: dict | None = None) -> dict:
         if sequence != cursor + 1:
             resync = True
             break
+        versions = [_version_key(x) for x in event["affected_versions"]]
+        if len(hashes) >= MAX_REPLAY_ITEMS or (event["kind"] == "mandatory_withdrawal"
+                and len(withheld.union(versions)) > MAX_REPLAY_ITEMS):
+            resync = True
+            break
         cursor = sequence
         hashes[str(sequence)] = digest
-        versions = [_version_key(x) for x in event["affected_versions"]]
         if event["kind"] == "mandatory_withdrawal":
             withheld.update(versions)
         actions.append({"event_id": event["event_id"], "sequence": sequence,
@@ -84,10 +101,11 @@ def replay(feed: dict, state: dict | None = None) -> dict:
                         "affected_versions": versions,
                         "receipt_status": "synthetic_unverified"})
     return {"publication_eligible": False, "delivery_authorized": False,
-            "block_all_access": resync or state["recovery_pending"], "requires_resync": resync,
+            "block_all_access": resync or cursor < highest_observed or state["recovery_pending"],
+            "requires_resync": resync or cursor < highest_observed,
             "proposed_receipts": actions,
             "state": {"stream_id": state["stream_id"], "cursor": cursor,
-                      "hashes": hashes, "withheld_versions": sorted(withheld),
+                      "highest_observed_sequence": highest_observed, "hashes": hashes, "withheld_versions": sorted(withheld),
                       "recovery_pending": state["recovery_pending"]}}
 
 
@@ -99,7 +117,8 @@ def recover_from_snapshot(snapshot: dict, state: dict) -> dict:
     """
     _check(snapshot, "snapshot")
     _check(state, "state")
-    if snapshot["stream_id"] != state["stream_id"] or snapshot["cursor"] < state["cursor"]:
+    if snapshot["stream_id"] != state["stream_id"] or snapshot["cursor"] < max(
+            state["cursor"], state["highest_observed_sequence"]):
         raise DeliveryError("invalid synthetic snapshot position")
     snapshot_withheld = set(_version_key(x) for x in snapshot["complete_withdrawals"])
     if not set(state["withheld_versions"]).issubset(snapshot_withheld):
@@ -107,5 +126,5 @@ def recover_from_snapshot(snapshot: dict, state: dict) -> dict:
     return {"publication_eligible": False, "delivery_authorized": False,
             "block_all_access": True, "requires_external_acceptance": True,
             "state": {"stream_id": state["stream_id"], "cursor": snapshot["cursor"],
-                      "hashes": {}, "withheld_versions": sorted(snapshot_withheld),
+                      "highest_observed_sequence": snapshot["cursor"], "hashes": {}, "withheld_versions": sorted(snapshot_withheld),
                       "recovery_pending": True}}

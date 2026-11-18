@@ -174,5 +174,70 @@ class ChangeDeliveryTests(unittest.TestCase):
             with self.assertRaisesRegex(DeliveryError, "invalid synthetic change feed"):
                 replay(feed([event(2)]), bad)
 
+
+    def test_gap_block_survives_retransmitting_only_old_events(self):
+        partial = replay(feed([event(1), event(3, "mandatory_withdrawal")]))
+        self.assertEqual(partial["state"]["cursor"], 1)
+        self.assertEqual(partial["state"]["highest_observed_sequence"], 3)
+        again = replay(feed([event(1)]), partial["state"])
+        self.assertTrue(again["block_all_access"] and again["requires_resync"])
+
+    def test_gap_block_clears_only_after_full_contiguous_replay(self):
+        partial = replay(feed([event(1), event(3)]))
+        still_blocked = replay(feed([event(2)]), partial["state"])
+        self.assertEqual(still_blocked["state"]["cursor"], 2)
+        self.assertTrue(still_blocked["block_all_access"])
+        complete = replay(feed([event(3)]), still_blocked["state"])
+        self.assertEqual(complete["state"]["cursor"], 3)
+        self.assertFalse(complete["block_all_access"])
+        self.assertFalse(complete["requires_resync"])
+
+    def test_integral_float_sequence_rejected_as_noncanonical(self):
+        x = event(1)
+        x["sequence"] = 1.0
+        with self.assertRaisesRegex(DeliveryError, "noncanonical synthetic sequence"):
+            replay(feed([x]))
+
+    def test_noncanonical_state_and_snapshot_cursors_denied(self):
+        initial = replay(feed([event(1)]))["state"]
+        for key in ("cursor", "highest_observed_sequence"):
+            invalid = copy.deepcopy(initial)
+            invalid[key] = 1.0
+            with self.assertRaisesRegex(DeliveryError, "noncanonical synthetic sequence"):
+                replay(feed([event(2)]), invalid)
+        snapshot = {"schema_version": "0.1-draft", "stream_id": initial["stream_id"],
+                    "synthetic": True, "publication_eligible": False, "cursor": 2.0,
+                    "complete_withdrawals": []}
+        with self.assertRaisesRegex(DeliveryError, "noncanonical synthetic sequence"):
+            recover_from_snapshot(snapshot, initial)
+
+    def test_history_capacity_blocks_before_invalid_state(self):
+        initial = {"stream_id": "synthetic:catalog-feed", "cursor": 10000,
+                   "highest_observed_sequence": 10000,
+                   "hashes": {str(i): "a" * 64 for i in range(1, 10001)},
+                   "withheld_versions": [], "recovery_pending": False}
+        x = replay(feed([event(10001)]), initial)
+        self.assertTrue(x["block_all_access"] and x["requires_resync"])
+        self.assertEqual(x["state"]["cursor"], 10000)
+        self.assertEqual(len(x["state"]["hashes"]), 10000)
+
+    def test_withdrawal_capacity_blocks_before_invalid_state(self):
+        initial = {"stream_id": "synthetic:catalog-feed", "cursor": 0,
+                   "highest_observed_sequence": 0, "hashes": {},
+                   "withheld_versions": [f"synthetic:item-{i}@r1" for i in range(10000)],
+                   "recovery_pending": False}
+        x = replay(feed([event(1, "mandatory_withdrawal")]), initial)
+        self.assertTrue(x["block_all_access"] and x["requires_resync"])
+        self.assertEqual(x["state"]["cursor"], 0)
+        self.assertEqual(len(x["state"]["withheld_versions"]), 10000)
+
+    def test_snapshot_cannot_skip_unresolved_observed_sequence(self):
+        partial = replay(feed([event(1), event(3)]))["state"]
+        snapshot = {"schema_version": "0.1-draft", "stream_id": partial["stream_id"],
+                    "synthetic": True, "publication_eligible": False, "cursor": 2,
+                    "complete_withdrawals": []}
+        with self.assertRaisesRegex(DeliveryError, "invalid synthetic snapshot position"):
+            recover_from_snapshot(snapshot, partial)
+
 if __name__ == "__main__":
     unittest.main()
