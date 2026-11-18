@@ -38,7 +38,7 @@ MARKER = re.compile(r"<!-- pick-your-ai-catalog-pipeline:(" + KEY + r") -->")
 MAX_PAGES = 100
 PENDING = [
     "Submit repository contents through a branch and independently approved PR; this helper never pushes or merges.",
-    "Complete the approved merge of this checkpoint and read back the merged result.",
+    "After independent approval and required checks, verify the merged result by fresh readback before considering this work complete.",
     "Saved-view verification is outside this helper's scope: consult the dated receipt in docs/PROJECT_SETUP.md and refresh layout, grouping, filters and complete membership before considering any change.",
     "The external research #509 parent is outside this helper's reconciliation scope: consult the dated receipt in docs/PROJECT_SETUP.md and refresh the authorized cross-repository readback before considering any change.",
     "Reconcile any reported Project metadata, issue content/type/labels or live field differences without resetting progress.",
@@ -833,7 +833,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     modes = parser.add_mutually_exclusive_group()
     modes.add_argument("--inspect", action="store_true", help="Read live GitHub state; never mutate")
-    modes.add_argument("--apply", action="store_true", help="Create/reconcile through preauthenticated gh; no login or token handling")
+    modes.add_argument("--apply", action="store_true", help="Create/reconcile through preauthenticated gh; when project_number is configured, reconcile only that existing Project and stop if it is absent; no login or token handling")
     parser.add_argument("--payload", type=Path, default=ROOT / "planning/github-issue-payloads.json")
     parser.add_argument("--config", type=Path, default=ROOT / "planning/project-config.json")
     parser.add_argument("--state-dir", type=Path, default=ROOT / ".state/publication")
