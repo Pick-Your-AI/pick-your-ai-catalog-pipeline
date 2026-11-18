@@ -52,7 +52,7 @@ def replay(feed: dict, state: dict | None = None) -> dict:
     _check(feed, "feed")
     if state is None:
         state = {"stream_id": feed["stream_id"], "cursor": 0, "highest_observed_sequence": 0,
-                 "hashes": {}, "withheld_versions": [], "recovery_pending": False}
+                 "hashes": {}, "pending_hashes": {}, "withheld_versions": [], "recovery_pending": False}
     _check(state, "state")
     if state["stream_id"] != feed["stream_id"]:
         raise DeliveryError("synthetic stream identity mismatch")
@@ -60,6 +60,10 @@ def replay(feed: dict, state: dict | None = None) -> dict:
     if state["highest_observed_sequence"] < cursor:
         raise DeliveryError("invalid synthetic replay state")
     hashes = dict(state["hashes"])
+    pending = dict(state["pending_hashes"])
+    if any(int(seq) <= cursor or int(seq) > state["highest_observed_sequence"]
+           or int(seq) > 1_000_000_000 for seq in pending):
+        raise DeliveryError("invalid synthetic replay state")
     withheld = set(state["withheld_versions"])
     actions: list[dict] = []
     resync = False
@@ -76,13 +80,32 @@ def replay(feed: dict, state: dict | None = None) -> dict:
         seen_ids[identity] = index
         unique[index] = event
     highest_observed = max(state["highest_observed_sequence"], max(unique))
+
+    def blocked_for_recovery() -> dict:
+        return {"publication_eligible": False, "delivery_authorized": False,
+                "block_all_access": True, "requires_resync": True,
+                "proposed_receipts": [],
+                "state": {"stream_id": state["stream_id"], "cursor": cursor,
+                          "highest_observed_sequence": highest_observed,
+                          "hashes": dict(hashes), "pending_hashes": dict(pending),
+                          "withheld_versions": sorted(withheld), "recovery_pending": True}}
+
+    for sequence, event in unique.items():
+        digest = _fingerprint(event)
+        key = str(sequence)
+        if ((sequence <= cursor and hashes.get(key) != digest)
+                or (key in pending and pending[key] != digest)):
+            return blocked_for_recovery()
+    for sequence, event in unique.items():
+        if sequence > cursor:
+            key = str(sequence)
+            if key not in pending and len(pending) >= MAX_REPLAY_ITEMS:
+                return blocked_for_recovery()
+            pending.setdefault(key, _fingerprint(event))
     for sequence in sorted(unique):
         event = unique[sequence]
         digest = _fingerprint(event)
         if sequence <= cursor:
-            if hashes.get(str(sequence)) != digest:
-                resync = True
-                break
             continue
         if sequence != cursor + 1:
             resync = True
@@ -94,6 +117,7 @@ def replay(feed: dict, state: dict | None = None) -> dict:
             break
         cursor = sequence
         hashes[str(sequence)] = digest
+        pending.pop(str(sequence), None)
         if event["kind"] == "mandatory_withdrawal":
             withheld.update(versions)
         actions.append({"event_id": event["event_id"], "sequence": sequence,
@@ -101,11 +125,12 @@ def replay(feed: dict, state: dict | None = None) -> dict:
                         "affected_versions": versions,
                         "receipt_status": "synthetic_unverified"})
     return {"publication_eligible": False, "delivery_authorized": False,
-            "block_all_access": resync or cursor < highest_observed or state["recovery_pending"],
-            "requires_resync": resync or cursor < highest_observed,
+            "block_all_access": resync or cursor < highest_observed or bool(pending) or state["recovery_pending"],
+            "requires_resync": resync or cursor < highest_observed or bool(pending) or state["recovery_pending"],
             "proposed_receipts": actions,
             "state": {"stream_id": state["stream_id"], "cursor": cursor,
-                      "highest_observed_sequence": highest_observed, "hashes": hashes, "withheld_versions": sorted(withheld),
+                      "highest_observed_sequence": highest_observed, "hashes": hashes,
+                      "pending_hashes": pending, "withheld_versions": sorted(withheld),
                       "recovery_pending": state["recovery_pending"]}}
 
 
@@ -126,5 +151,6 @@ def recover_from_snapshot(snapshot: dict, state: dict) -> dict:
     return {"publication_eligible": False, "delivery_authorized": False,
             "block_all_access": True, "requires_external_acceptance": True,
             "state": {"stream_id": state["stream_id"], "cursor": snapshot["cursor"],
-                      "highest_observed_sequence": snapshot["cursor"], "hashes": {}, "withheld_versions": sorted(snapshot_withheld),
+                      "highest_observed_sequence": snapshot["cursor"], "hashes": {},
+                      "pending_hashes": {}, "withheld_versions": sorted(snapshot_withheld),
                       "recovery_pending": True}}

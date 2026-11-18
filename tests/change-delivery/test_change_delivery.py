@@ -239,5 +239,38 @@ class ChangeDeliveryTests(unittest.TestCase):
         with self.assertRaisesRegex(DeliveryError, "invalid synthetic snapshot position"):
             recover_from_snapshot(snapshot, partial)
 
+
+    def test_conflicting_applied_event_sticks_until_explicit_recovery(self):
+        old = replay(feed([event(1)]))["state"]
+        conflict = replay(feed([event(1, "mandatory_withdrawal")]), old)
+        self.assertTrue(conflict["block_all_access"] and conflict["requires_resync"])
+        self.assertTrue(conflict["state"]["recovery_pending"])
+        again = replay(feed([event(1)]), conflict["state"])
+        self.assertTrue(again["block_all_access"] and again["state"]["recovery_pending"])
+
+    def test_pending_withdrawal_cannot_be_replaced_after_gap(self):
+        gap = replay(feed([event(1), event(3, "mandatory_withdrawal")]))
+        self.assertTrue(gap["block_all_access"])
+        self.assertIn("3", gap["state"]["pending_hashes"])
+        replacement = replay(feed([event(2), event(3)]), gap["state"])
+        self.assertTrue(replacement["block_all_access"] and replacement["requires_resync"])
+        self.assertTrue(replacement["state"]["recovery_pending"])
+        self.assertEqual(replacement["state"]["cursor"], 1)
+        self.assertEqual(replacement["proposed_receipts"], [])
+        self.assertTrue(replay(feed([event(1)]), replacement["state"])["block_all_access"])
+        valid = replay(feed([event(2), event(3, "mandatory_withdrawal")]), gap["state"])
+        self.assertEqual(valid["state"]["cursor"], 3)
+        self.assertFalse(valid["block_all_access"])
+        self.assertEqual(valid["state"]["withheld_versions"], ["synthetic:catalog@r1"])
+
+    def test_pending_hash_capacity_blocks_without_invalid_output(self):
+        prior = replay(feed([event(1)]))["state"]
+        prior["highest_observed_sequence"] = 10001
+        prior["pending_hashes"] = {str(i): "a" * 64 for i in range(2, 10002)}
+        blocked = replay(feed([event(10002)]), prior)
+        self.assertTrue(blocked["block_all_access"] and blocked["state"]["recovery_pending"])
+        self.assertEqual(len(blocked["state"]["pending_hashes"]), 10000)
+        self.assertEqual(blocked["state"]["cursor"], 1)
+
 if __name__ == "__main__":
     unittest.main()
