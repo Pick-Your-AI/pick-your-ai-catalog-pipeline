@@ -113,6 +113,24 @@ class EvidenceGradeTests(unittest.TestCase):
                     self.assertEqual(result["proposed_evidence_state"], "unknown")
                     self.assertIn("scope_unqualified", result["warnings"])
 
+    def test_unscoped_reproduction_cannot_qualify_a_claim(self):
+        proposed = receipt(evidence_class="Independent measurement",
+                           review_state="independently_reproduced",
+                           assessor_authority="synthetic_reproducer",
+                           method_documented=True, conditions_documented=True)
+        # A purported reproduction of an unspecified workload cannot count
+        # as reproduction of the benchmark claim, even in a synthetic draft.
+        result = assess(assessment("benchmark",
+                                   {"version": "v1", "runtime": "synthetic-runtime"},
+                                   [proposed]))
+        self.assertEqual(result["proposed_evidence_state"], "unknown")
+        self.assertEqual(result["independent_reproduction_lineage_count"], 0)
+        self.assertEqual(result["supporting_lineage_count"], 1)
+        self.assertEqual(result["evidence_classes"], ["Independent measurement"])
+        self.assertEqual(result["warnings"], ["scope_unqualified"])
+        self.assertFalse(result["publication_eligible"] or result["rights_cleared"]
+                         or result["assessment_authorized"])
+
     def test_scoped_benchmark_vendor_claim_not_reproduction(self):
         result = assess(assessment("benchmark", {"version": "v1", "runtime": "local", "workload": "prefill"},
                                    [receipt(evidence_class="Vendor claim", review_state="reviewed",
