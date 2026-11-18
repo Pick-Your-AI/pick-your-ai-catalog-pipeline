@@ -57,6 +57,7 @@ def assess(payload: dict) -> dict:
     independent_lineages = 0
     for lineage_receipts in lineages.values():
         lineage_level = 0
+        lineage_reproduced = False
         for r in lineage_receipts:
             authority = r["assessor_authority"]
             state = r["review_state"]
@@ -67,8 +68,9 @@ def assess(payload: dict) -> dict:
             if (state == "independently_reproduced" and authority == "synthetic_reproducer"
                     and r["evidence_class"] == "Independent measurement"
                     and r["method_documented"] and r["conditions_documented"]):
-                independent_lineages += 1
+                lineage_reproduced = True
                 lineage_level = 3
+        independent_lineages += int(lineage_reproduced)
         level = max(level, lineage_level)
 
     if missing_scope:

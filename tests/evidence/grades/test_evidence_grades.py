@@ -71,6 +71,24 @@ class EvidenceGradeTests(unittest.TestCase):
         self.assertEqual(result["supporting_lineage_count"], 1)
         self.assertIn("repeated_lineage_not_independent", result["warnings"])
 
+    def test_reproduction_counts_unique_lineages_not_receipts(self):
+        qualifying = {"evidence_class": "Independent measurement",
+                      "review_state": "independently_reproduced",
+                      "assessor_authority": "synthetic_reproducer",
+                      "method_documented": True, "conditions_documented": True}
+        same_lineage = [receipt("a", **qualifying), receipt("b", **qualifying)]
+        result = assess(assessment(receipts=same_lineage))
+        self.assertEqual(result["proposed_evidence_state"], "independently_reproduced")
+        self.assertEqual(result["supporting_lineage_count"], 1)
+        self.assertEqual(result["independent_reproduction_lineage_count"], 1)
+        self.assertIn("repeated_lineage_not_independent", result["warnings"])
+        distinct = same_lineage + [receipt("c", lineage_id="synthetic:source-b", **qualifying)]
+        result = assess(assessment(receipts=distinct))
+        self.assertEqual(result["supporting_lineage_count"], 2)
+        self.assertEqual(result["independent_reproduction_lineage_count"], 2)
+        self.assertFalse(result["publication_eligible"] or result["rights_cleared"]
+                         or result["assessment_authorized"])
+
     def test_distinct_lineages_not_presumed_independently_measured(self):
         values = [receipt("a"), receipt("b", lineage_id="synthetic:source-b")]
         result = assess(assessment(receipts=values))
