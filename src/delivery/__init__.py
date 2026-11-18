@@ -52,11 +52,16 @@ def replay(feed: dict, state: dict | None = None) -> dict:
     actions: list[dict] = []
     resync = False
     unique: dict[int, dict] = {}
+    seen_ids: dict[str, int] = {}
     for event in feed["events"]:
         index = event["sequence"]
         digest = _fingerprint(event)
         if index in unique and _fingerprint(unique[index]) != digest:
             raise DeliveryError("conflicting synthetic event sequence")
+        identity = event["event_id"]
+        if identity in seen_ids and seen_ids[identity] != index:
+            raise DeliveryError("conflicting synthetic event identity")
+        seen_ids[identity] = index
         unique[index] = event
     for sequence in sorted(unique):
         event = unique[sequence]
@@ -96,9 +101,11 @@ def recover_from_snapshot(snapshot: dict, state: dict) -> dict:
     _check(state, "state")
     if snapshot["stream_id"] != state["stream_id"] or snapshot["cursor"] < state["cursor"]:
         raise DeliveryError("invalid synthetic snapshot position")
+    snapshot_withheld = set(_version_key(x) for x in snapshot["complete_withdrawals"])
+    if not set(state["withheld_versions"]).issubset(snapshot_withheld):
+        raise DeliveryError("synthetic snapshot omits prior withdrawal")
     return {"publication_eligible": False, "delivery_authorized": False,
             "block_all_access": True, "requires_external_acceptance": True,
             "state": {"stream_id": state["stream_id"], "cursor": snapshot["cursor"],
-                      "hashes": {}, "withheld_versions": sorted(set(
-                          _version_key(x) for x in snapshot["complete_withdrawals"])),
+                      "hashes": {}, "withheld_versions": sorted(snapshot_withheld),
                       "recovery_pending": True}}

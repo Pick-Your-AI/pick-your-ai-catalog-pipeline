@@ -138,5 +138,41 @@ class ChangeDeliveryTests(unittest.TestCase):
             replay(feed([event(1)]), x)
 
 
+    def test_distinct_sequences_cannot_reuse_event_id(self):
+        initial = event(1)
+        another = event(2, "mandatory_withdrawal")
+        another["event_id"] = initial["event_id"]
+        with self.assertRaisesRegex(DeliveryError, "conflicting synthetic event identity"):
+            replay(feed([initial, another]))
+
+    def test_exact_same_event_twice_within_batch_is_idempotent(self):
+        x = replay(feed([event(1), event(1)]))
+        self.assertEqual(x["state"]["cursor"], 1)
+        self.assertEqual(len(x["proposed_receipts"]), 1)
+
+    def test_snapshot_omitting_prior_withdrawal_fails_closed(self):
+        initial = replay(feed([event(1, "mandatory_withdrawal")]))["state"]
+        snapshot = {"schema_version": "0.1-draft", "stream_id": initial["stream_id"],
+                    "synthetic": True, "publication_eligible": False, "cursor": 2,
+                    "complete_withdrawals": []}
+        with self.assertRaisesRegex(DeliveryError, "synthetic snapshot omits prior withdrawal"):
+            recover_from_snapshot(snapshot, initial)
+        self.assertEqual(initial["withheld_versions"], ["synthetic:catalog@r1"])
+        snapshot["complete_withdrawals"] = [
+            {"artifact_id": "synthetic:catalog", "revision": "r1"}]
+        recovered = recover_from_snapshot(snapshot, initial)
+        self.assertTrue(recovered["block_all_access"] and recovered["requires_external_acceptance"])
+        self.assertEqual(recovered["state"]["withheld_versions"], initial["withheld_versions"])
+
+    def test_persisted_state_rejects_trailing_line_terminators(self):
+        initial = replay(feed([event(1, "mandatory_withdrawal")]))["state"]
+        invalid_hashes = copy.deepcopy(initial)
+        invalid_hashes["hashes"] = {"1\n": "a" * 64}
+        invalid_withdrawn = copy.deepcopy(initial)
+        invalid_withdrawn["withheld_versions"] = ["synthetic:catalog@r1\n"]
+        for bad in (invalid_hashes, invalid_withdrawn):
+            with self.assertRaisesRegex(DeliveryError, "invalid synthetic change feed"):
+                replay(feed([event(2)]), bad)
+
 if __name__ == "__main__":
     unittest.main()
