@@ -71,3 +71,8 @@ The research [publication eligibility handoff](https://github.com/Pick-Your-AI/p
 Read [CONTRIBUTING.md](CONTRIBUTING.md), [AGENTS.md](AGENTS.md), and the [organization contribution policy](https://github.com/Pick-Your-AI/.github/blob/main/CONTRIBUTING.md). Use native GitHub Assignees for actual ownership. The initial plan leaves work unassigned until a responsible maintainer accepts it; a historical research owner list does not assign new implementation work.
 
 Original code and documentation use the [MIT License](LICENSE), following the research repository. Third-party materials and derived datasets retain their own rights and notices. Report security-sensitive problems through the process in [SECURITY.md](SECURITY.md).
+
+## Contributor routing
+
+For a blocked decision, use [the repository routing procedure](CONTRIBUTING.md#routing-decisions).
+Start with the existing issue and its accepted owner; preserve its scope and evidence requirements.
