@@ -1,0 +1,22 @@
+# Synthetic quarantine and re-entry rehearsal
+
+Refs [CP-07.02, issue #34](https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/34). This is an **offline, partial** prototype, not an accepted quarantine service, operational runbook, source-use authorization or publication gate.
+
+`src/quarantine` records a bounded, immutable tuple of synthetic attempts. Every attempt requires five explicitly supplied per-gate results (schema, identity, evidence, rights and policy). A result is marked `quarantined` with machine-readable failure causes and candidate next actions, or `needs_independent_review` if all five input results pass. **Neither state authorizes publication.** A previous `pass` cannot be reused on re-entry; each of the five gates must supply a fresh synthetic evaluation identity and correction revision must increase. This only checks supplied test metadata; it does not prove a gate was actually run or authorized. The caller is responsible for independent rights, evidence, reviewer and release verification.
+
+`evaluate_batch` isolates malformed entries and reports a disposition for each valid candidate. It emits no publishable subset, promotion command or source data. One malformed entry cannot suppress other candidates' diagnostics. The quarantine schema is a **draft** wire representation, not a shared accepted contract, and a validated schema does not confer product or material rights.
+
+The runtime rejects nonexact scalar/container/record types before comparing or hashing their values. Both `as_document` and supplied history entries pass the same single-attempt validation: synthetic candidate and evaluation identities, positive exact integer revision, attempt number from 1 through 32, exactly five canonical gate findings, distinct evaluation IDs, matching gate-specific failure causes, and state/causes/actions derived from those findings. New input findings may arrive in any order and are normalized to schema, identity, evidence, rights and policy; stored attempts and serialized documents use that canonical order. Serialization does not simply trust a caller-constructed `Attempt` or stamp a synthetic label onto unchecked content.
+
+JSON Schema validation alone is insufficient. The draft schema checks canonical gate positions and failure/state/cause/action consistency, but the runtime must additionally enforce distinct evaluation IDs, canonical cause/action ordering, monotonic revisions, contiguous attempt numbers, one candidate throughout the supplied history, and no evaluation-ID reuse across that history. `as_document` validates one attempt only and cannot establish cross-attempt freshness; callers must use `append_attempt` to check re-entry against the retained prior history. Neither a valid document nor a valid supplied tuple proves that the caller included the authentic complete history or actually reran any gate.
+
+The prototype has no source access, filesystem storage, network calls, timestamps, durable evidence, independent actor authentication, or recovery. It holds no source or personal material. It limits supplied history to 32 attempts per candidate, batches to 128 items per call, each attempt to five findings, and synthetic identities to 256 characters. Positive exact integer revisions remain unbounded; these structural limits are not a hard byte, memory, CPU or execution-time cap. In-memory immutability is not durable append-only storage or a protection against arbitrary code with process access. The prototype cannot independently detect a forged historical tuple that remains internally consistent, a truncated history or a reset to an empty history. The caller must separately store prior receipts in an authenticated audit chain and ensure decisions are bound to actual candidate/source revisions.
+
+Run the offline tests from the repository root with the pinned validation environment:
+
+```sh
+python -m unittest discover -s tests -p test_quarantine.py -v
+python -m unittest discover -s tests -v
+```
+
+**Still required to complete #34:** accepted reason taxonomy/action semantics and escalation ownership; real ingestion/admission and exact source-rights gate integrations; provenance and review receipts; resilient quarantine persistence and correction history; actionable UI/triage, concurrency, idempotency and batch handling; negative tests at supported producer/consumer boundaries; independent reviewers and accepted operational/consumer evidence. Keep the issue open. No synthetic result can complete those gates.
