@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/blob/main/schemas/evidence-assessment.schema.json",
+  "title": "Synthetic draft claim evidence assessment (CP-06.02)",
+  "$defs": {
+    "identifier": {"type": "string", "maxLength": 73, "pattern": "^synthetic:[a-z0-9][a-z0-9-]{0,62}$(?![\\s\\S])"},
+    "scope_value": {"type": "string", "maxLength": 64, "pattern": "^[A-Za-z0-9][A-Za-z0-9._ /-]{0,63}$(?![\\s\\S])"},
+    "receipt": {
+      "type": "object", "additionalProperties": false,
+      "required": ["receipt_id", "lineage_id", "evidence_class", "review_state", "assessor_authority", "supports_claim", "method_documented", "conditions_documented"],
+      "properties": {
+        "receipt_id": {"$ref": "#/$defs/identifier"},
+        "lineage_id": {"$ref": "#/$defs/identifier"},
+        "evidence_class": {"enum": ["Primary documentation", "Vendor claim", "Independent measurement", "Estimate"]},
+        "review_state": {"enum": ["unknown", "source_checked", "reviewed", "independently_reproduced"]},
+        "assessor_authority": {"enum": ["none", "synthetic_checker", "synthetic_reviewer", "synthetic_reproducer"]},
+        "supports_claim": {"type": "boolean"},
+        "method_documented": {"type": "boolean"},
+        "conditions_documented": {"type": "boolean"}
+      }
+    }
+  },
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "synthetic", "publication_eligible", "claim_id", "claim_type", "scope", "receipts"],
+  "properties": {
+    "schema_version": {"const": "0.1-draft"},
+    "synthetic": {"const": true},
+    "publication_eligible": {"const": false},
+    "claim_id": {"$ref": "#/$defs/identifier"},
+    "claim_type": {"enum": ["identity", "specification", "capability", "benchmark", "hardware_fit", "price"]},
+    "scope": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "version": {"$ref": "#/$defs/scope_value"},
+        "runtime": {"$ref": "#/$defs/scope_value"},
+        "workload": {"$ref": "#/$defs/scope_value"},
+        "hardware": {"$ref": "#/$defs/scope_value"},
+        "region": {"$ref": "#/$defs/scope_value"},
+        "quantization": {"$ref": "#/$defs/scope_value"},
+        "currency": {"$ref": "#/$defs/scope_value"}
+      }
+    },
+    "receipts": {"type": "array", "maxItems": 64, "items": {"$ref": "#/$defs/receipt"}}
+  }
+}
