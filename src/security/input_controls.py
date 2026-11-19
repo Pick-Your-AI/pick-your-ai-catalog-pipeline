@@ -41,8 +41,11 @@ def _decimal(token):
         raise UnsafeJSONError("Decimal token length exceeded")
     try:
         number = Decimal(token)
-    except InvalidOperation as exc:
-        raise UnsafeJSONError("Invalid decimal number") from exc
+    except InvalidOperation:
+        number = None
+    # Raise outside handler to avoid retaining raw input in __context__.
+    if number is None:
+        raise UnsafeJSONError("Invalid decimal number")
     parts = number.as_tuple()
     if len(parts.digits) > MAX_DECIMAL_DIGITS or abs(parts.exponent) > MAX_DECIMAL_EXPONENT:
         raise UnsafeJSONError("Decimal precision or exponent limit exceeded")
@@ -60,8 +63,12 @@ def _safe_text(value):
         raise UnsafeJSONError("NUL is not permitted in source metadata")
     try:
         value.encode("utf-8", errors="strict")
-    except UnicodeEncodeError as exc:
-        raise UnsafeJSONError("Invalid Unicode scalar value") from exc
+    except UnicodeEncodeError:
+        valid = False
+    else:
+        valid = True
+    if not valid:
+        raise UnsafeJSONError("Invalid Unicode scalar value")
 
 
 def parse_untrusted_json(
@@ -82,12 +89,15 @@ def parse_untrusted_json(
     elif isinstance(payload, str):
         try:
             raw = payload.encode("utf-8", errors="strict")
-        except UnicodeEncodeError as exc:
-            raise UnsafeJSONError("Payload contains invalid Unicode") from exc
+        except UnicodeEncodeError:
+            raw = None
+        if raw is None:
+            raise UnsafeJSONError("Payload contains invalid Unicode")
     else:
         raise UnsafeJSONError("Payload must be UTF-8 bytes or text")
     if len(raw) > max_bytes:
         raise UnsafeJSONError("Payload byte limit exceeded")
+    malformed = False
     try:
         source_text = raw.decode("utf-8", errors="strict")
         parsed = json.loads(
@@ -97,8 +107,11 @@ def parse_untrusted_json(
         )
     except UnsafeJSONError:
         raise
-    except (UnicodeDecodeError, ValueError, RecursionError) as exc:
-        raise UnsafeJSONError("Malformed UTF-8 or JSON input") from exc
+    except (UnicodeDecodeError, ValueError, RecursionError):
+        malformed = True
+    # Do not chain exceptions containing JSONDecodeError.doc or raw bytes.
+    if malformed:
+        raise UnsafeJSONError("Malformed UTF-8 or JSON input")
 
     stack = [(parsed, 1)]
     nodes = 0
