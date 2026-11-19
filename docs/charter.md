@@ -35,6 +35,12 @@ Coverage denotes an explicit denominator and quality state. Merely adding an ent
 
 The builder's existing 29 component kinds remain a separate consumer contract. Broader ecosystem records do not become builder selections automatically.
 
+## Product-validation boundary
+
+[Research #47](https://github.com/Pick-Your-AI/pick-your-ai-research/issues/47) owns the product-validation program and its adopted **NARROW** decision. The [reviewed synthesis at `5dd6e1c2174033a279325eb8fb445a0c4a694587`](https://github.com/Pick-Your-AI/pick-your-ai-research/blob/5dd6e1c2174033a279325eb8fb445a0c4a694587/research/market/synthesis.md) limits that comparison to one coherent, nonsensitive, single-user text-inference workload, a dense single-device local alternative and a separately identified API alternative. The comparison uses the best applicable substitute and a README/manifest baseline; an adequate existing format can satisfy the research objective.
+
+The pipeline's broad reference coverage supports the domain inventory in `planning/coverage-matrix.json`. That breadth does not expand the adopted product comparison, establish demand or runtime feasibility, or authorize a commercial launch. Candidate, normalized, reviewed, eligible and published counts retain their separate meanings. Research #47's remaining coordination and empirical or participant gates stay with their existing owners; catalog implementation and synthetic validation cannot complete them.
+
 ## Exclusions
 
 The pipeline does not own primary research acceptance, shared compatibility-policy decisions, user demand validation, the public website, native client UI, contributor recognition, nonprofit funding strategy, paid benchmarking campaigns, or separate scholarly/application/dataset editorial programs. It may consume their accepted outputs and provide exact delivery mechanisms.
