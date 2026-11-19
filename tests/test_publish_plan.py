@@ -401,6 +401,121 @@ class InputAndInventoryTest(unittest.TestCase):
 
 
 class AdapterTest(unittest.TestCase):
+    def test_readonly_title_drift_preserves_verified_project_and_reports_difference(self):
+        renamed = {"id": "PVT_synthetic", "number": 8,
+                   "title": "Synthetic maintained catalog project", "closed": False,
+                   "repositories": [pub.REPO]}
+        before = deepcopy(renamed)
+        selected = pub.choose_project([renamed], read_only=True, expected_number=8)
+        self.assertEqual(selected["id"], renamed["id"])
+        self.assertEqual(selected["number"], 8)
+        self.assertEqual(selected["title_drift"]["expected"], pub.TITLE)
+        self.assertEqual(selected["title_drift"]["observed"], renamed["title"])
+        self.assertEqual(renamed, before)
+        with self.assertRaises(pub.PublicationError):
+            pub.choose_project([renamed], expected_number=8)
+
+    def test_readonly_title_drift_rejects_ambiguous_closed_or_unverified_identity(self):
+        renamed = {"id": "PVT_synthetic", "number": 8,
+                   "title": "Synthetic maintained catalog project", "closed": False,
+                   "repositories": [pub.REPO]}
+        cases = [([renamed], None), ([renamed], True), ([renamed], 9),
+                 ([{**renamed, "id": ""}], 8),
+                 ([{**renamed, "id": " \t"}], 8),
+                 ([{**renamed, "id": "PVT synthetic"}], 8),
+                 ([{**renamed, "title": None}], 8),
+                 ([{**renamed, "title": " \n"}], 8),
+                 ([{**renamed, "repositories": "prefix/" + pub.REPO}], 8),
+                 ([{**renamed, "repositories": [None, pub.REPO]}], 8),
+                 ([None], 8),
+                 ([{**renamed, "number": "8"}], 8),
+                 ([{**renamed, "closed": True}], 8),
+                 ([{**renamed, "closed": None}], 8),
+                 ([{**renamed, "title": "Pick Your AI - Catalog Pipeline",
+                    "repositories": []}], 8),
+                 ([renamed, {**renamed, "id": "PVT_other", "number": 9}], 8)]
+        for rows, expected in cases:
+            with self.subTest(rows=rows, expected=expected), self.assertRaises(pub.PublicationError):
+                pub.choose_project(rows, read_only=True, expected_number=expected)
+
+    def test_project_adapter_keeps_title_guard_for_writable_discovery(self):
+        renamed = {"id": "PVT_synthetic", "number": 8,
+                   "title": "Synthetic maintained catalog project", "closed": False,
+                   "repositories": [pub.REPO]}
+        runner = Mock(side_effect=AssertionError("offline test must not invoke gh"))
+        reader = pub.GitHub(runner=runner, expected_project_number=8)
+        reader.projects = Mock(return_value=[renamed])
+        self.assertIn("title_drift", reader.project())
+        writer = pub.GitHub(writable=True, runner=runner, expected_project_number=8)
+        writer.projects = Mock(return_value=[renamed])
+        with self.assertRaises(pub.PublicationError):
+            writer.project()
+        runner.assert_not_called()
+
+    def test_writable_discovery_rejects_configured_project_without_title_or_link(self):
+        payload, config = fixture()
+        runner = Mock(side_effect=AssertionError("offline test must not invoke gh"))
+        api = pub.GitHub(writable=True, runner=runner, expected_project_number=8)
+        api.repo = Mock(return_value=None)
+        api.projects = Mock(return_value=[{"id": "PVT_recorded", "number": 8,
+                                            "title": "Renamed synthetic Project", "closed": False,
+                                            "repositories": []}])
+        with tempfile.TemporaryDirectory() as directory:
+            journal = pub.Journal(Path(directory) / "journal.json",
+                                  pub.digest({"payload": payload, "config": config}))
+            with self.assertRaisesRegex(pub.PublicationError, "Configured Project changed title"):
+                pub.Publisher(api, payload, config, journal).apply()
+        runner.assert_not_called()
+
+    def test_duplicate_configured_project_number_fails_even_if_other_row_unrelated(self):
+        original = {"id": "PVT_original", "number": 8, "title": pub.TITLE,
+                    "closed": False, "repositories": [pub.REPO]}
+        unrelated = {"id": "PVT_conflict", "number": 8,
+                     "title": "Unrelated synthetic Project", "closed": False,
+                     "repositories": []}
+        for writable in (False, True):
+            with self.subTest(writable=writable):
+                runner = Mock(side_effect=AssertionError("offline test must not invoke gh"))
+                api = pub.GitHub(writable=writable, runner=runner, expected_project_number=8)
+                api.projects = Mock(return_value=[original, unrelated])
+                with self.assertRaisesRegex(pub.PublicationError, "Duplicate Project number"):
+                    api.project()
+                runner.assert_not_called()
+
+    def test_configured_project_absence_requires_reconciliation_not_creation(self):
+        other = {"id": "PVT_other", "number": 9, "title": pub.TITLE,
+                 "closed": False, "repositories": []}
+        for rows in ([], [other]):
+            with self.subTest(rows=rows), self.assertRaisesRegex(pub.PublicationError, "Configured Project number is absent"):
+                pub.choose_project(rows, expected_number=8)
+        exact = {"id": "PVT_known", "number": 8, "title": pub.TITLE,
+                 "closed": False, "repositories": []}
+        self.assertEqual(pub.choose_project([exact], expected_number=8), exact)
+
+    def test_inspection_ignores_stale_apply_journal_but_apply_still_rejects_it(self):
+        payload, config = fixture()
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            payload_path, config_path = base / "payload.json", base / "config.json"
+            payload_path.write_text(json.dumps(payload), encoding="utf-8")
+            config_path.write_text(json.dumps(config), encoding="utf-8")
+            journal_path = base / "journal.json"
+            original = {"schema_version": "catalog-pipeline-publication-journal-1",
+                        "repository": pub.REPO, "fingerprint": "previous-baseline",
+                        "operations": {}}
+            journal_path.write_text(json.dumps(original), encoding="utf-8")
+            args = ["--payload", str(payload_path), "--config", str(config_path),
+                    "--state-dir", str(base)]
+            fake = FakeGitHub()
+            with patch.object(pub, "GitHub", return_value=fake), patch("sys.stdout", new_callable=io.StringIO) as output:
+                self.assertEqual(pub.main(["--inspect", *args]), 0)
+            self.assertEqual(json.loads(output.getvalue())["mode"], "live-read-only")
+            self.assertEqual(json.loads(journal_path.read_text(encoding="utf-8")), original)
+            with patch.object(pub, "GitHub", return_value=fake), patch("sys.stderr", new_callable=io.StringIO) as errors:
+                self.assertEqual(pub.main(["--apply", *args]), 2)
+            self.assertIn("Journal belongs to another repository", errors.getvalue())
+            self.assertEqual(fake.writes, [])
+
     def test_mutation_uses_safe_argv_and_json_stdin_without_shell(self):
         runner = Mock(return_value=subprocess.CompletedProcess([], 0, '{"id":1}', ""))
         api = pub.GitHub(writable=True, delay=0, runner=runner)

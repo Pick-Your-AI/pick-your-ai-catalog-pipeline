@@ -38,9 +38,9 @@ MARKER = re.compile(r"<!-- pick-your-ai-catalog-pipeline:(" + KEY + r") -->")
 MAX_PAGES = 100
 PENDING = [
     "Submit repository contents through a branch and independently approved PR; this helper never pushes or merges.",
-    "Verify main, repository topics/settings, team grants, CODEOWNERS, rulesets, required checks and hosted CI for the delivered revision.",
-    "Configure/reload the eight saved views and verify their layout, grouping, filters and complete membership.",
-    "Reconcile the program's external research #509 parent through the authorized cross-repository handoff.",
+    "After independent approval and required checks, verify the merged result by fresh readback before considering this work complete.",
+    "Saved-view verification is outside this helper's scope: consult the dated receipt in docs/PROJECT_SETUP.md and refresh layout, grouping, filters and complete membership before considering any change.",
+    "The external research #509 parent is outside this helper's reconciliation scope: consult the dated receipt in docs/PROJECT_SETUP.md and refresh the authorized cross-repository readback before considering any change.",
     "Reconcile any reported Project metadata, issue content/type/labels or live field differences without resetting progress.",
 ]
 
@@ -237,23 +237,64 @@ def issue_is_pristine(issue: dict, planned: dict) -> bool:
             type_name == planned["issue_type"] and set(names) == set(planned.get("labels", [])))
 
 
-def choose_project(projects: list[dict]) -> dict | None:
-    candidates = []
+def choose_project(projects: list[dict], *, read_only=False,
+                   expected_number: int | None = None) -> dict | None:
+    # Resolve a recorded Project number before any creation decision, even if
+    # both its title and repository association have changed.
+    if expected_number is not None and (type(expected_number) is not int or expected_number < 1):
+        raise PublicationError("Invalid configured Project number")
+    candidates, configured = [], None
     normalized = re.sub(r"[^a-z0-9]", "", TITLE.lower())
+    seen_numbers = set()
     for project in projects:
+        if type(project) is not dict:
+            raise PublicationError("Malformed Project inventory entry")
         linked = project.get("repositories", [])
         title = project.get("title", "")
+        number = project.get("number")
+        if (type(title) is not str or not title.strip() or
+                type(linked) is not list or any(type(name) is not str for name in linked)):
+            raise PublicationError("Malformed Project title or repository-link inventory")
+        if number is not None:
+            if type(number) is not int or number < 1:
+                raise PublicationError("Malformed Project number in inventory")
+            if number in seen_numbers:
+                raise PublicationError("Duplicate Project number in inventory; reconcile identity")
+            seen_numbers.add(number)
+        if expected_number is not None and number == expected_number:
+            configured = project
         if title == TITLE or REPO in linked or re.sub(r"[^a-z0-9]", "", title.lower()) == normalized:
             candidates.append(project)
+    if expected_number is not None:
+        if configured is None:
+            raise PublicationError("Configured Project number is absent; reconcile before creation")
+        if configured not in candidates:
+            raise PublicationError("Configured Project changed title and repository link; reconcile before creation")
     if len(candidates) > 1:
         raise PublicationError("Multiple equivalent Projects; refusing to create or choose a duplicate")
     if not candidates:
         return None
     candidate = candidates[0]
-    if candidate.get("title") != TITLE or candidate.get("closed"):
+    if expected_number is not None and candidate["number"] != expected_number:
+        raise PublicationError("Equivalent Project differs from the configured number; reconcile before creation")
+    if candidate.get("closed"):
         raise PublicationError("Equivalent or closed Project requires deliberate reconciliation")
+    if candidate.get("title") != TITLE:
+        # Only a read of the configured, uniquely repository-linked identity can
+        # tolerate title drift. Mutation discovery retains its original guard.
+        verified_identity = (
+            type(expected_number) is int and expected_number > 0 and
+            type(candidate.get("number")) is int and
+            candidate["number"] == expected_number and
+            type(candidate.get("id")) is str and bool(candidate["id"]) and
+            not any(char.isspace() for char in candidate["id"]) and
+            candidate.get("closed") is False and REPO in candidate.get("repositories", []))
+        if read_only is not True or not verified_identity:
+            raise PublicationError("Equivalent or closed Project requires deliberate reconciliation")
+        return {**candidate, "title_drift": {
+            "expected": TITLE, "observed": candidate["title"],
+            "disposition": "Read-only inspection of the configured repository-linked identity; no title reconciliation or other mutation authorized"}}
     return candidate
-
 
 class Journal:
     """Intent is persisted before a write. Unknown outcomes are never retried."""
@@ -303,8 +344,10 @@ class Journal:
 
 class GitHub:
     """No token acquisition, shell interpolation, login or approval bypass."""
-    def __init__(self, writable=False, delay=1.0, runner=subprocess.run):
+    def __init__(self, writable=False, delay=1.0, runner=subprocess.run,
+                 expected_project_number: int | None = None):
         self.writable, self.delay, self.runner = writable, delay, runner
+        self.expected_project_number = expected_project_number
         self.last_write = 0.0
 
     def run(self, args: list[str], data=None, mutation=False):
@@ -417,7 +460,8 @@ class GitHub:
         return rows
 
     def project(self):
-        return choose_project(self.projects())
+        return choose_project(self.projects(), read_only=not self.writable,
+                              expected_number=self.expected_project_number)
 
     def issues(self):
         return self.rest(f"repos/{REPO}/issues?state=all&per_page=100&sort=created&direction=asc", paginate=True)
@@ -789,7 +833,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     modes = parser.add_mutually_exclusive_group()
     modes.add_argument("--inspect", action="store_true", help="Read live GitHub state; never mutate")
-    modes.add_argument("--apply", action="store_true", help="Create/reconcile through preauthenticated gh; no login or token handling")
+    modes.add_argument("--apply", action="store_true", help="Create/reconcile through preauthenticated gh; when project_number is configured, reconcile only that existing Project and stop if it is absent; no login or token handling")
     parser.add_argument("--payload", type=Path, default=ROOT / "planning/github-issue-payloads.json")
     parser.add_argument("--config", type=Path, default=ROOT / "planning/project-config.json")
     parser.add_argument("--state-dir", type=Path, default=ROOT / ".state/publication")
@@ -807,8 +851,11 @@ def main(argv=None):
             return 0
         if args.write_delay < 0 or args.write_delay > 60:
             raise PublicationError("Write delay must be between 0 and 60 seconds")
-        api = GitHub(writable=args.apply, delay=args.write_delay)
-        journal = Journal(args.state_dir / "journal.json", digest({"payload": payload, "config": config}))
+        api = GitHub(writable=args.apply, delay=args.write_delay,
+                     expected_project_number=config.get("project_number"))
+        # Inspection gathers evidence even when an old apply journal must be reconciled.
+        # Applying still rejects mismatched receipts before any mutation.
+        journal = None if args.inspect else Journal(args.state_dir / "journal.json", digest({"payload": payload, "config": config}))
         publisher = Publisher(api, payload, config, journal)
         if args.inspect:
             state = publisher.inspect()

@@ -1,12 +1,12 @@
 {
   "schema_version": "catalog-pipeline-project-config-1",
-  "state": "Intended configuration; no GitHub creation/readback established",
+  "state": "Project initialization verified complete; repository metadata, four existing team grants and all four active governance rules verified; final status/configuration PR publication, independent approval, merge and readback remain pending",
   "owner": "Pick-Your-AI",
   "repository": "Pick-Your-AI/pick-your-ai-catalog-pipeline",
   "title": "Pick Your AI — Catalog Pipeline",
   "description": "Organization-wide AI research ingestion, source governance, normalization, evidence review, catalog publishing, freshness, and consumer delivery.",
   "public": true,
-  "project_number": null,
+  "project_number": 8,
   "project_id": null,
   "fields": [
     {
@@ -167,14 +167,27 @@
       ],
       "visible_fields": [
         "Title",
-        "Status",
-        "Priority",
         "Assignees",
-        "Parent issue",
+        "Status",
         "Sub-issues progress",
-        "Acceptance Status"
+        "Priority",
+        "Acceptance Status",
+        "Parent issue"
       ],
-      "readback_status": "Not Created"
+      "readback_status": "Saved configuration and complete result membership verified at the recorded timestamps; dated bootstrap observation, not a future-state reset instruction",
+      "sort_directions": [
+        "ASC",
+        "ASC"
+      ],
+      "view_number": 1,
+      "url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/1",
+      "readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/1",
+      "verified_at": "2026-10-23T05:46:43.374Z",
+      "configuration_verified": true,
+      "membership_verified": true,
+      "membership_verified_at": "2026-10-23T06:46:57.143Z",
+      "membership_count": 17,
+      "membership_readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/1"
     },
     {
       "name": "Epics and Work Packages",
@@ -187,13 +200,26 @@
       ],
       "visible_fields": [
         "Title",
-        "Parent issue",
-        "Sub-issues progress",
         "Status",
+        "Sub-issues progress",
         "Priority",
+        "Parent issue",
         "Readiness"
       ],
-      "readback_status": "Not Created"
+      "readback_status": "Saved configuration and complete result membership verified at the recorded timestamps; dated bootstrap observation, not a future-state reset instruction",
+      "sort_directions": [
+        "ASC",
+        "ASC"
+      ],
+      "view_number": 2,
+      "url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/2",
+      "readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/2",
+      "verified_at": "2026-10-23T05:46:43.374Z",
+      "configuration_verified": true,
+      "membership_verified": true,
+      "membership_verified_at": "2026-10-23T06:46:57.143Z",
+      "membership_count": 80,
+      "membership_readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/2"
     },
     {
       "name": "Priority and Readiness",
@@ -213,25 +239,52 @@
         "Effort",
         "Release Phase"
       ],
-      "readback_status": "Not Created"
+      "readback_status": "Saved configuration and complete result membership verified at the recorded timestamps; dated bootstrap observation, not a future-state reset instruction",
+      "sort_directions": [
+        "ASC",
+        "ASC"
+      ],
+      "view_number": 3,
+      "url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/3",
+      "readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/3?filterQuery=repo%3APick-Your-AI%2Fpick-your-ai-catalog-pipeline+is%3Aissue+-status%3ADone&visibleFields=%5B%22Title%22%2C431351633%2C431352087%2C%22Assignees%22%2C431352831%2C431352865%2C431353614%5D&groupedBy%5BcolumnId%5D=431351633",
+      "verified_at": "2026-10-23T05:46:43.374Z",
+      "configuration_verified": true,
+      "membership_verified": true,
+      "membership_verified_at": "2026-10-23T06:46:57.143Z",
+      "membership_count": 81,
+      "membership_readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/3"
     },
     {
       "name": "Currently Active",
       "layout": "BOARD_LAYOUT",
       "filter": "repo:Pick-Your-AI/pick-your-ai-catalog-pipeline is:issue status:\"In Progress\",\"In Review\"",
-      "group_by": "Status",
+      "group_by": "Workstream",
       "sort_by": [
         "Priority",
         "Title"
       ],
       "visible_fields": [
         "Title",
-        "Assignees",
         "Priority",
+        "Assignees",
         "Workstream",
         "Acceptance Status"
       ],
-      "readback_status": "Not Created"
+      "readback_status": "Saved configuration and complete result membership verified at the recorded timestamps; dated bootstrap observation, not a future-state reset instruction",
+      "sort_directions": [
+        "ASC",
+        "ASC"
+      ],
+      "column_by": "Status",
+      "view_number": 4,
+      "url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/4",
+      "readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/4?filterQuery=repo%3APick-Your-AI%2Fpick-your-ai-catalog-pipeline+is%3Aissue+status%3A%22In+Progress%22%2C%22In+Review%22&visibleFields=%5B%22Title%22%2C431351633%2C%22Assignees%22%2C431351906%2C431353685%5D&layout=board&groupedBy%5BcolumnId%5D=431351906",
+      "verified_at": "2026-10-23T05:46:43.374Z",
+      "configuration_verified": true,
+      "membership_verified": true,
+      "membership_verified_at": "2026-10-23T06:46:57.143Z",
+      "membership_count": 0,
+      "membership_readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/4"
     },
     {
       "name": "Blocked and Decisions",
@@ -245,11 +298,25 @@
       "visible_fields": [
         "Title",
         "Readiness",
-        "Dependency Status",
         "Assignees",
-        "Parent issue"
+        "Dependency Status",
+        "Parent issue",
+        "Priority"
       ],
-      "readback_status": "Not Created"
+      "readback_status": "Saved configuration and complete result membership verified at the recorded timestamps; dated bootstrap observation, not a future-state reset instruction",
+      "sort_directions": [
+        "ASC",
+        "ASC"
+      ],
+      "view_number": 5,
+      "url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/5",
+      "readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/5",
+      "verified_at": "2026-10-23T05:46:43.374Z",
+      "configuration_verified": true,
+      "membership_verified": true,
+      "membership_verified_at": "2026-10-23T06:46:57.143Z",
+      "membership_count": 81,
+      "membership_readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/5"
     },
     {
       "name": "Rights and Evidence",
@@ -262,13 +329,27 @@
       ],
       "visible_fields": [
         "Title",
-        "Source Rights Status",
-        "Evidence Confidence",
         "Readiness",
         "Workstream",
-        "Acceptance Status"
+        "Evidence Confidence",
+        "Source Rights Status",
+        "Acceptance Status",
+        "Priority"
       ],
-      "readback_status": "Not Created"
+      "readback_status": "Saved configuration and complete result membership verified at the recorded timestamps; dated bootstrap observation, not a future-state reset instruction",
+      "sort_directions": [
+        "ASC",
+        "ASC"
+      ],
+      "view_number": 6,
+      "url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/6",
+      "readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/6",
+      "verified_at": "2026-10-23T05:46:43.374Z",
+      "configuration_verified": true,
+      "membership_verified": true,
+      "membership_verified_at": "2026-10-23T06:46:57.143Z",
+      "membership_count": 81,
+      "membership_readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/6"
     },
     {
       "name": "Consumer Handoffs",
@@ -281,12 +362,26 @@
       ],
       "visible_fields": [
         "Title",
+        "Acceptance Status",
+        "Priority",
         "Assignees",
         "Dependency Status",
-        "Release Phase",
-        "Acceptance Status"
+        "Release Phase"
       ],
-      "readback_status": "Not Created"
+      "readback_status": "Saved configuration and complete result membership verified at the recorded timestamps; dated bootstrap observation, not a future-state reset instruction",
+      "sort_directions": [
+        "ASC",
+        "ASC"
+      ],
+      "view_number": 7,
+      "url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/7",
+      "readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/7",
+      "verified_at": "2026-10-23T05:46:43.374Z",
+      "configuration_verified": true,
+      "membership_verified": true,
+      "membership_verified_at": "2026-10-23T06:46:57.143Z",
+      "membership_count": 5,
+      "membership_readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/7"
     },
     {
       "name": "Release Readiness",
@@ -299,13 +394,26 @@
       ],
       "visible_fields": [
         "Title",
+        "Acceptance Status",
         "Priority",
-        "Status",
-        "Readiness",
         "Release Phase",
-        "Acceptance Status"
+        "Status",
+        "Readiness"
       ],
-      "readback_status": "Not Created"
+      "readback_status": "Saved configuration and complete result membership verified at the recorded timestamps; dated bootstrap observation, not a future-state reset instruction",
+      "sort_directions": [
+        "ASC",
+        "ASC"
+      ],
+      "view_number": 8,
+      "url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/8",
+      "readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/8",
+      "verified_at": "2026-10-23T05:46:43.374Z",
+      "configuration_verified": true,
+      "membership_verified": true,
+      "membership_verified_at": "2026-10-23T06:46:57.143Z",
+      "membership_count": 81,
+      "membership_readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8/views/8"
     }
   ],
   "repository_metadata": {
@@ -375,11 +483,154 @@
     }
   ],
   "governance": {
-    "team_grants": [],
-    "codeowners": "Pending verified team slug and write-access readback",
+    "team_grants": [
+      {
+        "slug": "maintainers",
+        "name": "Maintainers",
+        "role": "triage",
+        "members": 20
+      },
+      {
+        "slug": "research",
+        "name": "Research",
+        "role": "triage",
+        "members": 20
+      },
+      {
+        "slug": "research-lead-maintainers",
+        "name": "Research Lead Maintainers",
+        "role": "admin",
+        "members": 1
+      },
+      {
+        "slug": "research-maintainers",
+        "name": "Research Maintainers",
+        "role": "write",
+        "members": 20
+      }
+    ],
+    "codeowners": "Published * @CompleteDotTech review routing; retained with verified existing team access",
     "required_check": "ci-required",
     "required_approvals": 1,
     "require_last_push_approval": true,
-    "status": "Unapplied; inspect current org and repository rules before configuring"
+    "status": "Verified: four observed team grants and all four active repository rules; independent approval and latest-push approval remain required for the final status/configuration PR",
+    "codeowners_readback": {
+      "pattern": "*",
+      "review_target": "@CompleteDotTech",
+      "verified": true,
+      "verified_at": "2026-10-23T04:32:54Z",
+      "readback_url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/blob/63c1c6e881ddaba817fb1c58a6a8e629ad85e33f/.github/CODEOWNERS",
+      "meaning": "Review routing only; no repository permission grant, implementation assignment or independent approval"
+    },
+    "team_grants_status": "Verified existing live grants; the earlier administrative reauthentication prompt no longer blocks access; no team membership changes are attributed to this readback",
+    "branch_rules_status": "Verified active contributor boundaries for default branch, other branches and tags, plus mandatory default-branch review/check protection with no bypass actors",
+    "ruleset_imports": {
+      "directory": ".github/rulesets",
+      "readme": ".github/rulesets/README.md",
+      "prepared_count": 4,
+      "applied": true,
+      "application": "Live settings were read back and match the published configuration inputs; no workflow automatically applies these files",
+      "active_count": 4,
+      "attribution": "Observed live configuration, including concurrent administrative changes; this record does not assert that the executor created every rule",
+      "source_commit": "77f92e8ee6b4c35a7cacb3be6ef26462888188a7",
+      "rulesets": [
+        {
+          "id": 25725321,
+          "name": "Contributor boundary: default branch",
+          "enforcement": "active",
+          "matches_published_input": true,
+          "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/rules/25725321"
+        },
+        {
+          "id": 25725653,
+          "name": "Contributor boundary: branches",
+          "enforcement": "active",
+          "matches_published_input": true,
+          "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/rules/25725653"
+        },
+        {
+          "id": 25725655,
+          "name": "Contributor boundary: tags",
+          "enforcement": "active",
+          "matches_published_input": true,
+          "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/rules/25725655"
+        },
+        {
+          "id": 25725657,
+          "name": "Review required: default branch",
+          "enforcement": "active",
+          "matches_published_input": true,
+          "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/rules/25725657"
+        }
+      ]
+    },
+    "team_grants_readback": {
+      "observed_at": "2026-10-23 13:36:53 UTC",
+      "url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/settings/access",
+      "method": "Authenticated GitHub repository access UI, complete direct-access tabpanel",
+      "base_role": "Read",
+      "organization_member_count": 20,
+      "direct_access_entities": 4,
+      "direct_user_count": 0,
+      "administrative_reauthentication_currently_blocking": false,
+      "attribution": "Observed existing live grants; this receipt does not assert who created them. No team membership was changed by this readback."
+    },
+    "main_protected": true,
+    "required_check_integration_id": 15368,
+    "mandatory_review_bypass_actors": [],
+    "mandatory_review_current_user_can_bypass": "never",
+    "verification_scope": "Full live rule parameters, ref selectors and explicit bypass lists plus branch protected flag; no GitHub approving review, merge or implementation acceptance is inferred"
+  },
+  "project_id_status": "GraphQL node ID not captured; null is intentional",
+  "verified": true,
+  "verified_at": "2026-10-23T06:46:57.143Z",
+  "readback_url": "https://github.com/orgs/Pick-Your-AI/projects/8",
+  "verification_scope": "Observed Project initialization, including all item-field values and saved-view result memberships; excludes team grants, branch governance, implementation acceptance and production readiness",
+  "item_values_verified": true,
+  "item_values_verified_at": "2026-10-23T06:39:09.116Z",
+  "verified_issue_count": 81,
+  "verified_item_field_value_count": 891,
+  "view_memberships_verified": true,
+  "view_memberships_verified_at": "2026-10-23T06:46:57.143Z",
+  "native_assignees_readback": {
+    "verified_at": "2026-10-23T06:47:13.030Z",
+    "issue_count": 81,
+    "open_issue_count": 81,
+    "unassigned_issue_count": 81,
+    "assigned_issue_count": 0,
+    "scope": "Observed ownership state; no accepted implementation owner is inferred from initialization"
+  },
+  "repository_metadata_readback": {
+    "verified": true,
+    "recorded_at": "2026-10-23 13:24:29 UTC",
+    "readback_url": "https://api.github.com/repos/Pick-Your-AI/pick-your-ai-catalog-pipeline",
+    "observed": {
+      "id": 1430404474,
+      "full_name": "Pick-Your-AI/pick-your-ai-catalog-pipeline",
+      "html_url": "https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline",
+      "description": "Shared AI research catalog ingestion and publishing: implementation backlog, evidence, source governance and synthetic bootstrap.",
+      "private": false,
+      "visibility": "public",
+      "default_branch": "main",
+      "topics": [
+        "ai",
+        "data-catalog",
+        "data-pipeline",
+        "data-provenance",
+        "etl",
+        "evidence",
+        "open-source",
+        "pick-your-ai",
+        "research"
+      ],
+      "has_issues": true,
+      "has_projects": true,
+      "has_wiki": false,
+      "delete_branch_on_merge": true,
+      "allow_merge_commit": true,
+      "allow_squash_merge": true,
+      "allow_rebase_merge": true
+    },
+    "scope": "Repository identity, description, topics, visibility, default branch and feature/merge settings; later rule and access readbacks are recorded separately"
   }
 }
