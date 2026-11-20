@@ -84,9 +84,12 @@ def parse_untrusted_json(
     for limit in (max_bytes, max_depth, max_nodes):
         if type(limit) is not int or limit < 1:
             raise ValueError("All parser limits must be positive integers")
-    if isinstance(payload, bytes):
+    if type(payload) is bytes:
         raw = payload
-    elif isinstance(payload, str):
+    elif type(payload) is str:
+        # One UTF-8 code point always occupies at least one output byte.
+        if len(payload) > max_bytes:
+            raise UnsafeJSONError("Payload byte limit exceeded")
         try:
             raw = payload.encode("utf-8", errors="strict")
         except UnicodeEncodeError:
