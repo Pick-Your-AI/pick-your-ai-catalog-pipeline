@@ -197,6 +197,9 @@ def fixture_policy_decision(records, decisions, operation, product_id, *, produc
                 if not _reserved_example_url(source["url"]):
                     return False, ["Only reserved offline source URLs are supported."]
     for decision in decisions:
+        authority = decision["authority_ref"]
+        if not (_reserved_example_url(authority) or _synthetic_identity(authority)):
+            return False, ["An offline authority reference must remain reserved and synthetic."]
         if not _synthetic_identity(decision["reviewer_ref"]):
             return False, ["An offline reviewer must have a reserved synthetic identity."]
         operation_names = [entry["operation"] for entry in decision["operations"]]

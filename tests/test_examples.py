@@ -180,6 +180,33 @@ class ExampleBoundaryTests(unittest.TestCase):
                                                    "source_id": "urn:pya:synthetic:source:restricted"})
         self.assertFalse(self.decision())
 
+    def test_direct_gate_rejects_nonreserved_rights_authority(self):
+        # Schema URI-format validity is not proof of an offline authority.
+        for authority in (
+            "https://different.invalid/synthetic/rights",
+            "https://example.invalid@different.invalid/synthetic/rights",
+            "file:///tmp/synthetic-standin",
+            "https://example.invalid/synthetic/rights?key=fake",
+            "https://example.invalid/synthetic/rights\n",
+        ):
+            with self.subTest(authority=authority):
+                rights = deepcopy(self.rights)
+                rights["authority_ref"] = authority
+                allowed, reasons = MODULE.fixture_policy_decision(
+                    [self.record], [rights], "display", self.product)
+                self.assertFalse(allowed)
+                self.assertTrue(any("offline authority reference" in r for r in reasons))
+        for authority in (
+            "https://example.invalid/synthetic/rights-not-real",
+            "urn:pya:synthetic:authority:fixture",
+        ):
+            with self.subTest(authority=authority):
+                rights = deepcopy(self.rights)
+                rights["authority_ref"] = authority
+                allowed, reasons = MODULE.fixture_policy_decision(
+                    [self.record], [rights], "display", self.product)
+                self.assertTrue(allowed, reasons)
+
     def test_direct_gate_rejects_nonreserved_source_urls(self):
         # Offline-only reserved test domains: this test makes no network requests.
         for source_url in (
