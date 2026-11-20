@@ -126,10 +126,15 @@ def parse_untrusted_json(
         if depth > max_depth:
             raise UnsafeJSONError("JSON nesting limit exceeded")
         if isinstance(value, dict):
-            for key, item in value.items():
+            for key in value:
                 _safe_text(key)
+            if nodes + len(stack) + len(value) > max_nodes:
+                raise UnsafeJSONError("JSON node limit exceeded")
+            for item in value.values():
                 stack.append((item, depth + 1))
         elif isinstance(value, list):
+            if nodes + len(stack) + len(value) > max_nodes:
+                raise UnsafeJSONError("JSON node limit exceeded")
             stack.extend((item, depth + 1) for item in value)
         elif isinstance(value, str):
             _safe_text(value)

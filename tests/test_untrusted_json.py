@@ -1,6 +1,8 @@
 """Offline adversarial tests for the non-executing JSON boundary."""
 from decimal import Decimal
+import tracemalloc
 import unittest
+from unittest.mock import patch
 
 from src.security.input_controls import UnsafeJSONError, parse_untrusted_json
 
@@ -46,6 +48,30 @@ class UntrustedJSONTests(unittest.TestCase):
 
     def test_rejects_excessive_node_count(self):
         self.reject("[0,1,2,3]", max_nodes=4)
+
+    def test_node_budget_bounds_wide_array_traversal_stack(self):
+        parsed = [0] * 500_000
+        with patch("src.security.input_controls.json.loads", return_value=parsed):
+            tracemalloc.start()
+            try:
+                self.reject(b"[]", max_nodes=1)
+                _, peak = tracemalloc.get_traced_memory()
+            finally:
+                tracemalloc.stop()
+
+        self.assertLess(peak, 1 * 1024 * 1024)
+
+    def test_node_budget_bounds_wide_dictionary_traversal_stack(self):
+        parsed = {f"{i:x}": 0 for i in range(20_000)}
+        with patch("src.security.input_controls.json.loads", return_value=parsed):
+            tracemalloc.start()
+            try:
+                self.reject(b"{}", max_nodes=1)
+                _, peak = tracemalloc.get_traced_memory()
+            finally:
+                tracemalloc.stop()
+
+        self.assertLess(peak, 1 * 1024 * 1024)
 
     def test_rejects_large_numeric_precision_and_exponents(self):
         self.reject('{"n":' + ("9" * 65) + "}")
