@@ -57,6 +57,22 @@ def _synthetic_identity(value):
     return type(value) is str and re.fullmatch(r"urn:pya:synthetic:[a-z0-9][a-z0-9:._-]*", value) is not None
 
 
+def _reserved_example_url(value):
+    """Accept only byte-for-byte canonical reserved-host fixture URLs.
+
+    urlsplit can silently remove ASCII control characters and empty delimiters,
+    so compare its round trip with the original string before accepting.
+    """
+    if type(value) is not str:
+        return False
+    try:
+        parsed = urlsplit(value)
+    except ValueError:
+        return False
+    return (parsed.scheme == "https" and parsed.netloc == "example.invalid" and
+            not parsed.query and not parsed.fragment and parsed.geturl() == value)
+
+
 def _bounded_fixture_data(value):
     """Bound schema work and reject non-JSON containers before inspecting scope.
 
@@ -102,6 +118,34 @@ def _bounded_fixture_data(value):
     return True
 
 
+def _valid_utc_timestamp(value):
+    if type(value) is not str or re.fullmatch(
+            r"[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\.[0-9]+)?Z",
+            value) is None:
+        return False
+    try:
+        datetime.fromisoformat(value[:-1] + "+00:00")
+    except ValueError:
+        return False
+    return True
+
+
+def _fixture_dates_are_valid(value):
+    """Inspect already-bounded JSON without allocating input-derived paths."""
+    stack = [value]
+    while stack:
+        item = stack.pop()
+        if type(item) is dict:
+            for key, child in item.items():
+                if key.endswith("_at") and not _valid_utc_timestamp(child):
+                    return False
+                if type(child) is dict or type(child) is list:
+                    stack.append(child)
+        elif type(item) is list:
+            stack.extend(item)
+    return True
+
+
 def fixture_policy_decision(records, decisions, operation, product_id, *, production=False):
     """Demonstrate exact-scope fail-closed behavior with synthetic fixtures only.
 
@@ -120,9 +164,7 @@ def fixture_policy_decision(records, decisions, operation, product_id, *, produc
         return False, ["Empty records or source-use decisions cannot authorize an operation."]
     if not _bounded_fixture_data([records, decisions]):
         return False, ["Malformed or oversized fixture data is denied."]
-    date_errors = []
-    _check_dates([records, decisions], date_errors)
-    if date_errors:
+    if not _fixture_dates_are_valid([records, decisions]):
         return False, ["Fixture dates require explicit valid UTC timestamps."]
     for items, schema_name in ((records, "catalog-record.schema.json"),
                                (decisions, "source-use-decision.schema.json")):
@@ -134,16 +176,29 @@ def fixture_policy_decision(records, decisions, operation, product_id, *, produc
     if not _synthetic_identity(product_id):
         return False, ["An offline product scope must have a reserved synthetic identity."]
     for record in records:
+        claim_paths = [claim["path"] for claim in record["claims"]]
+        if len(set(claim_paths)) != len(claim_paths):
+            return False, ["Duplicate claim paths within a record are denied."]
         if not _synthetic_identity(record.get("id")):
             return False, ["An offline record must have a reserved synthetic identity."]
+        if any(not _synthetic_identity(relationship["target_id"])
+               for relationship in record["relationships"]):
+            return False, ["An offline relationship target must have a reserved synthetic identity."]
         for claim in record.get("claims", []):
             if not _synthetic_identity(claim.get("id")):
                 return False, ["An offline claim must have a reserved synthetic identity."]
+            evidence = claim["evidence"]
+            if "receipt_ref" in evidence and not _synthetic_identity(evidence["receipt_ref"]):
+                return False, ["An offline evidence receipt must have a reserved synthetic identity."]
             for source in claim.get("sources", []):
                 if not all(_synthetic_identity(source.get(key))
                            for key in ("source_id", "material_id")):
                     return False, ["An offline source and material must have synthetic identities."]
+                if not _reserved_example_url(source["url"]):
+                    return False, ["Only reserved offline source URLs are supported."]
     for decision in decisions:
+        if not _synthetic_identity(decision["reviewer_ref"]):
+            return False, ["An offline reviewer must have a reserved synthetic identity."]
         operation_names = [entry["operation"] for entry in decision["operations"]]
         if len(set(operation_names)) != len(operation_names):
             return False, ["Ambiguous duplicate source-use operations are denied."]
@@ -189,11 +244,7 @@ def _check_dates(value, errors, prefix=""):
     if isinstance(value, dict):
         for key, item in value.items():
             if key.endswith("_at"):
-                try:
-                    if not isinstance(item, str) or not item.endswith("Z"):
-                        raise ValueError("expected UTC Z timestamp")
-                    datetime.fromisoformat(item.replace("Z", "+00:00"))
-                except ValueError:
+                if not _valid_utc_timestamp(item):
                     errors.append(f"{prefix}{key}: invalid explicit UTC timestamp")
             _check_dates(item, errors, prefix + key + "/")
     elif isinstance(value, list):
@@ -240,8 +291,7 @@ def validate(root=ROOT):
             if claim["evidence"]["verification"] == "independently_reproduced":
                 errors.append(f"{claim['id']}: bootstrap claims cannot be independently reproduced")
             for source in claim["sources"]:
-                parsed = urlsplit(source["url"])
-                if parsed.hostname != "example.invalid" or parsed.username or parsed.password or parsed.query:
+                if not _reserved_example_url(source["url"]):
                     errors.append(f"{claim['id']}: examples require credential-free reserved source URLs")
         if len(set(claim_paths)) != len(claim_paths):
             errors.append(f"{record['id']}: duplicate claim path")

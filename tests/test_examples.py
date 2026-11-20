@@ -3,15 +3,37 @@ from copy import deepcopy
 import importlib.util
 import hashlib
 import json
+import os
 from pathlib import Path
 import shutil
 import tempfile
+import subprocess
+import sys
+import tracemalloc
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location("example_validation", ROOT / "scripts/validate_examples.py")
 MODULE = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(MODULE)
+
+
+def _measure_date_rejection():
+    """One measurement only; the caller supplies an untraced measurement process."""
+    if tracemalloc.is_tracing():
+        raise AssertionError("Measurement requires its own allocation tracer")
+    record = MODULE.read_json(ROOT / "examples/synthetic-model.json")
+    rights = MODULE.read_json(ROOT / "examples/synthetic-source-rights.json")
+    record["x" * 16_384] = [{"bad_at": "bad"} for _ in range(1_000)]
+    bounded = MODULE._bounded_fixture_data([[record], [rights]])
+    tracemalloc.start()
+    try:
+        allowed, reasons = MODULE.fixture_policy_decision(
+            [record], [rights], "display", rights["scope"]["product_id"])
+        _, peak = tracemalloc.get_traced_memory()
+    finally:
+        tracemalloc.stop()
+    return {"bounded": bounded, "allowed": allowed, "reasons": len(reasons), "peak": peak}
 
 
 class ExampleBoundaryTests(unittest.TestCase):
@@ -32,6 +54,108 @@ class ExampleBoundaryTests(unittest.TestCase):
         self.assertFalse(self.decision(product="urn:pya:synthetic:product:other"))
         self.record["claims"][0]["path"] = "spec.unapproved_field"
         self.assertFalse(self.decision())
+
+    def test_direct_gate_rejects_non_rfc3339_utc_forms(self):
+        timestamps = (
+            "2026-11-19Z", "20261119T120000Z", "2026-11-19 12:00:00Z",
+            "2026-11-19T12:00Z", "2026-11-19T12:00:00,25Z",
+            "2026-W47-4T12:00:00Z", "2026-11-19T12:00:00+00:00Z",
+        )
+        for timestamp in timestamps:
+            source = self.record["claims"][0]["sources"][0]
+            for target, key in ((source, "observed_at"), (self.rights, "decision_at")):
+                with self.subTest(timestamp=timestamp, field=key):
+                    original = target[key]
+                    target[key] = timestamp
+                    try:
+                        self.assertFalse(self.decision())
+                    finally:
+                        target[key] = original
+
+
+    def test_direct_gate_accepts_complete_utc_seconds_and_fraction(self):
+        for timestamp in (
+            "2026-11-19T12:00:00Z", "2024-02-29T23:59:59.25Z",
+            "2026-11-19T12:00:00.123456789Z",
+        ):
+            with self.subTest(timestamp=timestamp):
+                self.record["claims"][0]["sources"][0]["observed_at"] = timestamp
+                self.rights["decision_at"] = timestamp
+                self.assertTrue(self.decision())
+
+
+    def test_direct_gate_bounds_date_rejection_diagnostics(self):
+        # Preserve the runner's tracer. A dedicated child owns its measurement
+        # tracer even when its startup hook enables tracing before this command.
+        if tracemalloc.is_tracing():
+            env = dict(os.environ)
+            env.pop("PYTHONTRACEMALLOC", None)
+            command = [sys.executable, "-c",
+                       "import json, tracemalloc; "
+                       "from tests.test_examples import _measure_date_rejection; "
+                       "tracemalloc.stop(); print(json.dumps(_measure_date_rejection()))"]
+            result = subprocess.run(command, cwd=ROOT, env=env, capture_output=True,
+                                    text=True, timeout=30)
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            self.assertTrue(tracemalloc.is_tracing())
+            measured = json.loads(result.stdout)
+        else:
+            measured = _measure_date_rejection()
+        self.assertTrue(measured["bounded"])
+        self.assertFalse(measured["allowed"])
+        self.assertEqual(measured["reasons"], 1)
+        self.assertLess(measured["peak"], 2_000_000,
+                        "Rejecting bounded fixture dates must not amplify diagnostic paths")
+
+    def test_date_measurement_terminates_with_tracing_on_every_interpreter_start(self):
+        with tempfile.TemporaryDirectory(prefix="catalog-memory-fixture-") as directory:
+            # Bound the regression itself to two child interpreter startups. An
+            # accidental self-relaunch fails at startup instead of spawning on.
+            startup = (
+                "import os, sys, tracemalloc\n"
+                "count = int(os.environ.get('CATALOG_FIXTURE_STARTUPS', '0'))\n"
+                "if count >= 2: raise SystemExit(23)\n"
+                "os.environ['CATALOG_FIXTURE_STARTUPS'] = str(count + 1)\n"
+                "def deny_socket(event, args):\n"
+                "    if event.startswith('socket.'): raise RuntimeError('offline fixture')\n"
+                "sys.addaudithook(deny_socket)\n"
+                "tracemalloc.start()\n"
+            )
+            (Path(directory) / "sitecustomize.py").write_text(startup)
+            env = dict(os.environ)
+            env.pop("PYTHONTRACEMALLOC", None)
+            env["CATALOG_FIXTURE_STARTUPS"] = "0"
+            env["PYTHONPATH"] = directory + os.pathsep + env.get("PYTHONPATH", "")
+            command = [sys.executable, "-m", "unittest",
+                       "tests.test_examples.ExampleBoundaryTests.test_direct_gate_bounds_date_rejection_diagnostics"]
+            result = subprocess.run(command, cwd=ROOT, env=env, capture_output=True,
+                                    text=True, timeout=30)
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+
+    def test_direct_gate_rejects_mixed_review_evidence_and_relationship_identities(self):
+        for scope in ("reviewer", "receipt", "relationship"):
+            record, rights = deepcopy(self.record), deepcopy(self.rights)
+            real_ref = "urn:pya:real:" + scope + ":synthetic-probe"
+            if scope == "reviewer":
+                rights["reviewer_ref"] = real_ref
+            elif scope == "receipt":
+                record["claims"][0]["evidence"]["receipt_ref"] = real_ref
+            else:
+                record["relationships"] = [{"relation": "cites", "target_id": real_ref,
+                                             "target_revision": 1}]
+            with self.subTest(scope=scope):
+                self.assertFalse(self.decision(records=[record], rights=[rights]))
+
+
+    def test_direct_gate_accepts_reserved_review_evidence_and_relationship_identities(self):
+        self.rights["reviewer_ref"] = "urn:pya:synthetic:reviewer:fixture"
+        self.record["claims"][0]["evidence"]["receipt_ref"] = "urn:pya:synthetic:receipt:fixture"
+        self.record["relationships"] = [{"relation": "cites",
+                                         "target_id": "urn:pya:synthetic:record:fixture-paper",
+                                         "target_revision": 1}]
+        self.assertTrue(self.decision())
+
 
     def test_missing_unknown_conditional_and_revoked_rights_deny(self):
         self.assertFalse(self.decision(rights=[]))
@@ -55,6 +179,64 @@ class ExampleBoundaryTests(unittest.TestCase):
         self.record["claims"][0]["sources"].append({**self.record["claims"][0]["sources"][0],
                                                    "source_id": "urn:pya:synthetic:source:restricted"})
         self.assertFalse(self.decision())
+
+    def test_direct_gate_rejects_nonreserved_source_urls(self):
+        # Offline-only reserved test domains: this test makes no network requests.
+        for source_url in (
+            "https://different.invalid/fictional",
+            "https://example.invalid@different.invalid/fictional",
+            "https://example.invalid/synthetic?token=fake",
+            "http://example.invalid/synthetic/source",
+            "ftp://example.invalid/synthetic/source",
+            "https://example.invalid:8443/synthetic/source",
+            "https://example.invalid/synthetic/source#fragment",
+            "https://example.invalid/synthetic/source\n",
+            "https://example.invalid/synthetic/source?",
+            "https://example.invalid/synthetic/source#",
+        ):
+            with self.subTest(source_url=source_url):
+                record = deepcopy(self.record)
+                record["claims"][0]["sources"][0]["url"] = source_url
+                allowed, reasons = MODULE.fixture_policy_decision(
+                    [record], [deepcopy(self.rights)], "display", self.product
+                )
+                self.assertFalse(allowed)
+                self.assertTrue(any("reserved offline source" in item for item in reasons))
+        self.assertTrue(self.decision())
+
+    def test_cli_rejects_noncanonical_reserved_source_url_with_pinned_checksum(self):
+        # Deliberately update the byte-integrity receipt so a URL-policy
+        # rejection, not a stale manifest hash, is the deciding condition.
+        for source_url in (
+            "http://example.invalid/synthetic/source",
+            "ftp://example.invalid/synthetic/source",
+            "https://example.invalid:8443/synthetic/source",
+            "https://example.invalid/synthetic/source#fragment",
+            "https://example.invalid/synthetic/source\n",
+            "https://example.invalid/synthetic/source?",
+            "https://example.invalid/synthetic/source#",
+        ):
+            with self.subTest(source_url=source_url):
+                with tempfile.TemporaryDirectory() as tmp:
+                    root = Path(tmp)
+                    shutil.copytree(ROOT / "examples", root / "examples")
+                    shutil.copytree(ROOT / "schemas/v0.1", root / "schemas/v0.1")
+                    record_path = root / "examples/synthetic-model.json"
+                    record = json.loads(record_path.read_text())
+                    record["claims"][0]["sources"][0]["url"] = source_url
+                    record_path.write_text(json.dumps(record))
+                    release_path = root / "examples/synthetic-release.json"
+                    release = json.loads(release_path.read_text())
+                    for artifact in release["artifacts"]:
+                        if artifact["path"] == "examples/synthetic-model.json":
+                            artifact["sha256"] = hashlib.sha256(record_path.read_bytes()).hexdigest()
+                    release_path.write_text(json.dumps(release))
+                    errors = MODULE.validate(root)
+                    self.assertTrue(
+                        any("examples require credential-free reserved source URLs" in error
+                            for error in errors), errors
+                    )
+                    self.assertFalse(any("checksum mismatch" in error for error in errors))
 
     def test_material_scope_and_conditions_cannot_be_bypassed(self):
         grant = deepcopy(self.rights)
