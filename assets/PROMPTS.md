@@ -37,6 +37,6 @@ NEGATIVE LIST: no text, letters, numbers, words, labels, logos, brand marks, wat
 ```
 
 
-- Candidates: 2 generated. Attempt 1 (soft glow variant, Codex session 01a18b6c-ddae-75d0-8644-f88bfed8fae0) was rejected by `content icon normalize` with art-fail:icon-budget (624105 bytes > 300000). Attempt 2 (flat, no glow; session 01a18b6d-ea30-7651-99fa-cf49920cd303) selected (reason: clean teal and amber line art, no text, inside the live area).
+- Candidates: 2 generated. Attempt 1 (soft glow variant, Codex generation) was rejected by `content icon normalize` with art-fail:icon-budget (624105 bytes > 300000). Attempt 2 (flat, no glow) selected (reason: clean teal and amber line art, no text, inside the live area).
 - Post-processing: showcase.py 1.0.0 `content icon normalize --ground transparent` (keyed from #F5F7FA, lanczos, trim, fit to live area 168..856); output sha256 e2342047e79a92cb9a1b75708d0c9b9520a8f839529f8d8d27aa0fbb123fac9e; 121 KB
 - Alt text: A teal line-art arched gateway with a vertical line down its centre and a small amber diamond at its keystone, standing on three stacked rounded slabs.
