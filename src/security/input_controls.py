@@ -71,6 +71,53 @@ def _safe_text(value):
         raise UnsafeJSONError("Invalid Unicode scalar value")
 
 
+def _preflight_json_nodes(source_text: str, max_nodes: int, max_depth: int) -> None:
+    """Count JSON value positions before json.loads allocates the parse tree.
+
+    For valid JSON, each object colon introduces one child value and each
+    array item introduces one child value. Ignore punctuation inside strings.
+    Reject excessive container nesting before allocating a deep decoder tree.
+    This is only a resource preflight: json.loads remains the syntax authority
+    and the existing postparse depth, type, and text checks remain mandatory.
+    """
+    nodes = 1  # root value
+    containers = []  # [opening delimiter, first array item seen]
+    in_string = False
+    escaped = False
+    for char in source_text:
+        if in_string:
+            if escaped:
+                escaped = False
+            elif char == "\\":
+                escaped = True
+            elif char == '"':
+                in_string = False
+            continue
+
+        if char == '"':
+            if containers and containers[-1][0] == "[" and not containers[-1][1]:
+                containers[-1][1] = True
+                nodes += 1
+            in_string = True
+        elif char not in " \t\r\n":
+            if containers and containers[-1][0] == "[" and not containers[-1][1] and char != "]":
+                containers[-1][1] = True
+                nodes += 1
+            if char in "[{":
+                if len(containers) >= max_depth:
+                    raise UnsafeJSONError("JSON nesting limit exceeded")
+                containers.append([char, False])
+            elif char in "]}":
+                if containers:
+                    containers.pop()
+            elif char == "," and containers and containers[-1][0] == "[":
+                nodes += 1
+            elif char == ":" and containers and containers[-1][0] == "{":
+                nodes += 1
+        if nodes > max_nodes:
+            raise UnsafeJSONError("JSON node limit exceeded")
+
+
 def parse_untrusted_json(
     payload: bytes | str, *, max_bytes: int = DEFAULT_MAX_BYTES,
     max_depth: int = DEFAULT_MAX_DEPTH, max_nodes: int = DEFAULT_MAX_NODES
@@ -103,6 +150,7 @@ def parse_untrusted_json(
     malformed = False
     try:
         source_text = raw.decode("utf-8", errors="strict")
+        _preflight_json_nodes(source_text, max_nodes, max_depth)
         parsed = json.loads(
             source_text, object_pairs_hook=_unique_pairs,
             parse_int=_integer, parse_float=_decimal,
