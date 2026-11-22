@@ -88,8 +88,10 @@ def _bounded_fixture_data(value):
             return False
         kind = type(item)
         if kind is dict or kind is list:
-            # Check length before allocating work proportional to a container.
-            if len(item) > 10_000 - nodes:
+            # Bound queued work before allocating children. Dicts enqueue both
+            # their keys and values, not just the number of entries.
+            pending = len(item) * (2 if kind is dict else 1)
+            if nodes + len(stack) + pending > 10_000:
                 return False
             if kind is dict:
                 if any(type(key) is not str for key in item):

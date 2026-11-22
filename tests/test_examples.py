@@ -469,6 +469,27 @@ class ExampleBoundaryTests(unittest.TestCase):
                 )
                 self.assertFalse(allowed, reasons)
 
+    def test_pending_fixture_work_remains_memory_bounded(self):
+        # Shared-reference Python containers are not JSON wire data, but the
+        # directly callable fixture guard must not amplify pending allocations.
+        graph = 0
+        for _ in range(31):
+            graph = [graph] * 8_000
+        self.assertFalse(tracemalloc.is_tracing())
+        tracemalloc.start()
+        try:
+            self.assertFalse(MODULE._bounded_fixture_data(graph))
+            _, peak = tracemalloc.get_traced_memory()
+        finally:
+            tracemalloc.stop()
+        self.assertLess(peak, 2_000_000)
+
+    def test_pending_fixture_work_counts_dict_keys_and_values(self):
+        self.assertTrue(MODULE._bounded_fixture_data([0] * 9_999))
+        self.assertFalse(MODULE._bounded_fixture_data([0] * 10_000))
+        self.assertTrue(MODULE._bounded_fixture_data({str(i): i for i in range(4_999)}))
+        self.assertFalse(MODULE._bounded_fixture_data({str(i): i for i in range(5_000)}))
+
     def test_unknown_claim_cannot_contain_invented_zero(self):
         schema = MODULE.read_json(ROOT / "schemas/v0.1/catalog-record.schema.json")
         self.record["claims"][1]["value"] = 0
