@@ -36,6 +36,22 @@ def _measure_date_rejection():
     return {"bounded": bounded, "allowed": allowed, "reasons": len(reasons), "peak": peak}
 
 
+def _measure_pending_fixture_work():
+    """Measure the directly callable guard in its own allocation tracer."""
+    if tracemalloc.is_tracing():
+        raise AssertionError("Measurement requires its own allocation tracer")
+    graph = 0
+    for _ in range(31):
+        graph = [graph] * 8_000
+    tracemalloc.start()
+    try:
+        accepted = MODULE._bounded_fixture_data(graph)
+        _, peak = tracemalloc.get_traced_memory()
+    finally:
+        tracemalloc.stop()
+    return {"accepted": accepted, "peak": peak}
+
+
 class ExampleBoundaryTests(unittest.TestCase):
     def setUp(self):
         self.record = MODULE.read_json(ROOT / "examples/synthetic-model.json")
@@ -472,17 +488,23 @@ class ExampleBoundaryTests(unittest.TestCase):
     def test_pending_fixture_work_remains_memory_bounded(self):
         # Shared-reference Python containers are not JSON wire data, but the
         # directly callable fixture guard must not amplify pending allocations.
-        graph = 0
-        for _ in range(31):
-            graph = [graph] * 8_000
-        self.assertFalse(tracemalloc.is_tracing())
-        tracemalloc.start()
-        try:
-            self.assertFalse(MODULE._bounded_fixture_data(graph))
-            _, peak = tracemalloc.get_traced_memory()
-        finally:
-            tracemalloc.stop()
-        self.assertLess(peak, 2_000_000)
+        if tracemalloc.is_tracing():
+            env = dict(os.environ)
+            env.pop("PYTHONTRACEMALLOC", None)
+            command = [sys.executable, "-c",
+                       "import json, tracemalloc; "
+                       "from tests.test_examples import _measure_pending_fixture_work; "
+                       "tracemalloc.stop(); print(json.dumps(_measure_pending_fixture_work()))"]
+            result = subprocess.run(command, cwd=ROOT, env=env, capture_output=True,
+                                    text=True, timeout=30)
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            self.assertTrue(tracemalloc.is_tracing())
+            measured = json.loads(result.stdout)
+        else:
+            measured = _measure_pending_fixture_work()
+            self.assertFalse(tracemalloc.is_tracing())
+        self.assertFalse(measured["accepted"])
+        self.assertLess(measured["peak"], 2_000_000)
 
     def test_pending_fixture_work_counts_dict_keys_and_values(self):
         self.assertTrue(MODULE._bounded_fixture_data([0] * 9_999))
