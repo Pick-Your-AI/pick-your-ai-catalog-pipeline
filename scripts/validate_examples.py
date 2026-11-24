@@ -69,6 +69,12 @@ def _reserved_example_url(value):
         parsed = urlsplit(value)
     except ValueError:
         return False
+    # A URI path is slash-separated pchar segments; pchar includes only
+    # unreserved, sub-delimiter, colon, at-sign, or complete percent triplets.
+    if re.fullmatch(
+            r"(?:[A-Za-z0-9\-._~!$&'()*+,;=:@/]|%[0-9A-Fa-f]{2})*",
+            parsed.path) is None:
+        return False
     return (parsed.scheme == "https" and parsed.netloc == "example.invalid" and
             not parsed.query and not parsed.fragment and parsed.geturl() == value)
 

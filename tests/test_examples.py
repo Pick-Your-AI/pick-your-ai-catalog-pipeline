@@ -236,6 +236,15 @@ class ExampleBoundaryTests(unittest.TestCase):
             "https://example.invalid/synthetic/source\n",
             "https://example.invalid/synthetic/source?",
             "https://example.invalid/synthetic/source#",
+            "https://example.invalid/synthetic/raw\x00nul",
+            "https://example.invalid/synthetic/raw space",
+            "https://example.invalid/synthetic/raw\\backslash",
+            "https://example.invalid/synthetic/bad%",
+            "https://example.invalid/synthetic/bad%0G",
+            "https://example.invalid/synthetic/bad%A",
+            "https://example.invalid/synthetic/raw<angle",
+            "https://example.invalid/synthetic/raw[bracket",
+            "https://example.invalid/synthetic/rawévalue",
         ):
             with self.subTest(source_url=source_url):
                 record = deepcopy(self.record)
@@ -258,6 +267,15 @@ class ExampleBoundaryTests(unittest.TestCase):
             "https://example.invalid/synthetic/source\n",
             "https://example.invalid/synthetic/source?",
             "https://example.invalid/synthetic/source#",
+            "https://example.invalid/synthetic/raw\x00nul",
+            "https://example.invalid/synthetic/raw space",
+            "https://example.invalid/synthetic/raw\\backslash",
+            "https://example.invalid/synthetic/bad%",
+            "https://example.invalid/synthetic/bad%0G",
+            "https://example.invalid/synthetic/bad%A",
+            "https://example.invalid/synthetic/raw<angle",
+            "https://example.invalid/synthetic/raw[bracket",
+            "https://example.invalid/synthetic/rawévalue",
         ):
             with self.subTest(source_url=source_url):
                 with tempfile.TemporaryDirectory() as tmp:
@@ -280,6 +298,34 @@ class ExampleBoundaryTests(unittest.TestCase):
                             for error in errors), errors
                     )
                     self.assertFalse(any("checksum mismatch" in error for error in errors))
+
+    def test_cli_accepts_rfc3986_reserved_path_characters_and_encoded_octets(self):
+        for path in (
+            "/synthetic/AZaz09-._~!$&'()*+,;=:@",
+            "/synthetic/encoded%20space",
+            "/synthetic/encoded%2Fslash",
+            "/synthetic/encoded%5Cbackslash",
+            "/synthetic/encoded%00nul",
+            "/synthetic/encoded%3Cangle%5Bbracket",
+            "/synthetic/encoded%c3%a9",
+        ):
+            with self.subTest(path=path):
+                with tempfile.TemporaryDirectory() as tmp:
+                    root = Path(tmp)
+                    shutil.copytree(ROOT / "examples", root / "examples")
+                    shutil.copytree(ROOT / "schemas/v0.1", root / "schemas/v0.1")
+                    record_path = root / "examples/synthetic-model.json"
+                    record = json.loads(record_path.read_text())
+                    record["claims"][0]["sources"][0]["url"] = "https://example.invalid" + path
+                    record_path.write_text(json.dumps(record))
+                    release_path = root / "examples/synthetic-release.json"
+                    release = json.loads(release_path.read_text())
+                    for artifact in release["artifacts"]:
+                        if artifact["path"] == "examples/synthetic-model.json":
+                            artifact["sha256"] = hashlib.sha256(record_path.read_bytes()).hexdigest()
+                    release_path.write_text(json.dumps(release))
+                    errors = MODULE.validate(root)
+                    self.assertFalse(errors, errors)
 
     def test_material_scope_and_conditions_cannot_be_bypassed(self):
         grant = deepcopy(self.rights)
