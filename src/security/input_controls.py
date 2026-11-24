@@ -5,7 +5,7 @@ HTML sanitizer, archive handler, or production admission decision.
 """
 from __future__ import annotations
 
-from decimal import Decimal, InvalidOperation
+from decimal import Context, Decimal, InvalidOperation
 import json
 
 
@@ -40,17 +40,17 @@ def _decimal(token):
     if len(token) > 96:
         raise UnsafeJSONError("Decimal token length exceeded")
     try:
-        number = Decimal(token)
+        number = Decimal(token, context=Context(traps=[InvalidOperation]))
     except InvalidOperation:
         number = None
     # Raise outside handler to avoid retaining raw input in __context__.
     if number is None:
         raise UnsafeJSONError("Invalid decimal number")
     parts = number.as_tuple()
-    if len(parts.digits) > MAX_DECIMAL_DIGITS or abs(parts.exponent) > MAX_DECIMAL_EXPONENT:
-        raise UnsafeJSONError("Decimal precision or exponent limit exceeded")
     if not number.is_finite():
         raise UnsafeJSONError("Nonfinite decimal number")
+    if len(parts.digits) > MAX_DECIMAL_DIGITS or abs(parts.exponent) > MAX_DECIMAL_EXPONENT:
+        raise UnsafeJSONError("Decimal precision or exponent limit exceeded")
     return number
 
 
