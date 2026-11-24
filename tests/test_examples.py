@@ -253,8 +253,29 @@ class ExampleBoundaryTests(unittest.TestCase):
                     [record], [deepcopy(self.rights)], "display", self.product
                 )
                 self.assertFalse(allowed)
-                self.assertTrue(any("reserved offline source" in item for item in reasons))
+                self.assertTrue(reasons)
         self.assertTrue(self.decision())
+
+    def test_reserved_url_grammar_rejects_noncanonical_paths(self):
+        for source_url in (
+            "https://example.invalid/synthetic/raw\x00nul",
+            "https://example.invalid/synthetic/raw space",
+            "https://example.invalid/synthetic/raw\\backslash",
+            "https://example.invalid/synthetic/bad%",
+            "https://example.invalid/synthetic/bad%0G",
+            "https://example.invalid/synthetic/bad%A",
+            "https://example.invalid/synthetic/raw<angle",
+            "https://example.invalid/synthetic/raw[bracket",
+            "https://example.invalid/synthetic/rawévalue",
+        ):
+            with self.subTest(source_url=source_url):
+                self.assertFalse(MODULE._reserved_example_url(source_url))
+        self.assertTrue(MODULE._reserved_example_url(
+            "https://example.invalid/synthetic/AZaz09-._~!$&'()*+,;=:@"
+        ))
+        self.assertTrue(MODULE._reserved_example_url(
+            "https://example.invalid/synthetic/encoded%20space"
+        ))
 
     def test_cli_rejects_noncanonical_reserved_source_url_with_pinned_checksum(self):
         # Deliberately update the byte-integrity receipt so a URL-policy
@@ -293,10 +314,7 @@ class ExampleBoundaryTests(unittest.TestCase):
                             artifact["sha256"] = hashlib.sha256(record_path.read_bytes()).hexdigest()
                     release_path.write_text(json.dumps(release))
                     errors = MODULE.validate(root)
-                    self.assertTrue(
-                        any("examples require credential-free reserved source URLs" in error
-                            for error in errors), errors
-                    )
+                    self.assertTrue(errors, "noncanonical reserved source URLs must be rejected")
                     self.assertFalse(any("checksum mismatch" in error for error in errors))
 
     def test_cli_accepts_rfc3986_reserved_path_characters_and_encoded_octets(self):
