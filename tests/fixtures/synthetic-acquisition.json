@@ -1,0 +1,36 @@
+{
+  "request": {
+    "schema_version": "synthetic-acquisition-request-0.1",
+    "synthetic": true,
+    "id": "urn:pya:synthetic:request:one",
+    "source_id": "urn:pya:synthetic:source:fictional-lab",
+    "material_id": "urn:pya:synthetic:material:metadata",
+    "product_id": "urn:pya:synthetic:product:offline-rehearsal",
+    "locator": "https://example.invalid/fictional/metadata",
+    "fields": ["metadata.title"],
+    "data_category": "metadata",
+    "credential_mode": "none"
+  },
+  "decision": {
+    "schema_version": "synthetic-acquisition-decision-0.1",
+    "synthetic": true,
+    "id": "urn:pya:synthetic:decision:fictional-retrieval",
+    "revision": 1,
+    "source_id": "urn:pya:synthetic:source:fictional-lab",
+    "material_id": "urn:pya:synthetic:material:metadata",
+    "product_id": "urn:pya:synthetic:product:offline-rehearsal",
+    "locator": "https://example.invalid/fictional/metadata",
+    "fields": ["metadata.title", "metadata.label"],
+    "operation": "retrieve",
+    "status": "permit",
+    "conditions": [],
+    "valid_from": "2026-11-18T10:00:00Z",
+    "expires_at": "2026-11-18T11:00:00Z",
+    "retention": {
+      "storage": "synthetic_memory",
+      "access": "rehearsal_only",
+      "max_age_seconds": 60
+    },
+    "max_simulated_calls": 2
+  }
+}
