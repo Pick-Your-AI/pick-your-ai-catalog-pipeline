@@ -1,0 +1,291 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/pick-your-ai/schemas/pipeline-record.schema.json",
+  "title": "Synthetic pipeline record envelope, independent draft",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "synthetic",
+    "id",
+    "revision",
+    "entity_kind",
+    "display_name",
+    "publication_state",
+    "provenance",
+    "fields"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "catalog-pipeline-record-draft-0.1.0"
+    },
+    "synthetic": {
+      "const": true
+    },
+    "id": {
+      "$ref": "#/$defs/identity"
+    },
+    "revision": {
+      "$ref": "#/$defs/revision"
+    },
+    "entity_kind": {
+      "enum": [
+        "model_family",
+        "model_release",
+        "model_artifact",
+        "provider",
+        "provider_offering",
+        "hardware",
+        "device",
+        "runtime",
+        "dataset",
+        "dataset_release",
+        "benchmark_suite",
+        "benchmark_run",
+        "benchmark_result",
+        "application",
+        "service",
+        "agent_framework",
+        "tool",
+        "mcp_server",
+        "integration",
+        "memory_store",
+        "paper",
+        "method",
+        "organization",
+        "use_case",
+        "trust_attribute",
+        "cost_observation",
+        "energy_observation",
+        "learning_resource"
+      ]
+    },
+    "display_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "publication_state": {
+      "const": "withheld"
+    },
+    "provenance": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/provenance"
+      }
+    },
+    "fields": {
+      "$ref": "#/$defs/fields"
+    },
+    "relationships": {
+      "type": "array",
+      "maxItems": 64,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/relationship"
+      }
+    },
+    "extensions": {
+      "type": "object",
+      "maxProperties": 8,
+      "patternProperties": {
+        "^example\\.invalid\\.[a-z][a-z0-9-]{0,31}(?![\\s\\S])": {
+          "$ref": "#/$defs/fields"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "identity": {
+      "type": "string",
+      "pattern": "^urn:pya:synthetic:[a-z0-9][a-z0-9:._-]{0,127}(?![\\s\\S])"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "material_id",
+        "source_uri",
+        "source_revision",
+        "observed_at"
+      ],
+      "properties": {
+        "source_id": {
+          "$ref": "#/$defs/identity"
+        },
+        "material_id": {
+          "$ref": "#/$defs/identity"
+        },
+        "source_uri": {
+          "type": "string",
+          "format": "uri",
+          "maxLength": 256,
+          "pattern": "^https://example\\.invalid/[a-z0-9][a-z0-9/._-]*(?![\\s\\S])"
+        },
+        "source_revision": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]{0,63}(?![\\s\\S])"
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "Z(?![\\s\\S])"
+        }
+      }
+    },
+    "fields": {
+      "type": "object",
+      "maxProperties": 64,
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)*(?![\\s\\S])",
+        "maxLength": 128
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/field"
+      }
+    },
+    "field": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "state",
+            "value"
+          ],
+          "properties": {
+            "state": {
+              "const": "known"
+            },
+            "value": {
+              "$ref": "#/$defs/value"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "state",
+            "reason"
+          ],
+          "properties": {
+            "state": {
+              "enum": [
+                "unknown",
+                "unsupported",
+                "not_applicable"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 512,
+              "pattern": "\\S"
+            }
+          }
+        }
+      ]
+    },
+    "value": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "data"
+      ],
+      "properties": {
+        "type": {},
+        "data": {}
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "type": {
+              "const": "text"
+            },
+            "data": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            }
+          }
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "integer"
+            },
+            "data": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            }
+          }
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "boolean"
+            },
+            "data": {
+              "type": "boolean"
+            }
+          }
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "decimal"
+            },
+            "data": {
+              "type": "string",
+              "maxLength": 72,
+              "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?(?![\\s\\S])"
+            }
+          }
+        }
+      ]
+    },
+    "relationship": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "relation",
+        "target_id",
+        "target_revision"
+      ],
+      "properties": {
+        "relation": {
+          "enum": [
+            "member_of",
+            "offered_by",
+            "runs_on",
+            "supports",
+            "evaluated_on",
+            "derived_from",
+            "cites",
+            "supersedes",
+            "documents"
+          ]
+        },
+        "target_id": {
+          "$ref": "#/$defs/identity"
+        },
+        "target_revision": {
+          "$ref": "#/$defs/revision"
+        }
+      }
+    }
+  }
+}

@@ -19,6 +19,7 @@ SCHEMA_MAP = {
     "synthetic-source-rights.json": "source-use-decision.schema.json",
     "synthetic-release.json": "release-manifest.schema.json",
 }
+PIPELINE_EXAMPLE = "synthetic/entities.json"
 
 
 def _unique_object(pairs):
@@ -109,14 +110,41 @@ def _check_dates(value, errors, prefix=""):
             _check_dates(item, errors, prefix + str(i) + "/")
 
 
+def pipeline_example_errors(root):
+    """Check the independent synthetic envelope and exact in-collection links."""
+    try:
+        schema = read_json(ROOT / "schemas/pipeline-record.schema.json")
+        source = root / "examples" / PIPELINE_EXAMPLE
+        records = json.loads(source.read_text(encoding="utf-8"), object_pairs_hook=_unique_object,
+                             parse_float=_reject_constant, parse_constant=_reject_constant)
+        errors = schema_errors(records, {
+            "type": "array", "minItems": 1, "maxItems": 64, "items": schema,
+        })
+    except (OSError, ValueError, RuntimeError, RecursionError):
+        return [f"{PIPELINE_EXAMPLE}: could not validate the synthetic envelope collection"]
+    if errors:
+        return [f"{PIPELINE_EXAMPLE}: {error}" for error in errors]
+
+    revisions = {(record["id"], record["revision"]) for record in records}
+    if len(revisions) != len(records):
+        errors.append(f"{PIPELINE_EXAMPLE}: duplicate record revision")
+    for index, record in enumerate(records):
+        for link in record.get("relationships", []):
+            if (link["target_id"], link["target_revision"]) not in revisions:
+                errors.append(f"{PIPELINE_EXAMPLE}: {index}/relationships: unlisted target revision")
+    return errors
+
+
 def validate(root=ROOT):
     root = Path(root).resolve()
     errors = []
     loaded = {}
     expected_paths = {root / "examples" / name for name in SCHEMA_MAP}
+    expected_paths.add(root / "examples" / PIPELINE_EXAMPLE)
     actual_paths = set((root / "examples").rglob("*.json"))
     for extra in sorted(actual_paths - expected_paths):
         errors.append(f"{extra.relative_to(root)}: unregistered example has no explicit schema and synthetic validation")
+    errors.extend(pipeline_example_errors(root))
     for name, schema_name in SCHEMA_MAP.items():
         try:
             instance = read_json(root / "examples" / name)
