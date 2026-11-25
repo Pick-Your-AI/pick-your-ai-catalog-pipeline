@@ -15,6 +15,24 @@ pub = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(pub)
 
 
+class AtomicReceiptTest(unittest.TestCase):
+    def test_failed_replace_keeps_previous_receipt_and_allows_retry(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "réconciliation.json"
+            previous = {"state": "intent"}
+            updated = {"state": "verified"}
+            pub.atomic_json(path, previous)
+
+            with patch.object(pub, "_replace_receipt", side_effect=PermissionError("locked")):
+                with self.assertRaises(PermissionError):
+                    pub.atomic_json(path, updated)
+
+            self.assertEqual(pub.load_json(path), previous)
+            self.assertEqual(list(path.parent.iterdir()), [path])
+            pub.atomic_json(path, updated)
+            self.assertEqual(pub.load_json(path), updated)
+
+
 def fixture():
     config = {"owner": pub.OWNER, "repository": pub.REPO, "title": pub.TITLE,
               "description": "Synthetic offline publisher test", "public": True,
