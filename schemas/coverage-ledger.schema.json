@@ -1,0 +1,243 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:pya:catalog:offline-coverage-ledger:0.2",
+  "title": "Synthetic inventory accounting only; no coverage or publication acceptance",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": "coverage-ledger-synthetic-0.2"},
+    "synthetic": {"const": true},
+    "publication_eligible": {"const": false},
+    "domains": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 16,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^urn:pya:synthetic:[a-z0-9][a-z0-9-]{0,63}$(?![\\s\\S])",
+            "maxLength": 82
+          },
+          "inclusion_rule": {"const": "explicit_fixture_members"},
+          "scope_state": {"enum": ["bounded_fixture", "unknown_scope"]},
+          "denominators": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "entity": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {"state": {"const": "unknown"}},
+                    "required": ["state"]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "state": {"const": "bounded_fixture"},
+                      "count": {"type": "integer", "minimum": 0, "maximum": 100000000},
+                      "evidence_ref": {
+                        "type": "string",
+                        "pattern": "^urn:pya:synthetic:[a-z0-9][a-z0-9-]{0,63}$(?![\\s\\S])",
+                        "maxLength": 82
+                      }
+                    },
+                    "required": ["state", "count", "evidence_ref"]
+                  }
+                ]
+              },
+              "release": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {"state": {"const": "unknown"}},
+                    "required": ["state"]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "state": {"const": "bounded_fixture"},
+                      "count": {"type": "integer", "minimum": 0, "maximum": 100000000},
+                      "evidence_ref": {
+                        "type": "string",
+                        "pattern": "^urn:pya:synthetic:[a-z0-9][a-z0-9-]{0,63}$(?![\\s\\S])",
+                        "maxLength": 82
+                      }
+                    },
+                    "required": ["state", "count", "evidence_ref"]
+                  }
+                ]
+              },
+              "offering": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {"state": {"const": "unknown"}},
+                    "required": ["state"]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "state": {"const": "bounded_fixture"},
+                      "count": {"type": "integer", "minimum": 0, "maximum": 100000000},
+                      "evidence_ref": {
+                        "type": "string",
+                        "pattern": "^urn:pya:synthetic:[a-z0-9][a-z0-9-]{0,63}$(?![\\s\\S])",
+                        "maxLength": 82
+                      }
+                    },
+                    "required": ["state", "count", "evidence_ref"]
+                  }
+                ]
+              },
+              "evidence": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {"state": {"const": "unknown"}},
+                    "required": ["state"]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "state": {"const": "bounded_fixture"},
+                      "count": {"type": "integer", "minimum": 0, "maximum": 100000000},
+                      "evidence_ref": {
+                        "type": "string",
+                        "pattern": "^urn:pya:synthetic:[a-z0-9][a-z0-9-]{0,63}$(?![\\s\\S])",
+                        "maxLength": 82
+                      }
+                    },
+                    "required": ["state", "count", "evidence_ref"]
+                  }
+                ]
+              }
+            },
+            "required": ["entity", "release", "offering", "evidence"]
+          }
+        },
+        "required": ["id", "inclusion_rule", "scope_state", "denominators"]
+      }
+    },
+    "records": {
+      "type": "array",
+      "maxItems": 128,
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^urn:pya:synthetic:[a-z0-9][a-z0-9-]{0,63}$(?![\\s\\S])",
+                "maxLength": 82
+              },
+              "domain": {
+                "type": "string",
+                "pattern": "^urn:pya:synthetic:[a-z0-9][a-z0-9-]{0,63}$(?![\\s\\S])",
+                "maxLength": 82
+              },
+              "kind": {"enum": ["entity", "release", "offering", "evidence"]},
+              "logical_id": {
+                "type": "string",
+                "pattern": "^urn:pya:synthetic:[a-z0-9][a-z0-9-]{0,63}$(?![\\s\\S])",
+                "maxLength": 82
+              },
+              "relation": {"const": "canonical"},
+              "stage": {"enum": ["candidate", "normalized", "reviewed", "eligible", "published"]},
+              "exclusion": {"enum": ["active", "quarantined", "withdrawn"]},
+              "rights": {"enum": ["unknown", "deny", "permit_fixture"]},
+              "evidence_class": {"enum": ["unknown", "Primary documentation", "Vendor claim", "Independent measurement", "Estimate"]},
+              "review_state": {"enum": ["unknown", "source_checked", "reviewed", "independently_reproduced"]},
+              "freshness": {"enum": ["unknown", "current_fixture", "stale_fixture", "pinned_fixture"]},
+              "consumer": {"enum": ["unknown", "not_received", "received_fixture"]},
+              "missing_fields": {
+                "type": "array",
+                "maxItems": 4,
+                "uniqueItems": true,
+                "items": {"enum": ["identity", "evidence", "rights", "conditions"]}
+              },
+              "maintenance": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {"state": {"const": "unknown"}},
+                    "required": ["state"]
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "state": {"const": "known_fixture"},
+                      "units": {"type": "integer", "minimum": 0, "maximum": 100000000}
+                    },
+                    "required": ["state", "units"]
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "domain",
+              "kind",
+              "logical_id",
+              "relation",
+              "stage",
+              "exclusion",
+              "rights",
+              "evidence_class",
+              "review_state",
+              "freshness",
+              "consumer",
+              "missing_fields",
+              "maintenance"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^urn:pya:synthetic:[a-z0-9][a-z0-9-]{0,63}$(?![\\s\\S])",
+                "maxLength": 82
+              },
+              "domain": {
+                "type": "string",
+                "pattern": "^urn:pya:synthetic:[a-z0-9][a-z0-9-]{0,63}$(?![\\s\\S])",
+                "maxLength": 82
+              },
+              "kind": {"enum": ["entity", "release", "offering", "evidence"]},
+              "logical_id": {
+                "type": "string",
+                "pattern": "^urn:pya:synthetic:[a-z0-9][a-z0-9-]{0,63}$(?![\\s\\S])",
+                "maxLength": 82
+              },
+              "relation": {"enum": ["alias", "merged"]},
+              "target": {
+                "type": "string",
+                "pattern": "^urn:pya:synthetic:[a-z0-9][a-z0-9-]{0,63}$(?![\\s\\S])",
+                "maxLength": 82
+              }
+            },
+            "required": ["id", "domain", "kind", "logical_id", "relation", "target"]
+          }
+        ]
+      }
+    }
+  },
+  "required": ["schema_version", "synthetic", "publication_eligible", "domains", "records"]
+}
