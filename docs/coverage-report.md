@@ -2,7 +2,9 @@
 
 Refs #36 (CP-07.04), partial offline engineering. This separately versioned draft
 is independent of `planning/coverage-matrix.json`, which remains a planning source.
-It does not measure a real catalog, authenticate decisions, grant rights or establish
+Draft 0.2 separates evidence class from review state; the unaccepted 0.1 fixture
+format is rejected rather than guessing missing evidence grades. It does not
+measure a real catalog, authenticate decisions, grant rights or establish
 complete bounded-domain coverage. Keep #36 open.
 
 `src.metrics.coverage.report(payload)` accepts strict UTF-8 JSON **bytes** under
@@ -29,10 +31,13 @@ summed as distinct ecosystem entities.
 
 A canonical row declares its greatest simulated stage. Its historical prefix runs
 from candidate through normalized, reviewed, eligible and published. These are
-fixture stages, never actual approvals or release receipts. Reviewed-or-later rows
-cannot declare missing mandatory fields. Eligible/published rows require fixture
-permission and non-unknown evidence, without converting either into real clearance.
-A current received-fixture flag requires an active published-fixture row.
+fixture stages, never actual approvals or release receipts. Active reviewed-or-later
+rows cannot declare missing mandatory fields. Active eligible/published rows require
+fixture permission and a non-unknown evidence class, without converting either into
+real clearance. Excluded rows can retain the greatest historical stage even when
+current rights, evidence or mandatory fields have changed; they cannot contribute
+to current progress beyond candidate. A current received-fixture flag requires an
+active published-fixture row.
 
 Reports retain historical stage counts separately from current simulated counts.
 Quarantined and withdrawn canonical rows stay in candidate inventory and historical
@@ -45,9 +50,11 @@ counts, but contribute to no current stage beyond candidate. Thus:
   canonical units. The first drop includes excluded units and active candidate-only
   units; other drops represent active units whose greatest stage is the earlier one.
 
-Rights, evidence, freshness and receiving-state histograms cover canonical units,
-including exclusions, and stay separate from stage counts. Missing mandatory-field
-counts expose depth gaps. Maintenance uses exact fixture work units, never money or
+Rights, evidence class (the four research grades or unknown), review state (unknown,
+source checked, reviewed or independently reproduced), freshness and receiving-state
+histograms cover canonical units, including exclusions, separately from stage counts.
+Review-state labels are simulated and independent of the evidence class. Missing
+mandatory-field counts expose depth gaps. Maintenance uses exact fixture work units, never money or
 elapsed production cost; unknown work is counted separately rather than zero-filled.
 An exact published-fixture fraction is emitted as integer numerator/denominator only
 when a nonzero bounded denominator is supplied. Every bucket still declares

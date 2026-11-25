@@ -101,10 +101,12 @@ def report(payload):
                 raise CoverageError('duplicate_logical_identity')
             logical.add(key)
             reached = STAGES.index(row['stage'])
-            if reached >= 2 and row['missing_fields']:
+            # Stage is historical; current admission gates apply only to active rows.
+            active_row = row['exclusion'] == 'active'
+            if active_row and reached >= 2 and row['missing_fields']:
                 raise CoverageError('incomplete_review')
-            if reached >= 3 and (row['rights'] != 'permit_fixture'
-                                 or row['evidence'] == 'unknown'):
+            if active_row and reached >= 3 and (row['rights'] != 'permit_fixture'
+                                                or row['evidence_class'] == 'unknown'):
                 raise CoverageError('ineligible_stage')
             if row['consumer'] == 'received_fixture' and (
                     row['stage'] != 'published' or row['exclusion'] != 'active'):
@@ -152,7 +154,7 @@ def report(payload):
                                      current[STAGES[i]] - current[STAGES[i+1]]
                                      for i in range(len(STAGES)-1)},
                 'quality': {axis: dict(sorted(Counter(r[axis] for r in selected).items()))
-                            for axis in ('rights', 'evidence', 'freshness', 'consumer')},
+                            for axis in ('rights', 'evidence_class', 'review_state', 'freshness', 'consumer')},
                 'missing_fields': {field: sum(field in r['missing_fields'] for r in selected)
                                    for field in ('identity', 'evidence', 'rights', 'conditions')},
                 'maintenance': {'known_fixture_units': sum(costs),
@@ -163,7 +165,7 @@ def report(payload):
         output.append({'domain_ordinal': ordinal,
                        'inclusion_rule': domain['inclusion_rule'],
                        'scope_state': domain['scope_state'], 'units': buckets})
-    return {'schema_version': 'coverage-report-synthetic-0.1', 'synthetic': True,
+    return {'schema_version': 'coverage-report-synthetic-0.2', 'synthetic': True,
             'rights_cleared': False, 'publication_eligible': False,
             'evidence_status': 'synthetic_unverified', 'domains': output}
 

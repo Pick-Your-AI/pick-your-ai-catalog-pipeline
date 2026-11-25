@@ -14,13 +14,14 @@ def sid(label):
 def root(label='one', kind='entity', stage='candidate', exclusion='active'):
     return dict(id=sid(label), domain=sid('domain'), logical_id=sid(label),
                 kind=kind, relation='canonical', stage=stage, exclusion=exclusion,
-                rights='permit_fixture', evidence='source_checked',
+                rights='permit_fixture', evidence_class='Primary documentation',
+                review_state='source_checked',
                 freshness='unknown', consumer='not_received', missing_fields=[],
                 maintenance={'state': 'unknown'})
 
 
 def ledger(rows=None):
-    return dict(schema_version='coverage-ledger-synthetic-0.1', synthetic=True,
+    return dict(schema_version='coverage-ledger-synthetic-0.2', synthetic=True,
                 publication_eligible=False, domains=[dict(id=sid('domain'),
                 inclusion_rule='explicit_fixture_members', scope_state='unknown_scope',
                 denominators={k: {'state': 'unknown'}
@@ -102,7 +103,7 @@ class CoverageTests(unittest.TestCase):
         self.rejects(data)
 
     def test_quality_axes_missing_fields_and_unknown_cost_are_separate(self):
-        a = root('a'); a.update(rights='unknown', evidence='vendor_claim',
+        a = root('a'); a.update(rights='unknown', evidence_class='Vendor claim',
                               missing_fields=['evidence', 'conditions'])
         b = root('b'); b['maintenance'] = dict(state='known_fixture', units=7)
         unit = bucket(ledger([a, b]))
@@ -132,10 +133,64 @@ class CoverageTests(unittest.TestCase):
 
     def test_invalid_stages_and_missing_review_or_rights_reject(self):
         for stage in ('eligible', 'published'):
-            for field, value in [('rights', 'unknown'), ('rights', 'deny'), ('evidence', 'unknown')]:
+            for field, value in [('rights', 'unknown'), ('rights', 'deny'), ('evidence_class', 'unknown')]:
                 a = root(stage=stage); a[field] = value; self.rejects(ledger([a]))
         a = root(stage='reviewed'); a['missing_fields'] = ['identity']; self.rejects(ledger([a]))
         a = root(); a['stage'] = 'accepted'; self.rejects(ledger([a]))
+
+    def test_grade_and_source_check_histograms_are_independent(self):
+        grades = ('Primary documentation', 'Vendor claim', 'Independent measurement', 'Estimate')
+        states = ('unknown', 'source_checked', 'reviewed', 'independently_reproduced')
+        rows = []
+        for i, grade in enumerate(grades):
+            for j, state in enumerate(states):
+                row = root('grade-' + str(i) + '-' + str(j))
+                row.update(evidence_class=grade, review_state=state)
+                rows.append(row)
+        quality = bucket(ledger(rows))['quality']
+        self.assertEqual(quality['evidence_class'], {g: 4 for g in grades})
+        self.assertEqual(quality['review_state'], {s: 4 for s in states})
+        self.assertNotIn('evidence', quality)
+        for field, value in [('evidence_class', 'source_checked'),
+                             ('review_state', 'Vendor claim')]:
+            row = root()
+            row[field] = value
+            self.rejects(ledger([row]))
+        row = root()
+        del row['review_state']
+        self.rejects(ledger([row]))
+        old = ledger()
+        old['schema_version'] = 'coverage-ledger-synthetic-0.1'
+        legacy = old['records'][0]
+        del legacy['evidence_class'], legacy['review_state']
+        legacy['evidence'] = 'source_checked'
+        self.rejects(old)
+
+    def test_excluded_rows_preserve_history_after_current_clearance_changes(self):
+        changes = (
+            {'rights': 'deny'},
+            {'evidence_class': 'unknown', 'review_state': 'unknown'},
+            {'missing_fields': ['rights', 'evidence']},
+        )
+        rows = []
+        for i, exclusion in enumerate(('quarantined', 'withdrawn')):
+            for j, changed in enumerate(changes):
+                row = root('excluded-' + str(i) + '-' + str(j),
+                           stage='published', exclusion=exclusion)
+                row.update(changed)
+                rows.append(row)
+        unit = bucket(ledger(rows))
+        self.assertEqual(unit['historical_simulated_stage_counts']['published'], 6)
+        self.assertEqual(list(unit['simulated_stage_counts'].values()), [6, 0, 0, 0, 0])
+        self.assertEqual(unit['quality']['rights'], {'deny': 2, 'permit_fixture': 4})
+        self.assertEqual(unit['quality']['evidence_class'],
+                         {'unknown': 2, 'Primary documentation': 4})
+        self.assertEqual(unit['quality']['review_state'], {'unknown': 2, 'source_checked': 4})
+        self.assertEqual(unit['missing_fields']['rights'], 2)
+        self.assertEqual(unit['stage_drop_counts']['candidate_to_normalized'], 6)
+        for row in rows:
+            self.rejects(ledger([dict(row, exclusion='active')]))
+            self.rejects(ledger([dict(row, consumer='received_fixture')]))
 
     def test_consumer_delivery_cannot_bypass_stage_or_withdrawal(self):
         for stage, exclusion in [('candidate', 'active'), ('published', 'withdrawn')]:

@@ -1,11 +1,11 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:pya:catalog:offline-coverage-ledger:0.1",
+  "$id": "urn:pya:catalog:offline-coverage-ledger:0.2",
   "title": "Synthetic inventory accounting only; no coverage or publication acceptance",
   "type": "object",
   "additionalProperties": false,
   "properties": {
-    "schema_version": {"const": "coverage-ledger-synthetic-0.1"},
+    "schema_version": {"const": "coverage-ledger-synthetic-0.2"},
     "synthetic": {"const": true},
     "publication_eligible": {"const": false},
     "domains": {
@@ -159,7 +159,8 @@
               "stage": {"enum": ["candidate", "normalized", "reviewed", "eligible", "published"]},
               "exclusion": {"enum": ["active", "quarantined", "withdrawn"]},
               "rights": {"enum": ["unknown", "deny", "permit_fixture"]},
-              "evidence": {"enum": ["unknown", "vendor_claim", "source_checked", "measurement_fixture"]},
+              "evidence_class": {"enum": ["unknown", "Primary documentation", "Vendor claim", "Independent measurement", "Estimate"]},
+              "review_state": {"enum": ["unknown", "source_checked", "reviewed", "independently_reproduced"]},
               "freshness": {"enum": ["unknown", "current_fixture", "stale_fixture", "pinned_fixture"]},
               "consumer": {"enum": ["unknown", "not_received", "received_fixture"]},
               "missing_fields": {
@@ -197,7 +198,8 @@
               "stage",
               "exclusion",
               "rights",
-              "evidence",
+              "evidence_class",
+              "review_state",
               "freshness",
               "consumer",
               "missing_fields",
