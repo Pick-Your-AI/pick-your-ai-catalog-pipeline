@@ -1,0 +1,15 @@
+# Synthetic release checksums use the fixture bytes.
+/examples/synthetic-*.json text eol=lf
+
+# The issue payload hashes these planning inputs.
+/planning/project-backlog.json text eol=lf
+/planning/coverage-matrix.json text eol=lf
+/planning/decision-register.json text eol=lf
+/planning/release-manifest.json text eol=lf
+
+# The renderer checks these generated files byte for byte.
+/docs/DELIVERY_PLAN.md text eol=lf
+/docs/DEPENDENCIES.md text eol=lf
+/planning/README.md text eol=lf
+/planning/github-issue-payloads.json text eol=lf
+/planning/issues/*.md text eol=lf
