@@ -73,6 +73,29 @@ def load_json(path: Path) -> Any:
                           PublicationError(f"Non-finite JSON value: {value}")))
 
 
+def _replace_receipt(source: str, destination: Path) -> None:
+    if os.name == "nt":
+        import ctypes
+        from ctypes import wintypes
+
+        move_file = ctypes.WinDLL("kernel32", use_last_error=True).MoveFileExW
+        move_file.argtypes = (wintypes.LPCWSTR, wintypes.LPCWSTR, wintypes.DWORD)
+        move_file.restype = wintypes.BOOL
+        replace_existing = 0x1
+        write_through = 0x8
+        # The temporary file is in the destination directory, so this is a same-volume move.
+        if not move_file(source, os.fspath(destination), replace_existing | write_through):
+            raise ctypes.WinError(ctypes.get_last_error())
+        return
+
+    os.replace(source, destination)
+    directory = os.open(destination.parent, os.O_RDONLY)
+    try:
+        os.fsync(directory)
+    finally:
+        os.close(directory)
+
+
 def atomic_json(path: Path, value: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
     if path.is_symlink():
@@ -84,12 +107,7 @@ def atomic_json(path: Path, value: Any) -> None:
             stream.write("\n")
             stream.flush()
             os.fsync(stream.fileno())
-        os.replace(name, path)
-        directory = os.open(path.parent, os.O_RDONLY)
-        try:
-            os.fsync(directory)
-        finally:
-            os.close(directory)
+        _replace_receipt(name, path)
     finally:
         if os.path.exists(name):
             os.unlink(name)
