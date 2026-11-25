@@ -43,20 +43,62 @@ intake is the only transition recorded, no candidate or review state is
 created, and the previously active release pointer and artifact hashes survive.
 The recovered module also exercises successful delivery for both fixture domains.
 
-Fetch the repaired tree and extract it into a fresh directory. With Python
-3.12 and the pinned dependencies installed, run the following:
+## Reproduce the socket-denied run
+
+Use Linux with Python 3.12.14 and an absolute `WHEELHOUSE` path containing
+the six pinned dependencies. Source acquisition is the networked step.
+After acquisition, the setup uses only local wheels and the test commands
+run with the socket audit hook.
 
 ```sh
-git fetch --no-tags https://github.com/synchronic1/pick-your-ai-catalog-pipeline.git 3df08f4fb7680f9a50096a9bc3a2e9ea1150f166
-mkdir cp-15.02-verification
-git archive FETCH_HEAD | tar -x -C cp-15.02-verification
-cd cp-15.02-verification
-python -m pip install -r requirements-validation.txt
-python -m unittest tests.integration.test_pipeline -v
-python scripts/validate_plan.py
-python scripts/validate_examples.py
-python scripts/render_docs.py --check
+set -eu
+scratch=$(mktemp -d)
+tree=3df08f4fb7680f9a50096a9bc3a2e9ea1150f166
+fork=https://github.com/synchronic1/pick-your-ai-catalog-pipeline.git
+git -C "$scratch" init -q
+git -C "$scratch" fetch --no-tags "$fork" "$tree"
+test "$(git -C "$scratch" rev-parse FETCH_HEAD)" = "$tree"
+test "$(git -C "$scratch" cat-file -t "$tree")" = tree
+git -C "$scratch" archive --format=tar -o "$scratch/source.tar" "$tree"
+mkdir "$scratch/source" "$scratch/hook"
+tar -xf "$scratch/source.tar" -C "$scratch/source"
 ```
+
+If the server refuses to fetch the tree by object ID, use a maintainer-provided
+reachable ref and its independently recorded commit ID. Verify `FETCH_HEAD`
+against that ID and `FETCH_HEAD^{tree}` against `$tree` before exporting.
+For a maintainer-provided archive, verify its SHA-256 against the accompanying
+manifest before extracting. Stage the extracted files in a fresh Git repository
+with `core.autocrlf=false` and verify `git write-tree` returns `$tree`.
+Resume only after the exact tree matches. These are fallback instructions.
+The published object was fetched directly for this verification.
+
+```sh
+python3.12 -m venv "$scratch/venv"
+py="$scratch/venv/bin/python"
+"$py" -m pip install --no-index --find-links "$WHEELHOUSE" \
+    -r "$scratch/source/requirements-validation.txt"
+cat > "$scratch/hook/sitecustomize.py" <<'PY'
+import sys
+
+def deny_network(event, args):
+    if event.startswith("socket."):
+        raise RuntimeError("network disabled for synthetic integration verification")
+
+sys.addaudithook(deny_network)
+PY
+
+cd "$scratch/source"
+export PYTHONPATH="$scratch/hook" PYTHONDONTWRITEBYTECODE=1
+unset PIPELINE_EVIDENCE_DIR
+"$py" -m unittest tests.integration.test_pipeline -v
+"$py" scripts/validate_plan.py
+"$py" scripts/validate_examples.py
+"$py" scripts/render_docs.py --check
+```
+
+The hook rejects Python `socket.*` audit events in interpreters that load
+`sitecustomize`. It provides no OS-level egress controls for external programs.
 
 This receipt covers the isolated synthetic composition. Integration against
 `main` depends on accepted [acquisition and replay #21](https://github.com/Pick-Your-AI/pick-your-ai-catalog-pipeline/issues/21),
