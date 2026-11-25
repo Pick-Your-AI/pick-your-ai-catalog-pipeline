@@ -1,0 +1,369 @@
+[
+  {
+    "schema_version": "catalog-pipeline-record-draft-0.1.0",
+    "synthetic": true,
+    "id": "urn:pya:synthetic:envelope:model",
+    "revision": 1,
+    "entity_kind": "model_release",
+    "display_name": "Fictional model",
+    "publication_state": "withheld",
+    "provenance": [
+      {
+        "source_id": "urn:pya:synthetic:envelope:source",
+        "material_id": "urn:pya:synthetic:envelope:model:material",
+        "source_uri": "https://example.invalid/catalog-envelope/model",
+        "source_revision": "fixture-1",
+        "observed_at": "2026-11-24T00:00:00Z"
+      }
+    ],
+    "fields": {
+      "release.tag": {
+        "state": "known",
+        "value": {
+          "type": "text",
+          "data": "fixture-1"
+        }
+      }
+    }
+  },
+  {
+    "schema_version": "catalog-pipeline-record-draft-0.1.0",
+    "synthetic": true,
+    "id": "urn:pya:synthetic:envelope:offering",
+    "revision": 1,
+    "entity_kind": "provider_offering",
+    "display_name": "Fictional offering",
+    "publication_state": "withheld",
+    "provenance": [
+      {
+        "source_id": "urn:pya:synthetic:envelope:source",
+        "material_id": "urn:pya:synthetic:envelope:offering:material",
+        "source_uri": "https://example.invalid/catalog-envelope/offering",
+        "source_revision": "fixture-1",
+        "observed_at": "2026-11-24T00:00:00Z"
+      }
+    ],
+    "fields": {
+      "offering.region": {
+        "state": "known",
+        "value": {
+          "type": "text",
+          "data": "fixture-region"
+        }
+      }
+    }
+  },
+  {
+    "schema_version": "catalog-pipeline-record-draft-0.1.0",
+    "synthetic": true,
+    "id": "urn:pya:synthetic:envelope:hardware",
+    "revision": 1,
+    "entity_kind": "hardware",
+    "display_name": "Fictional accelerator",
+    "publication_state": "withheld",
+    "provenance": [
+      {
+        "source_id": "urn:pya:synthetic:envelope:source",
+        "material_id": "urn:pya:synthetic:envelope:hardware:material",
+        "source_uri": "https://example.invalid/catalog-envelope/hardware",
+        "source_revision": "fixture-1",
+        "observed_at": "2026-11-24T00:00:00Z"
+      }
+    ],
+    "fields": {
+      "spec.device_count": {
+        "state": "known",
+        "value": {
+          "type": "integer",
+          "data": 0
+        }
+      }
+    }
+  },
+  {
+    "schema_version": "catalog-pipeline-record-draft-0.1.0",
+    "synthetic": true,
+    "id": "urn:pya:synthetic:envelope:dataset",
+    "revision": 1,
+    "entity_kind": "dataset",
+    "display_name": "Fictional evaluation dataset",
+    "publication_state": "withheld",
+    "provenance": [
+      {
+        "source_id": "urn:pya:synthetic:envelope:source",
+        "material_id": "urn:pya:synthetic:envelope:dataset:material",
+        "source_uri": "https://example.invalid/catalog-envelope/dataset",
+        "source_revision": "fixture-1",
+        "observed_at": "2026-11-24T00:00:00Z"
+      }
+    ],
+    "fields": {
+      "license.identifier": {
+        "state": "unknown",
+        "reason": "The fixture provides no license assertion."
+      }
+    }
+  },
+  {
+    "schema_version": "catalog-pipeline-record-draft-0.1.0",
+    "synthetic": true,
+    "id": "urn:pya:synthetic:envelope:app",
+    "revision": 1,
+    "entity_kind": "application",
+    "display_name": "Fictional application",
+    "publication_state": "withheld",
+    "provenance": [
+      {
+        "source_id": "urn:pya:synthetic:envelope:source",
+        "material_id": "urn:pya:synthetic:envelope:app:material",
+        "source_uri": "https://example.invalid/catalog-envelope/app",
+        "source_revision": "fixture-1",
+        "observed_at": "2026-11-24T00:00:00Z"
+      }
+    ],
+    "fields": {
+      "app.offline": {
+        "state": "known",
+        "value": {
+          "type": "boolean",
+          "data": false
+        }
+      }
+    }
+  },
+  {
+    "schema_version": "catalog-pipeline-record-draft-0.1.0",
+    "synthetic": true,
+    "id": "urn:pya:synthetic:envelope:tool",
+    "revision": 1,
+    "entity_kind": "tool",
+    "display_name": "Fictional tool",
+    "publication_state": "withheld",
+    "provenance": [
+      {
+        "source_id": "urn:pya:synthetic:envelope:source",
+        "material_id": "urn:pya:synthetic:envelope:tool:material",
+        "source_uri": "https://example.invalid/catalog-envelope/tool",
+        "source_revision": "fixture-1",
+        "observed_at": "2026-11-24T00:00:00Z"
+      }
+    ],
+    "fields": {
+      "runtime.memory_gib": {
+        "state": "unsupported",
+        "reason": "The fixture has no supported memory mapping."
+      }
+    },
+    "extensions": {
+      "example.invalid.fixture": {
+        "fixture.option": {
+          "state": "known",
+          "value": {
+            "type": "boolean",
+            "data": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "schema_version": "catalog-pipeline-record-draft-0.1.0",
+    "synthetic": true,
+    "id": "urn:pya:synthetic:envelope:paper",
+    "revision": 1,
+    "entity_kind": "paper",
+    "display_name": "Fictional paper",
+    "publication_state": "withheld",
+    "provenance": [
+      {
+        "source_id": "urn:pya:synthetic:envelope:source",
+        "material_id": "urn:pya:synthetic:envelope:paper:material",
+        "source_uri": "https://example.invalid/catalog-envelope/paper",
+        "source_revision": "fixture-1",
+        "observed_at": "2026-11-24T00:00:00Z"
+      }
+    ],
+    "fields": {
+      "pricing.amount": {
+        "state": "not_applicable",
+        "reason": "The record describes a paper."
+      }
+    }
+  },
+  {
+    "schema_version": "catalog-pipeline-record-draft-0.1.0",
+    "synthetic": true,
+    "id": "urn:pya:synthetic:envelope:org",
+    "revision": 1,
+    "entity_kind": "organization",
+    "display_name": "Fictional research organization",
+    "publication_state": "withheld",
+    "provenance": [
+      {
+        "source_id": "urn:pya:synthetic:envelope:source",
+        "material_id": "urn:pya:synthetic:envelope:org:material",
+        "source_uri": "https://example.invalid/catalog-envelope/org",
+        "source_revision": "fixture-1",
+        "observed_at": "2026-11-24T00:00:00Z"
+      }
+    ],
+    "fields": {
+      "org.role": {
+        "state": "known",
+        "value": {
+          "type": "text",
+          "data": "fixture author"
+        }
+      }
+    }
+  },
+  {
+    "schema_version": "catalog-pipeline-record-draft-0.1.0",
+    "synthetic": true,
+    "id": "urn:pya:synthetic:envelope:use-case",
+    "revision": 1,
+    "entity_kind": "use_case",
+    "display_name": "Fictional use case",
+    "publication_state": "withheld",
+    "provenance": [
+      {
+        "source_id": "urn:pya:synthetic:envelope:source",
+        "material_id": "urn:pya:synthetic:envelope:use-case:material",
+        "source_uri": "https://example.invalid/catalog-envelope/use-case",
+        "source_revision": "fixture-1",
+        "observed_at": "2026-11-24T00:00:00Z"
+      }
+    ],
+    "fields": {
+      "workload.kind": {
+        "state": "known",
+        "value": {
+          "type": "text",
+          "data": "fixture workload"
+        }
+      }
+    }
+  },
+  {
+    "schema_version": "catalog-pipeline-record-draft-0.1.0",
+    "synthetic": true,
+    "id": "urn:pya:synthetic:envelope:learning",
+    "revision": 1,
+    "entity_kind": "learning_resource",
+    "display_name": "Fictional tutorial",
+    "publication_state": "withheld",
+    "provenance": [
+      {
+        "source_id": "urn:pya:synthetic:envelope:source",
+        "material_id": "urn:pya:synthetic:envelope:learning:material",
+        "source_uri": "https://example.invalid/catalog-envelope/learning",
+        "source_revision": "fixture-1",
+        "observed_at": "2026-11-24T00:00:00Z"
+      }
+    ],
+    "fields": {
+      "content.language": {
+        "state": "known",
+        "value": {
+          "type": "text",
+          "data": "en"
+        }
+      }
+    }
+  },
+  {
+    "schema_version": "catalog-pipeline-record-draft-0.1.0",
+    "synthetic": true,
+    "id": "urn:pya:synthetic:envelope:suite",
+    "revision": 1,
+    "entity_kind": "benchmark_suite",
+    "display_name": "Fictional benchmark suite",
+    "publication_state": "withheld",
+    "provenance": [
+      {
+        "source_id": "urn:pya:synthetic:envelope:source",
+        "material_id": "urn:pya:synthetic:envelope:suite:material",
+        "source_uri": "https://example.invalid/catalog-envelope/suite",
+        "source_revision": "fixture-1",
+        "observed_at": "2026-11-24T00:00:00Z"
+      }
+    ],
+    "fields": {
+      "benchmark.suite_version": {
+        "state": "known",
+        "value": {
+          "type": "text",
+          "data": "fixture-1"
+        }
+      }
+    }
+  },
+  {
+    "schema_version": "catalog-pipeline-record-draft-0.1.0",
+    "synthetic": true,
+    "id": "urn:pya:synthetic:envelope:run",
+    "revision": 1,
+    "entity_kind": "benchmark_run",
+    "display_name": "Fictional benchmark run",
+    "publication_state": "withheld",
+    "provenance": [
+      {
+        "source_id": "urn:pya:synthetic:envelope:source",
+        "material_id": "urn:pya:synthetic:envelope:run:material",
+        "source_uri": "https://example.invalid/catalog-envelope/run",
+        "source_revision": "fixture-1",
+        "observed_at": "2026-11-24T00:00:00Z"
+      }
+    ],
+    "fields": {
+      "benchmark.run_label": {
+        "state": "known",
+        "value": {
+          "type": "text",
+          "data": "fixture run"
+        }
+      }
+    },
+    "relationships": [
+      {
+        "relation": "evaluated_on",
+        "target_id": "urn:pya:synthetic:envelope:suite",
+        "target_revision": 1
+      }
+    ]
+  },
+  {
+    "schema_version": "catalog-pipeline-record-draft-0.1.0",
+    "synthetic": true,
+    "id": "urn:pya:synthetic:envelope:result",
+    "revision": 1,
+    "entity_kind": "benchmark_result",
+    "display_name": "Fictional benchmark result",
+    "publication_state": "withheld",
+    "provenance": [
+      {
+        "source_id": "urn:pya:synthetic:envelope:source",
+        "material_id": "urn:pya:synthetic:envelope:result:material",
+        "source_uri": "https://example.invalid/catalog-envelope/result",
+        "source_revision": "fixture-1",
+        "observed_at": "2026-11-24T00:00:00Z"
+      }
+    ],
+    "fields": {
+      "benchmark.score": {
+        "state": "known",
+        "value": {
+          "type": "decimal",
+          "data": "0.00"
+        }
+      }
+    },
+    "relationships": [
+      {
+        "relation": "derived_from",
+        "target_id": "urn:pya:synthetic:envelope:run",
+        "target_revision": 1
+      }
+    ]
+  }
+]
