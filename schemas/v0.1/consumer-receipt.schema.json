@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/pick-your-ai/schemas/v0.1/consumer-receipt.schema.json",
+  "title": "Synthetic consumer packet proposal draft 0.1",
+  "description": "Offline rehearsal only; never receiving acceptance, source permission or production readiness.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": "catalog-pipeline-draft-0.1.0"},
+    "synthetic": {"const": true},
+    "id": {"type": "string", "pattern": "^urn:pya:synthetic:[a-z0-9:._-]+(?![\\s\\S])", "maxLength": 256},
+    "consumer": {
+      "enum": ["website", "apple", "android"]
+    },
+    "status": {
+      "enum": ["unresolved", "rejected", "rehearsal"]
+    },
+    "service_authority": {"const": "pick-your-ai-website/services/planner-api"},
+    "manifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "path": {"const": "examples/synthetic-release.json"},
+        "schema_version": {"const": "catalog-pipeline-draft-0.1.0"},
+        "id": {"type": "string", "pattern": "^urn:pya:synthetic:[a-z0-9:._-]+(?![\\s\\S])", "maxLength": 256},
+        "revision": {"type": "integer", "minimum": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}(?![\\s\\S])"}
+      },
+      "required": ["path", "schema_version", "id", "revision", "sha256"]
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 32,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "path": {"type": "string", "pattern": "^examples/[a-z0-9-]+\\.json(?![\\s\\S])", "maxLength": 256},
+          "record_id": {"type": "string", "pattern": "^urn:pya:synthetic:[a-z0-9:._-]+(?![\\s\\S])", "maxLength": 256},
+          "revision": {"type": "integer", "minimum": 1},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}(?![\\s\\S])"}
+        },
+        "required": ["path", "record_id", "revision", "sha256"]
+      }
+    },
+    "scopes": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "website": {"$ref": "#/$defs/scope"},
+        "apple": {"$ref": "#/$defs/scope"},
+        "android": {"$ref": "#/$defs/scope"}
+      },
+      "required": ["website", "apple", "android"]
+    }
+  },
+  "required": ["schema_version", "synthetic", "id", "consumer", "status", "service_authority", "manifest", "artifacts", "scopes"],
+  "$defs": {
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "proposed_contract_version": {"const": "catalog-pipeline-draft-0.1.0"},
+        "mapping_limits": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1, "maxLength": 2048},
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "notices": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1, "maxLength": 2048},
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "precision_constraints": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1, "maxLength": 2048},
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "unsupported_fields": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1, "maxLength": 2048},
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "receiving_criteria": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1, "maxLength": 2048},
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "receiving_acceptance": {"const": "unknown"},
+        "acceptance_unknown_reason": {"type": "string", "minLength": 1, "maxLength": 2048}
+      },
+      "required": [
+        "proposed_contract_version",
+        "mapping_limits",
+        "notices",
+        "precision_constraints",
+        "unsupported_fields",
+        "receiving_criteria",
+        "receiving_acceptance",
+        "acceptance_unknown_reason"
+      ]
+    }
+  }
+}

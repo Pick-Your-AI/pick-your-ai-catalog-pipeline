@@ -1,0 +1,112 @@
+{
+  "schema_version": "catalog-pipeline-draft-0.1.0",
+  "synthetic": true,
+  "id": "urn:pya:synthetic:consumer-packet:offline-1",
+  "consumer": "website",
+  "status": "unresolved",
+  "service_authority": "pick-your-ai-website/services/planner-api",
+  "manifest": {
+    "path": "examples/synthetic-release.json",
+    "schema_version": "catalog-pipeline-draft-0.1.0",
+    "id": "urn:pya:synthetic:release:offline-1",
+    "revision": 1,
+    "sha256": "8dfd06e0676dc302a7d0b5411cd4ffa86353efb4ed733fb748443166f7680f7f"
+  },
+  "artifacts": [
+    {
+      "path": "examples/synthetic-model.json",
+      "sha256": "01cc18de51c32c295027db1f2d6fe9004a0ff31006fffd627e360fead7cf4f7e",
+      "record_id": "urn:pya:synthetic:model_release:synthetic-model:1",
+      "revision": 1
+    },
+    {
+      "path": "examples/synthetic-hardware.json",
+      "sha256": "dd0575a34488ed7fc5e0e433f34c52c707abcb141dbe128b8e332204e15233fe",
+      "record_id": "urn:pya:synthetic:hardware:synthetic-hardware:1",
+      "revision": 1
+    },
+    {
+      "path": "examples/synthetic-paper.json",
+      "sha256": "af63392a7705faeb600bd1034e83a231a0a8ab2afa547435c0518ac6d3db1772",
+      "record_id": "urn:pya:synthetic:paper:synthetic-paper:1",
+      "revision": 1
+    }
+  ],
+  "scopes": {
+    "website": {
+      "proposed_contract_version": "catalog-pipeline-draft-0.1.0",
+      "mapping_limits": [
+        "website synthetic consistency rehearsal only; no accepted interface or runtime evidence.",
+        "Broader catalog kinds are not automatic frozen builder v1 selections."
+      ],
+      "notices": [
+        "Synthetic fixtures; checksums establish byte identity, not truth, source-use rights or authenticity.",
+        "No website receiving acceptance is available; preserve field-level attribution and restrictions."
+      ],
+      "precision_constraints": [
+        "Preserve decimal price strings and exact units, currency, region and operating conditions.",
+        "Do not round numerical evidence or fill unknowns with zero; retain source revisions and actual dates."
+      ],
+      "unsupported_fields": [
+        "No implicit mapping of catalog claims to builder v1 fields or kinds.",
+        "No saved-build, evaluate/estimate, authentication, current-catalog or resource-estimate endpoint implementation."
+      ],
+      "receiving_criteria": [
+        "Reconcile website #15-#18 and exact tuple of snapshot, pricebook, ruleset, dependency graph and build lock.",
+        "Test unknowns, current-state disclosure, restricted display/export fields, corrections, revocation and rollback in the receiving repository."
+      ],
+      "receiving_acceptance": "unknown",
+      "acceptance_unknown_reason": "No real website receiver decision, reviewed revision or acceptance receipt supplied."
+    },
+    "apple": {
+      "proposed_contract_version": "catalog-pipeline-draft-0.1.0",
+      "mapping_limits": [
+        "apple synthetic consistency rehearsal only; no accepted interface or runtime evidence.",
+        "Broader catalog kinds are not automatic frozen builder v1 selections."
+      ],
+      "notices": [
+        "Synthetic fixtures; checksums establish byte identity, not truth, source-use rights or authenticity.",
+        "No apple receiving acceptance is available; preserve field-level attribution and restrictions."
+      ],
+      "precision_constraints": [
+        "Preserve decimal price strings and exact units, currency, region and operating conditions.",
+        "Do not round numerical evidence or fill unknowns with zero; retain source revisions and actual dates."
+      ],
+      "unsupported_fields": [
+        "No implicit mapping of catalog claims to builder v1 fields or kinds.",
+        "No saved-build, evaluate/estimate, authentication, current-catalog or resource-estimate endpoint implementation."
+      ],
+      "receiving_criteria": [
+        "Reconcile Apple #23, repository scope, research receiving decision and exact conformance contract-lock bytes.",
+        "Run app-owned receiving tests for incompatible releases, update/correction, offline cache limits and rights withdrawal."
+      ],
+      "receiving_acceptance": "unknown",
+      "acceptance_unknown_reason": "No real apple receiver decision, reviewed revision or acceptance receipt supplied."
+    },
+    "android": {
+      "proposed_contract_version": "catalog-pipeline-draft-0.1.0",
+      "mapping_limits": [
+        "android synthetic consistency rehearsal only; no accepted interface or runtime evidence.",
+        "Broader catalog kinds are not automatic frozen builder v1 selections."
+      ],
+      "notices": [
+        "Synthetic fixtures; checksums establish byte identity, not truth, source-use rights or authenticity.",
+        "No android receiving acceptance is available; preserve field-level attribution and restrictions."
+      ],
+      "precision_constraints": [
+        "Preserve decimal price strings and exact units, currency, region and operating conditions.",
+        "Do not round numerical evidence or fill unknowns with zero; retain source revisions and actual dates."
+      ],
+      "unsupported_fields": [
+        "No implicit mapping of catalog claims to builder v1 fields or kinds.",
+        "No saved-build, evaluate/estimate, authentication, current-catalog or resource-estimate endpoint implementation."
+      ],
+      "receiving_criteria": [
+        "Reconcile Android #35, revision handoff and service baseline; preserve canonical website services/planner-api.",
+        "Run Android-owned exact-version/hash tests for unknown capabilities, stale caches, rights changes and rollback."
+      ],
+      "receiving_acceptance": "unknown",
+      "acceptance_unknown_reason": "No real android receiver decision, reviewed revision or acceptance receipt supplied."
+    }
+  }
+}

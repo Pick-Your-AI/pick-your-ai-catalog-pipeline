@@ -82,7 +82,11 @@ class ContractConformanceTests(unittest.TestCase):
                         if a["path"] == "examples/synthetic-model.json")
         artifact.update(record_id=record["id"], revision=record["revision"],
                         sha256=hashlib.sha256(path.read_bytes()).hexdigest())
-        self.write("synthetic-release.json", release)
+        manifest_path = self.write("synthetic-release.json", release)
+        packet = self.read(MODULE.CONSUMER_PACKET)
+        packet["manifest"]["sha256"] = hashlib.sha256(manifest_path.read_bytes()).hexdigest()
+        packet["artifacts"] = deepcopy(release["artifacts"])
+        self.write(MODULE.CONSUMER_PACKET, packet)
 
     def assert_rejected_at(self, value, schema, location):
         errors = MODULE.schema_errors(value, schema)

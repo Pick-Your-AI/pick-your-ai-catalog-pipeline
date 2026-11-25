@@ -12,12 +12,17 @@ from urllib.parse import urlsplit
 
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+CONSUMER_PACKET = "synthetic/consumer-packet.json"
 SCHEMA_MAP = {
     "synthetic-model.json": "catalog-record.schema.json",
     "synthetic-hardware.json": "catalog-record.schema.json",
     "synthetic-paper.json": "catalog-record.schema.json",
     "synthetic-source-rights.json": "source-use-decision.schema.json",
     "synthetic-release.json": "release-manifest.schema.json",
+    CONSUMER_PACKET: "consumer-receipt.schema.json",
 }
 
 
@@ -135,7 +140,9 @@ def validate(root=ROOT):
     if errors:
         return errors  # Do not continue semantic checks on malformed input.
 
-    records = [loaded[name] for name in SCHEMA_MAP if name not in {"synthetic-source-rights.json", "synthetic-release.json"}]
+    record_names = [name for name, schema in SCHEMA_MAP.items()
+                    if schema == "catalog-record.schema.json"]
+    records = [loaded[name] for name in record_names]
     rights = loaded["synthetic-source-rights.json"]
     release = loaded["synthetic-release.json"]
     all_ids = []
@@ -167,9 +174,7 @@ def validate(root=ROOT):
     if set(a["record_id"] for a in release["artifacts"]) != expected_ids or len(release["artifacts"]) != len(records):
         errors.append("release artifact set is missing, duplicated or extraneous")
     by_id = {r["id"]: r for r in records}
-    validated_paths = {loaded[name]["id"]: "examples/" + name
-                       for name in SCHEMA_MAP
-                       if name not in {"synthetic-source-rights.json", "synthetic-release.json"}}
+    validated_paths = {loaded[name]["id"]: "examples/" + name for name in record_names}
     for artifact in release["artifacts"]:
         path = (root / artifact["path"]).resolve()
         if not path.is_relative_to(root / "examples"):
@@ -197,6 +202,20 @@ def validate(root=ROOT):
     permitted, _ = fixture_policy_decision(records, [rights], "display", rights["scope"]["product_id"], production=True)
     if permitted:
         errors.append("synthetic fixture was promoted to production")
+
+    # Read the registered catalog fixtures without following paths from the packet.
+    from src.consumer_handoffs.packets import PacketError, check_packet
+
+    try:
+        check_packet(
+            (root / "examples" / CONSUMER_PACKET).read_bytes(),
+            (root / "examples/synthetic-release.json").read_bytes(),
+            {"examples/" + name: (root / "examples" / name).read_bytes()
+             for name in record_names},
+            consumer=loaded[CONSUMER_PACKET]["consumer"],
+        )
+    except (OSError, PacketError):
+        errors.append(f"{CONSUMER_PACKET}: offline packet consistency failed")
     return errors
 
 
@@ -210,7 +229,8 @@ def main(argv=None):
         for message in errors:
             print("- " + message, file=sys.stderr)
         return 1
-    print("PASS: 3 draft schemas, 5 synthetic examples, byte-integrity and rejection checks; no production eligibility.")
+    print(f"PASS: {len(set(SCHEMA_MAP.values()))} draft schemas, {len(SCHEMA_MAP)} synthetic examples, "
+          "byte-integrity and rejection checks; no production eligibility.")
     return 0
 
 
