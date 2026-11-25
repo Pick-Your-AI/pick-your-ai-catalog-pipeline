@@ -84,6 +84,8 @@ Bootstrap examples exercise proposed contracts and failure paths with fictional 
 
 A later permitted real-data pilot requires an explicit bounded source/material/use, an accepted field mapping and contract, reviewable provenance, validation and rejection evidence, and a receiving consumer decision. Promotion must not copy an example's synthetic rights or acceptance fields into the real release.
 
+The [CES 2027 source qualification packet](pilots/ces-2027-source-qualification.md) records the public-source comparison and proposed no-fit disposition for three leads under the non-model pilot.
+
 ## Completion
 
 Producer research acceptance, pipeline implementation acceptance, consumer receiving acceptance and production release approval are separate. Record the exact scope of each receipt. A passing validator, merged PR or closed upstream issue does not automatically complete the other three.
